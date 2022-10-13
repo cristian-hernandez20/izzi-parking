@@ -111,7 +111,7 @@
                   color="success"
                   class="mb-2"
                   @click="changePassword()"
-                  :loading="state_loading"
+                  :loading="_stateLoading"
                 >
                   Cambiar
                   <v-icon small class="ml-1">mdi-key-change</v-icon>
@@ -224,7 +224,7 @@
                 </v-col>
                 <v-col cols="12" lg="12" sm="12" md="12" class="py-0 text-center">
                   <v-btn
-                    :loading="state_loading"
+                    :loading="_stateLoading"
                     :disabled="!valid"
                     @click="saveChange()"
                     justify="center"
@@ -316,9 +316,8 @@ export default {
       };
       return FECHA_ACTUAL;
     },
-
     ...mapGetters({
-      state_loading: "stateLoading_",
+      _stateLoading: "_stateLoading",
       getUserData_: "user/getUserData_",
     }),
   },

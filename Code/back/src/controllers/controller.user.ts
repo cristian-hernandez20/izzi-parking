@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { generarJwt } from "../helpers/jwtGenerator";
-import { User_Model } from "../models/model.user";
+import { UserModel } from "../models/model.user";
 
 export const login = async (req: Request, res: Response) => {
   try {
     const { user, password } = req.query;
 
-    const data = await User_Model.findOne(
+    const data = await UserModel.findOne(
       {
         $and: [{ username: user }, { password: password }],
       },
@@ -23,7 +23,7 @@ export const login = async (req: Request, res: Response) => {
 };
 export const getUsers = async (req: Request, res: Response) => {
   try {
-    const data = await User_Model.find({}, { password: 0 });
+    const data = await UserModel.find({}, { password: 0 });
     res.json(data);
   } catch (error) {
     res.json({ msg: "user-get" });
@@ -31,7 +31,7 @@ export const getUsers = async (req: Request, res: Response) => {
 };
 export const createUser = async (req: Request, res: Response) => {
   try {
-    new User_Model(req.body).save((error) => {
+    new UserModel(req.body).save((error) => {
       if (error) {
         res.json({ msg: error });
       } else {

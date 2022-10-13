@@ -21,7 +21,15 @@
       "icon": "mdi-car",
       "icon_color": "accent",
       "to": {
-        "name": "vehiculos"
+        "name": ""
+      }
+    },
+    {
+      "text": "Reservas",
+      "icon": "mdi-book-plus-multiple",
+      "icon_color": "accent",
+      "to": {
+        "name": "reservas"
       }
     },
     {
@@ -37,7 +45,7 @@
       "icon": "mdi-account-group",
       "icon_color": "accent",
       "to": {
-        "name": "clientes"
+        "name": ""
       }
     },
     {
@@ -45,7 +53,7 @@
       "icon": "mdi-arrow-right-circle-outline",
       "icon_color": "accent",
       "to": {
-        "name": "ingreso"
+        "name": ""
       }
     },
     {
@@ -53,7 +61,7 @@
       "icon": "mdi-car-cog",
       "icon_color": "accent",
       "to": {
-        "name": "parqueos"
+        "name": ""
       }
     },
     {
@@ -61,7 +69,7 @@
       "icon": "mdi-face-agent",
       "icon_color": "accent",
       "to": {
-        "name": "ayuda"
+        "name": ""
       }
     }
   ],
@@ -80,6 +88,14 @@
       "icon_color": "accent",
       "to": {
         "name": "home"
+      }
+    },
+    {
+      "text": "Reservas",
+      "icon": "mdi-book-plus-multiple",
+      "icon_color": "accent",
+      "to": {
+        "name": "reservas"
       }
     },
     {

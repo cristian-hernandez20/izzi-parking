@@ -4,6 +4,7 @@ import Vue from "vue";
 Vue.use(Vuex);
 
 import parking from "./modules/parking";
+import reserva from "./modules/reserva";
 import sesion from "./modules/sesion";
 import record from "./modules/record";
 import user from "./modules/user";
@@ -18,7 +19,7 @@ export default new Vuex.Store({
     loading: false,
   },
   getters: {
-    stateLoading_(state) {
+    _stateLoading(state) {
       return state.loading;
     },
     companyName_(state) {
@@ -31,10 +32,11 @@ export default new Vuex.Store({
     },
   },
   modules: {
+    parking,
+    reserva,
     record,
     sesion,
     zone,
     user,
-    parking,
   },
 });

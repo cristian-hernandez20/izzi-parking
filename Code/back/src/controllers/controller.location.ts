@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { LocationModel } from "../models/model.location";
 
 export const addLocation = async (req: Request, res: Response) => {
-  console.log("->", req.body);
   try {
     new LocationModel(req.body).save((error) => {
       if (error) {

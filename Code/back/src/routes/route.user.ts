@@ -1,8 +1,9 @@
 import express from "express";
 import { JwtValidator_ } from "../helpers/validators";
-import { createReserva, getReservas } from "../controllers/controller.reserva";
+import { login, createUser, getUsers } from "../controllers/controller.user";
 
 export const RouteUser = express.Router();
 
-RouteUser.get("/get&reservas", JwtValidator_, getReservas);
-RouteUser.post("/create&reserva", JwtValidator_, createReserva);
+RouteUser.get("/login", login);
+RouteUser.get("/get&users", JwtValidator_, getUsers);
+RouteUser.post("/create&user", JwtValidator_, createUser);

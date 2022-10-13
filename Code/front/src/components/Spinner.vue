@@ -1,12 +1,5 @@
 <template>
-  <v-row
-    id="spi"
-    class="sticky"
-    overlay
-    v-if="state_loading"
-    justify="center"
-    align="center"
-  >
+  <v-row id="spi" class="sticky" overlay v-if="_stateLoading" justify="center" align="center">
     <v-col cols="12" lg="6" sm="6" md="6" class="py-0 my-0">
       <lottie-animation
         :animationData="require('@/assets/image/loader.json')"
@@ -33,7 +26,7 @@ export default {
   data: () => ({}),
   computed: {
     ...mapGetters({
-      state_loading: "stateLoading_",
+      _stateLoading: "_stateLoading",
     }),
   },
 };

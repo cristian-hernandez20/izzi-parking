@@ -11,6 +11,7 @@ export const getReservas = async (req: Request, res: Response) => {
 };
 export const createReserva = async (req: Request, res: Response) => {
   try {
+    console.log(req.body);
     new ReservaModel(req.body).save((error) => {
       if (error) {
         res.json({ msg: error });
