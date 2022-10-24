@@ -7,4 +7,4 @@ export const RouteVehiculo = express.Router();
 
 RouteVehiculo.get("/get&vehiculo",getVehiculos);
 RouteVehiculo.post("/create&vehiculo",createVehiculos);
-RouteVehiculo.put("/edit&vehiculo",editVehiculos);
+RouteVehiculo.put("/edit&vehiculo/:id",editVehiculos);

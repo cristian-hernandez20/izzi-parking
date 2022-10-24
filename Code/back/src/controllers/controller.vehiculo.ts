@@ -25,6 +25,7 @@ export const createVehiculos = async (req: Request, res: Response) => {
 
 export const editVehiculos = async (req: Request, res: Response) => {
   try {
+    const{id}=req.params
     new VehiculosModel(req.body).save((error) => {
       if (error) {
         res.json({ msg: error });
