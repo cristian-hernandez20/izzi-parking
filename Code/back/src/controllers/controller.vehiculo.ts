@@ -9,7 +9,7 @@ export const getVehiculos = async (req: Request, res: Response) => {
     res.json({ msg: "reser-get" });
   }
 };
-export const createVehiculos = async (req: Request, res: Response) => {
+export const createVehiculo = async (req: Request, res: Response) => {
   try {
     new VehiculosModel(req.body).save((error) => {
       if (error) {
@@ -23,17 +23,25 @@ export const createVehiculos = async (req: Request, res: Response) => {
   }
 };
 
-export const editVehiculos = async (req: Request, res: Response) => {
+export const editVehiculo = async (req: Request, res: Response) => {
   try {
-    const{id}=req.params
-    new VehiculosModel(req.body).save((error) => {
-      if (error) {
-        res.json({ msg: error });
-      } else {
-        res.json({ S: "success" });
-      }
-    });
+    const { id } = req.params;
+    const data = req.body;
+    const edit = await VehiculosModel.updateOne({ _id: id }, data, { runValidators: true });
+    res.json(edit)
   } catch (error) {
+    res.json(error)
     console.error(error);
   }
 };
+
+export const deleteVehiculo = async (req: Request, res: Response) => {
+    try {
+      const { id } = req.params;
+      const data = await VehiculosModel.deleteOne({ _id: id });
+      res.json(data)
+    } catch (error) {
+      res.json(error)
+      console.error(error);
+    }
+  };
