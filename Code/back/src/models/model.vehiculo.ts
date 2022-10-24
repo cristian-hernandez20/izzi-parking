@@ -15,6 +15,7 @@ const VehiculosSchema = new Schema<Vehiculos>(
     placa: {
       type: String,
       required: true,
+      unique:true
     },
     color: {
       type: String,

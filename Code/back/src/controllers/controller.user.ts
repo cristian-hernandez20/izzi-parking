@@ -42,3 +42,13 @@ export const createUser = async (req: Request, res: Response) => {
     console.error(error);
   }
 };
+
+export const getUser = async (req: Request, res: Response) => {
+  try {
+    const { document } = req.params;
+    const data = await User_Model.findOne({document:document });
+    res.json(data);
+  } catch (error) {
+    res.json({ msg: "get-user" });
+  }
+};
