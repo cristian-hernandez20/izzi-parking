@@ -3,7 +3,7 @@ import { VehiculosModel } from "../models/model.vehiculo";
 
 export const getVehiculos = async (req: Request, res: Response) => {
   try {
-    const data = await VehiculosModel.find({}, { password: 0 });
+    const data = await VehiculosModel.find({});
     res.json(data);
   } catch (error) {
     res.json({ msg: "reser-get" });
@@ -28,20 +28,31 @@ export const editVehiculo = async (req: Request, res: Response) => {
     const { id } = req.params;
     const data = req.body;
     const edit = await VehiculosModel.updateOne({ _id: id }, data, { runValidators: true });
-    res.json(edit)
+    res.json(edit);
   } catch (error) {
-    res.json(error)
+    res.json(error);
     console.error(error);
   }
 };
 
 export const deleteVehiculo = async (req: Request, res: Response) => {
-    try {
-      const { id } = req.params;
-      const data = await VehiculosModel.deleteOne({ _id: id });
-      res.json(data)
-    } catch (error) {
-      res.json(error)
-      console.error(error);
-    }
-  };
+  try {
+    const { id } = req.params;
+    const data = await VehiculosModel.deleteOne({ _id: id });
+    res.json(data);
+  } catch (error) {
+    res.json(error);
+    console.error(error);
+  }
+};
+
+export const getVehiculo = async (req: Request, res: Response) => {
+  try {
+    console.log("XX",req.params)
+    const { placa } = req.params;
+    const data = await VehiculosModel.findOne({ placa: placa });
+    res.json(data);
+  } catch (error) {
+    res.json({ msg: "reser-get" });
+  }
+};
