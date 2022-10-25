@@ -46,9 +46,33 @@ export const createUser = async (req: Request, res: Response) => {
 export const getUser = async (req: Request, res: Response) => {
   try {
     const { document } = req.params;
-    const data = await User_Model.findOne({document:document });
+    const data = await User_Model.findOne({ document: document });
     res.json(data);
   } catch (error) {
     res.json({ msg: "get-user" });
+  }
+};
+export const putUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    
+    const data = req.body;
+    console.log("XXX", id, data);
+    const edit = await User_Model.updateOne({ _id: id }, data, { runValidators: true });
+    res.json(edit);
+  } catch (error) {
+    res.json(error);
+    console.error(error);
+  }
+
+};
+export const deleteUser = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const data = await User_Model.deleteOne({ _id: id });
+    res.json(data);
+  } catch (error) {
+    res.json(error);
+    console.error(error);
   }
 };
