@@ -22,3 +22,14 @@ export const createReserva = async (req: Request, res: Response) => {
     console.error(error);
   }
 };
+export const editarReserva = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const data = req.body;
+    const edit = await ReservaModel.updateOne({ _id: id }, data, { runValidators: true });
+    res.json(edit);
+  } catch (error) {
+    res.json(error);
+    console.error(error);
+  }
+};
