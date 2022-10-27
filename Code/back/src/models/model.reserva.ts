@@ -1,5 +1,4 @@
 import mongoose, { Schema, model, mongo } from "mongoose";
-
 mongoose.pluralize(null);
 
 interface Reserva {
@@ -7,7 +6,6 @@ interface Reserva {
   fecha: string;
   puesto: string;
   estado: string;
-  usuario: Object;
 }
 const ReservaSchema = new Schema<Reserva>(
   {
@@ -25,13 +23,7 @@ const ReservaSchema = new Schema<Reserva>(
     },
     estado: {
       type: String,
-      default: "1",
-      enum: ["0", "1", "2"],
       required: false,
-    },
-    usuario: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Users",
     },
   },
   { versionKey: false }

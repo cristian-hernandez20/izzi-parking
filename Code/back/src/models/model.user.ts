@@ -12,7 +12,7 @@ interface Users {
   state: string;
 }
 
-const UserSchema = new Schema<Users>(
+const users_schema = new Schema<Users>(
   {
     password: {
       type: String,
@@ -55,4 +55,4 @@ const UserSchema = new Schema<Users>(
   },
   { versionKey: false }
 );
-export const UserModel = model<Users>("Users", UserSchema);
+export const User_Model = model<Users>("Users", users_schema);

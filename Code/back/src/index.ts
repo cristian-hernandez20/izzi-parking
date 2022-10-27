@@ -27,6 +27,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api", routes.Users);
 app.use("/api", routes.Locations);
 app.use("/api", routes.Reservas);
+app.use("/api", routes.Vehiculos);
 
 //********Routes*******
 
