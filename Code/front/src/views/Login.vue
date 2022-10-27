@@ -26,7 +26,6 @@
                 <v-col cols="12" lg="9" sm="9" md="9" class="text-center">
                   <v-text-field
                     onkeypress="return (event.charCode > 47 && event.charCode < 123)"
-                    @keydown.enter="nextAction(form, change, validate(form.user))"
                     @input="(val) => (form.user = form.user.toUpperCase())"
                     prepend-icon="mdi-account-circle"
                     @focus="change = 'user'"
@@ -48,8 +47,6 @@
                   <v-text-field
                     onkeypress="return (event.charCode > 47 && event.charCode < 123)"
                     :append-icon="showPassword ? ' mdi-eye' : 'mdi-eye-off'"
-                    @keydown.enter="nextAction(form, change, null, login())"
-                    @keydown.esc="nextAction(form, change)"
                     @click:append="showPassword = !showPassword"
                     :type="showPassword ? 'text' : 'password'"
                     placeholder="Ingresa Contraseña"
@@ -71,7 +68,7 @@
                 <v-col cols="12">
                   <v-row justify="center">
                     <h5 class="primary--text text-h7 py-1">¿No tienes una cuenta?</h5>
-                    <v-btn small text class="zoomIt" color="success" @click="registro()">crear cuenta</v-btn>
+                    <v-btn small text class="zoomIt" color="success" @click="register_usuario.estado = true">crear cuenta</v-btn>
                   </v-row>
                 </v-col>
                 <v-col cols="12" lg="9" md="9" sm="9" class="text-center">
@@ -79,7 +76,6 @@
                     <v-btn
                       class="mx-auto mt-0 mb-4 py-0 botone"
                       :elevation="hover ? 12 : 0"
-                      :disabled="_stateLoading"
                       :loading="_stateLoading"
                       @click="login()"
                       color="primary"
@@ -108,31 +104,38 @@
         </v-card>
       </v-hover>
     </v-img>
+    <RegisterUser :register_usuario="register_usuario" />
     <ALERT @cancelAlert="cancelAlert()" @confirm="confirm()" @exitEsc="cancel()" @cancel="cancel()" v-if="alert.state" :alert="alert"></ALERT>
   </v-card>
 </template>
 
 <script>
-import { controller } from "@/mixins/controler";
+import RegisterUser from "../components/user/RegisterCount.vue";
 import { mapActions, mapGetters } from "vuex";
 import LottieAnimation from "lottie-web-vue";
-import { Alert } from "@/mixins/alert";
+import { Alert } from "../mixins/alert";
 
 export default {
   name: "Login",
   components: {
     LottieAnimation,
+    RegisterUser,
   },
-  mixins: [Alert, controller],
-  data: () => ({
-    form: {
-      user: "",
-      password: "",
-    },
-    change: "",
-    loader: null,
-    showPassword: false,
-  }),
+  mixins: [Alert],
+  data() {
+    return {
+      register_usuario: {
+        estado: false,
+      },
+      form: {
+        user: "",
+        password: "",
+      },
+      change: "",
+      loader: null,
+      showPassword: false,
+    };
+  },
   computed: {
     ...mapGetters({
       _stateLoading: "_stateLoading",
