@@ -1,4 +1,4 @@
-import firebase from "../../api/journalApi";
+import journalApi from "../../api/journalApi";
 import postData from "@/axios_res";
 import { NEKOT } from "@/global";
 
@@ -19,7 +19,7 @@ export default {
     async _loadStation({ commit }) {
       console.log("_loadStation");
       try {
-        const RES = await firebase.get("/Puestos.json");
+        const RES = await journalApi.get("/Puestos.json");
 
         const available_station = [];
         for (let id of Object.keys(RES.data)) {
