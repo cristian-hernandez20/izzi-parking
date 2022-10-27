@@ -104,10 +104,7 @@ export default {
       let res = await this._addReserva({ DATA });
     },
   },
-  async created() {
-    this._getReserva();
-    console.log(await this._getReserva());
-  },
+  async created() {},
 };
 </script>
 
