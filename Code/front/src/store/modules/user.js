@@ -15,12 +15,12 @@ export default {
     },
   },
   actions: {
-    async createUser_({ commit }, { data }) {
+    async _createUser({ commit }, { data }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `users`, data });
+        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `/create&users`, data });
         return RES;
       } catch (error) {
-        console.error("createUser_", error);
+        console.error("_createUser", error);
       }
     },
     async _getUsers({ commit }) {

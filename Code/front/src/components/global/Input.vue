@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { fieldWithoutSpace } from "@/global";
+// import { fieldWithoutSpace } from "@/global";
 export default {
   props: {
     field: {

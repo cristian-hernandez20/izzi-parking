@@ -1,11 +1,13 @@
 <template>
   <v-autocomplete
-    :item-value="field.itemValue"
+    :item-value="field.item_value"
+    :required="field.required"
     :disabled="field.disabled"
     :messages="field.message"
     v-model="field.value"
-    :label="field.label"
     :items="field.items"
+    :label="field.label"
+    :rules="field.rules"
     :ref="field.id"
     :id="field.id"
     outlined
@@ -23,7 +25,15 @@ export default {
       value: String,
       disabled: Boolean,
       items: Array,
-      itemValue: String,
+      item_value: String,
+      rules: {
+        type: Array,
+        default: () => false,
+      },
+      required: {
+        type: Boolean,
+        default: () => false,
+      },
     },
   },
   data() {

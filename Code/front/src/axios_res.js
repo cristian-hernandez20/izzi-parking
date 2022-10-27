@@ -2,7 +2,7 @@ import { default as axios } from "axios";
 import { convertToObject } from "typescript";
 import index from "./store/index";
 
-const URI = "http://localhost:5000/api/";
+const URI = "http://localhost:3000/api/";
 
 const axiosSc = ({ url, data = {}, method = "POST", header = {}, responseType = "json" }) => {
   return new Promise((resolve, reject) => {
@@ -20,7 +20,6 @@ const axiosSc = ({ url, data = {}, method = "POST", header = {}, responseType = 
       },
     };
     index.commit("loadingState_", null, { root: true });
-
     axios(config)
       .then((res) => {
         resolve(res.data);

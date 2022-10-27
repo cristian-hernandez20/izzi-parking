@@ -6,19 +6,22 @@
         <v-form v-model="validacion" ref="form" lazy-validation>
           <v-row justify="center" class="px-5">
             <v-col cols="12" md="6" sm="6" xl="6" lg="6" class="py-0">
-              <INPUT :field="form.nombre" />
+              <INPUT :field="form.name" />
             </v-col>
             <v-col cols="12" md="6" sm="6" xl="6" lg="6" class="py-0">
-              <INPUT :field="form.apellido" />
+              <INPUT :field="form.last_name" />
             </v-col>
             <v-col cols="12" class="py-0">
-              <INPUT :field="form.usuario" />
+              <INPUT :field="form.email" />
             </v-col>
             <v-col cols="4" class="py-0">
-              <AUTOCOMPLETE :field="form.tipo_identidad" />
+              <AUTOCOMPLETE :field="form.type_document" />
             </v-col>
             <v-col cols="8" class="py-0">
-              <INPUT :field="form.documento" />
+              <INPUT :field="form.document" />
+            </v-col>
+            <v-col cols="12" class="py-0">
+              <INPUT :field="form.phone_number" />
             </v-col>
             <v-col cols="12" class="py-0">
               <INPUT :field="form.password" />
@@ -67,34 +70,36 @@ export default {
       show_password: false,
       show_password2: false,
       form: {
-        nombre: {
+        name: {
           value: "",
-          id: "nombre",
+          id: "name",
           label: "Nombres",
           maxlength: "50",
           required: true,
-          //   autofocus: true,
           rules: [(v) => !!v || "Nombres son requeridos"],
         },
-        apellido: {
+        last_name: {
           value: "",
-          id: "apellido",
+          id: "last_name",
           label: "Apellidos",
           maxlength: "50",
           rules: [(v) => !!v || "Apellidos son requeridos"],
         },
-        usuario: {
+        email: {
           value: "",
           tipo: "email",
-          id: "usuario",
+          id: "email",
           label: "Email",
+          type: "email",
           maxlength: "50",
           rules: [(v) => !!v || "Email es requerido", (v) => /.+@.+\..+/.test(v) || "Email no es valido"],
         },
-        tipo_identidad: {
+        type_document: {
           value: "",
-          id: "tipo_identidad",
+          id: "type_document",
           label: "Tipo",
+          required: true,
+          item_value: "id",
           items: [
             { id: "0", text: "C.C" },
             { id: "1", text: "T.I" },
@@ -103,9 +108,15 @@ export default {
           ],
           rules: [(v) => !!v || "Obligatorio"],
         },
-        documento: {
+        phone_number: {
           value: "",
-          id: "documento",
+          id: "phone_number",
+          label: "Telefono",
+          maxlength: "12",
+        },
+        document: {
+          value: "",
+          id: "document",
           label: "Documento",
           maxlength: "12",
           rules: [(v) => !!v || "Documento es requerido"],
@@ -132,29 +143,31 @@ export default {
     };
   },
   methods: {
-    ...mapActions({}),
+    ...mapActions({
+      _registerUser: "user/_createUser",
+    }),
 
     async registrarUsuario() {
       const validacion = this.$refs.form.validate();
       const data = {
-        name: this.form.nombre.value,
-        lastName: this.form.apellido.value,
-        email: this.form.usuario.value,
-        typeDocument: this.form.tipo_identidad.value,
-        document: this.form.documento.value,
+        name: this.form.name.value,
+        last_name: this.form.last_name.value,
+        email: this.form.email.value,
+        type_document: this.form.type_document.value,
+        document: this.form.document.value,
         password: this.form.password.value,
-        roleId: 0,
+        phone_number: this.form.phone_number.value,
       };
-      //this.$router.push('/reistroCanal')
+      console.log(data);
       if (validacion) {
-        const respuesta = await this._addUsuario(data);
+        const respuesta = await this._registerUser({ data });
         console.log(respuesta);
         if (respuesta.status == 200) {
-          this.form.nombre.value = "";
-          this.form.apellido.value = "";
-          this.form.usuario.value = "";
-          this.form.tipo_identidad.value = "";
-          this.form.documento.value = "";
+          this.form.name.value = "";
+          this.form.last_name.value = "";
+          this.form.email.value = "";
+          this.form.type_document.value = "";
+          this.form.document.value = "";
           this.form.password.value = "";
           this.ALT_("CORREO-0");
         } else if (respuesta.status == 400) this.ALT_("CORREO-3");

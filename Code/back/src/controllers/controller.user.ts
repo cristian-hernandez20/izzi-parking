@@ -5,7 +5,7 @@ import { User_Model } from "../models/model.user";
 export const login = async (req: Request, res: Response) => {
   try {
     const { user, password } = req.query;
-    console.log(user, password)
+    console.log(user, password);
 
     const data = await User_Model.findOne(
       {
@@ -32,6 +32,7 @@ export const getUsers = async (req: Request, res: Response) => {
 };
 export const createUser = async (req: Request, res: Response) => {
   try {
+    console.log(req.body);
     new User_Model(req.body).save((error) => {
       if (error) {
         res.json({ msg: error });
@@ -56,7 +57,7 @@ export const getUser = async (req: Request, res: Response) => {
 export const putUser = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    
+
     const data = req.body;
     console.log("XXX", id, data);
     const edit = await User_Model.updateOne({ _id: id }, data, { runValidators: true });
@@ -65,7 +66,6 @@ export const putUser = async (req: Request, res: Response) => {
     res.json(error);
     console.error(error);
   }
-
 };
 export const deleteUser = async (req: Request, res: Response) => {
   try {
