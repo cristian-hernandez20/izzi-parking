@@ -1,6 +1,6 @@
 import IMask from "imask";
 
-export function format_num(val = 0, scale = 0) {
+export function formarNumber_(val = 0, scale = 0) {
   let mask = IMask.createMask({
     mask: Number,
     scale,
@@ -13,14 +13,14 @@ export function format_num(val = 0, scale = 0) {
   mask.resolve(num);
   return `${mask.value}`;
 }
-export function format_fecha(fecha, id) {
+export function formatDate_(fecha, id) {
   let element = document.getElementById(`${id}`);
   let maskOptions = {
     mask: "****-**-**",
   };
   let mask = IMask(element, maskOptions);
 }
-export function variable_num({ val, max = 0, decimal = undefined }) {
+export function formatNum_({ val, max = 0, decimal = undefined }) {
   let v_mask;
   let comas = max < 3 ? 0 : max % 3 === 0 ? Math.trunc(max / 3) - 1 : Math.trunc(max / 3);
   let first_num = max % 3 === 0 ? 3 : max % 3;
@@ -38,14 +38,14 @@ export function variable_num({ val, max = 0, decimal = undefined }) {
   return mask.value;
 }
 
-export function format_ip(ip) {
+export function formatIp_(ip) {
   let element = document.getElementById(`${ip}`);
   let maskOptions = {
     mask: "000.000.000.000",
   };
   let mask = IMask(element, maskOptions);
 }
-export function format_Mac() {
+export function formatMac_() {
   let element = document.getElementById("mac");
   let maskOptions = {
     mask: "**-**-**-**-**-**",
@@ -53,17 +53,16 @@ export function format_Mac() {
   let mask = IMask(element, maskOptions);
   // mask.updateValue(element.value = element.value.toUpperCase())
 }
-export const format_op = (value) => {
+export const formatOp_ = (value) => {
   return parseFloat(value) || 0;
 };
-export function phoneNumberImask() {
-  console.log("hello");
+export function formarPhoneNumber_() {
   let phoneMask = IMask(document.getElementById("phone_number"), {
     mask: "+{57} (000) 0000000",
   });
   return phoneMask;
 }
-export function documentNumberImask() {
+export function formatDocument_() {
   let numberMask = IMask(document.getElementById("document"), {
     mask: Number,
     min: 0,
@@ -72,7 +71,7 @@ export function documentNumberImask() {
   return numberMask;
 }
 
-export function image_base64(url) {
+export function imageBase64_(url) {
   return new Promise((res) => {
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
@@ -87,7 +86,7 @@ export function image_base64(url) {
     xhr.send();
   });
 }
-export function nameToUper(field) {
+export function nameToUper_(field) {
   if (field) {
     field = field.toLowerCase();
     let name = field.split(" ");
@@ -95,7 +94,6 @@ export function nameToUper(field) {
     return name.join(" ");
   }
 }
-
 const AUTH = sessionStorage.auth_code;
 export let current_user = AUTH ? JSON.parse(atob(AUTH)).DATA : null;
 export const NEKOT = AUTH ? JSON.parse(atob(AUTH)).TOKEN : null;

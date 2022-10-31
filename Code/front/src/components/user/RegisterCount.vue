@@ -2,7 +2,7 @@
   <v-dialog v-model="register_usuario.estado" width="500" persistent>
     <v-card style="border-radius: 20px" color="white" elevation="3">
       <v-container>
-        <h1 class="text-center primary--text pt-6 pb-12">Registrar cuenta</h1>
+        <h1 class="text-center primary--text pt-2 pb-10">Registrar cuenta</h1>
         <v-form v-model="validacion" ref="form" lazy-validation>
           <v-row justify="center" class="px-5">
             <v-col cols="12" md="6" sm="6" xl="6" lg="6" class="py-0">
@@ -11,7 +11,10 @@
             <v-col cols="12" md="6" sm="6" xl="6" lg="6" class="py-0">
               <INPUT :field="form.last_name" />
             </v-col>
-            <v-col cols="12" class="py-0">
+            <v-col cols="6" class="py-0">
+              <INPUT :field="form.phone_number" />
+            </v-col>
+            <v-col cols="6" class="py-0">
               <INPUT :field="form.email" />
             </v-col>
             <v-col cols="4" class="py-0">
@@ -20,17 +23,14 @@
             <v-col cols="8" class="py-0">
               <INPUT :field="form.document" />
             </v-col>
-            <v-col cols="12" class="py-0">
-              <INPUT :field="form.phone_number" />
-            </v-col>
-            <v-col cols="12" class="py-0">
+            <v-col cols="6" class="py-0">
               <INPUT :field="form.password" />
             </v-col>
-            <v-col cols="12" class="py-0">
+            <v-col cols="6" class="py-0">
               <INPUT :field="form.password_repetir" />
             </v-col>
-            <v-col cols="12" class="pt-1 pb-8">
-              <v-btn elevation="0" color="primary" dark block @click="registrarUsuario()" large>Crear cuenta</v-btn>
+            <v-col cols="5" class="pt-1 pb-8">
+              <v-btn elevation="0" color="primary" dark @click="registrarUsuario()" large>Crear cuenta</v-btn>
             </v-col>
           </v-row>
         </v-form>
@@ -44,8 +44,8 @@
           <v-col cols="3" class="mx-0 px-0">
             <v-divider class="mt-2 mr-10"></v-divider>
           </v-col>
-          <v-col cols="12" class="px-13 pt-4 pb-10 text-center">
-            <v-btn color="primary" @click="register_usuario.estado = false" outlined large>Iniciar sesión</v-btn>
+          <v-col cols="12" class="px-13 pt-4 pb-6 text-center">
+            <v-btn color="primary" outlined @click="register_usuario.estado = false">Iniciar sesión</v-btn>
           </v-col>
         </v-row>
       </v-container>
@@ -184,4 +184,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.scroll {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+</style>

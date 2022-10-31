@@ -1,7 +1,7 @@
 <template>
   <div>
+    <!-- oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" -->
     <v-text-field
-      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
       :append-icon="field.id == 'password' ? (field.show_password ? 'mdi-eye' : 'mdi-eye-off') : undefined"
       :type="field.id == 'password' ? (field.show_password ? 'text' : 'password') : field.tipo"
       @click:append="field.show_password = !field.show_password"
