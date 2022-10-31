@@ -1,4 +1,4 @@
-import postData from "@/axios_res";
+import postData from "@/axios";
 import { NEKOT } from "@/global";
 
 export default {

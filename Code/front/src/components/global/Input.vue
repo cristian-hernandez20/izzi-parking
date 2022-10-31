@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" -->
     <v-text-field
+      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
       :append-icon="field.id == 'password' ? (field.show_password ? 'mdi-eye' : 'mdi-eye-off') : undefined"
       :type="field.id == 'password' ? (field.show_password ? 'text' : 'password') : field.tipo"
       @click:append="field.show_password = !field.show_password"
@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-// import { fieldWithoutSpace } from "@/global";
+import { fieldToUper_, formatDocument_, formarPhoneNumber_ } from "@/global";
 export default {
   props: {
     field: {
@@ -123,8 +123,16 @@ export default {
     },
 
     input() {
-      if (this.field.id == "user") {
-        this.field.value = fieldWithoutSpace(this.field.value);
+      switch (this.field.id) {
+        case "name":
+        case "last_name":
+          this.field.value = fieldToUper_(this.field.value);
+          break;
+        case "user":
+          // this.field.value = fieldWithoutSpace(this.field.value);
+          break;
+        default:
+          break;
       }
       if (this.mask)
         this.field.value = this.mask({
@@ -138,6 +146,9 @@ export default {
       }
     },
   },
-  created() {},
+  mounted() {
+    formarPhoneNumber_();
+    formatDocument_();
+  },
 };
 </script>

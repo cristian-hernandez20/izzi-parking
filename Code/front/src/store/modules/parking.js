@@ -1,5 +1,5 @@
 import firebase from "../../api/journalApi";
-import postData from "@/axios_res";
+import postData from "@/axios";
 import { NEKOT } from "@/global";
 
 export default {

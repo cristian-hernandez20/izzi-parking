@@ -63,12 +63,12 @@ export function formarPhoneNumber_() {
   return phoneMask;
 }
 export function formatDocument_() {
-  let numberMask = IMask(document.getElementById("document"), {
+  var numberMask = IMask(document.getElementById("document"), {
     mask: Number,
-    min: 0,
+    min: -99999999999999,
     max: 99999999999999,
+    thousandsSeparator: ",",
   });
-  return numberMask;
 }
 
 export function imageBase64_(url) {
@@ -86,7 +86,7 @@ export function imageBase64_(url) {
     xhr.send();
   });
 }
-export function nameToUper_(field) {
+export function fieldToUper_(field) {
   if (field) {
     field = field.toLowerCase();
     let name = field.split(" ");

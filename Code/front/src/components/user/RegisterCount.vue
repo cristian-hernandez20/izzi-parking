@@ -112,7 +112,7 @@ export default {
           value: "",
           id: "phone_number",
           label: "Telefono",
-          maxlength: "12",
+          maxlength: "30",
         },
         document: {
           value: "",
