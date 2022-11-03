@@ -23,47 +23,11 @@
             </v-col>
             <v-col cols="12" lg="12" sm="12" md="12" class="py-0 my-0">
               <v-row justify="center">
-                <v-col cols="12" lg="9" sm="9" md="9" class="text-center">
-                  <v-text-field
-                    onkeypress="return (event.charCode > 47 && event.charCode < 123)"
-                    @input="(val) => (form.user = form.user.toUpperCase())"
-                    prepend-icon="mdi-account-circle"
-                    @focus="change = 'user'"
-                    placeholder="Usuario"
-                    v-model="form.user"
-                    color="primary"
-                    label="Usuario"
-                    maxlength="10"
-                    autocomplete
-                    class="mt-6"
-                    type="user"
-                    ref="user"
-                    autofocus
-                    id="user"
-                    outlined
-                    shaped
-                    dense
-                  />
-                  <v-text-field
-                    onkeypress="return (event.charCode > 47 && event.charCode < 123)"
-                    :append-icon="showPassword ? ' mdi-eye' : 'mdi-eye-off'"
-                    @click:append="showPassword = !showPassword"
-                    :type="showPassword ? 'text' : 'password'"
-                    placeholder="Ingresa Contraseña"
-                    @focus="change = 'password'"
-                    :disabled="_stateLoading"
-                    v-model="form.password"
-                    prepend-icon="mdi-lock"
-                    autocomplete="true"
-                    label="Contraseña"
-                    color="primary"
-                    ref="password"
-                    id="password"
-                    maxlength="8"
-                    outlined
-                    shaped
-                    dense
-                  />
+                <v-col cols="12" md="9" sm="9" xl="9" lg="9" class="py-0">
+                  <INPUT :field="form.email" />
+                </v-col>
+                <v-col cols="12" md="9" sm="9" xl="9" lg="9" class="py-0">
+                  <INPUT :field="form.password" />
                 </v-col>
                 <v-col cols="12">
                   <v-row justify="center">
@@ -105,7 +69,7 @@
       </v-hover>
     </v-img>
     <RegisterUser :register_usuario="register_usuario" />
-    <ALERT @cancelAlert="cancelAlert()" @confirm="confirm()" @exitEsc="cancel()" @cancel="cancel()" v-if="alert.state" :alert="alert"></ALERT>
+    <ALERT @confirm="confirm()" @cancel="cancel()" v-if="alert.state" :alert="alert"></ALERT>
   </v-card>
 </template>
 
@@ -114,22 +78,41 @@ import RegisterUser from "../components/user/RegisterCount.vue";
 import { mapActions, mapGetters } from "vuex";
 import LottieAnimation from "lottie-web-vue";
 import { Alert } from "../mixins/alert";
-
+import { INPUT } from "@/mixins/global";
 export default {
   name: "Login",
   components: {
     LottieAnimation,
     RegisterUser,
   },
-  mixins: [Alert],
+  mixins: [Alert, INPUT],
   data() {
     return {
       register_usuario: {
         estado: false,
       },
+
       form: {
-        user: "",
-        password: "",
+        email: {
+          value: "",
+          tipo: "email",
+          id: "email",
+          label: "Email",
+          type: "email",
+          maxlength: "50",
+          prepend_icon: "mdi-account-circle",
+          rules: [(v) => !!v || "Email es requerido", (v) => /.+@.+\..+/.test(v) || "Email no es valido"],
+        },
+        password: {
+          value: "",
+          tipo: "password",
+          id: "password",
+          label: "Contraseña",
+          type: "password",
+          maxlength: "20",
+          prepend_icon: "mdi-lock",
+          rules: [(v) => !!v || "Contraseña es requerida"],
+        },
       },
       change: "",
       loader: null,
@@ -158,16 +141,10 @@ export default {
     ...mapActions({
       _loginUser: "sesion/_loginUser",
     }),
-    cancelAlert() {
-      this.deletAlert();
-      setTimeout(() => {
-        this.$refs.user.focus();
-      }, 100);
-    },
     cancel() {
       this.deletAlert();
       setTimeout(() => {
-        this.$refs.user.focus();
+        document.getElementById("email").focus();
       }, 100);
     },
     validate(value) {
@@ -188,17 +165,21 @@ export default {
       }
     },
     async login() {
-      const DATA = this.form;
-
-      if (!DATA.user) return this.sendAlert("user_0", "info");
+      const data = this.form;
+      if (!data.email.value) return this.sendAlert("user_0", "info");
       try {
-        const RES = await this._loginUser(DATA);
+        const data_ = {
+          email: data.email.value,
+          password: data.password.value,
+        };
+        const RES = await this._loginUser({ data_ });
+        RES.msg && this.sendAlert(RES.msg, "error");
       } catch (error) {
-        console.error("LOGIN", error);
+        console.error("login", error);
       }
     },
     eonia() {
-      window.open("http://www.eonia.com.co");
+      // window.open("http://www.eonia.com.co");
     },
   },
 };

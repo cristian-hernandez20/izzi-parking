@@ -51,12 +51,11 @@ export function formatMac_() {
     mask: "**-**-**-**-**-**",
   };
   let mask = IMask(element, maskOptions);
-  // mask.updateValue(element.value = element.value.toUpperCase())
 }
 export const formatOp_ = (value) => {
   return parseFloat(value) || 0;
 };
-export function formarPhoneNumber_() {
+export function formatPhoneNumber_() {
   let phoneMask = IMask(document.getElementById("phone_number"), {
     mask: "+{57} (000) 0000000",
   });
@@ -67,7 +66,7 @@ export function formatDocument_() {
     mask: Number,
     min: -99999999999999,
     max: 99999999999999,
-    thousandsSeparator: ",",
+    thousandsSeparator: ".",
   });
 }
 

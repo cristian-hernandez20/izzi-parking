@@ -9,7 +9,7 @@ export const login = async (req: Request, res: Response) => {
 
     const data = await User_Model.findOne(
       {
-        $and: [{ username: user }, { password: password }],
+        $and: [{ email: user }, { password: password }],
       },
       { password: 0 }
     );
@@ -35,7 +35,7 @@ export const createUser = async (req: Request, res: Response) => {
     console.log(req.body);
     new User_Model(req.body).save((error) => {
       if (error) {
-        res.json({ msg: error });
+        res.json({ msg: "user_01" });
       } else {
         res.json({ S: "success" });
       }

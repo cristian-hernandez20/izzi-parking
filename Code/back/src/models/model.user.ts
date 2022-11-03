@@ -17,7 +17,7 @@ const users_schema = new Schema<Users>(
     type_document: {
       type: String,
       required: true,
-      enum: ["0","1", "2", "3"],
+      enum: ["0","1", "2"],
     },
     password: {
       type: String,

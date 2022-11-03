@@ -140,6 +140,9 @@ export default {
         case "user_0":
           this.body = `Debes ingresar un usuario`;
           break;
+        case "user_01":
+          this.body = `Este documento de usuario ya existe`;
+          break;
         case "user_1":
           this.body = `Nombre de usuario en uso`;
           break;
@@ -150,7 +153,7 @@ export default {
           this.body = `No hiciste ningún cambio`;
           break;
         case "user_post":
-          this.body = `Usuario creado correctamente`;
+          this.body = `Usuario registrado correctamente`;
           break;
         case "user_put":
           this.body = `Usuario modificado`;

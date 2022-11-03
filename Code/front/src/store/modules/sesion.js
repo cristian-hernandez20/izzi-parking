@@ -9,10 +9,11 @@ export default {
     },
   },
   actions: {
-    async _loginUser({ commit }, data) {
+    async _loginUser({ commit }, { data_ }) {
       try {
-        const { user, password } = data;
-        const RES = await postData({ url: `login?user=${user}&password=${password}`, method: "GET", data });
+        console.log(data_);
+        const { email, password } = data_;
+        const RES = await postData({ url: `login?user=${email}&password=${password}`, method: "GET" });
         if (!RES.msg) {
           const BASE64 = JSON.stringify(RES);
           sessionStorage.auth_code = btoa(BASE64);

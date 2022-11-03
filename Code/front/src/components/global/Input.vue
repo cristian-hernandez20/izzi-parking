@@ -30,11 +30,12 @@
   </div>
 </template>
 <script>
-import { fieldToUper_, formatDocument_, formarPhoneNumber_ } from "@/global";
+import { fieldToUper_, formatDocument_, formatPhoneNumber_ } from "@/global";
 export default {
   props: {
     field: {
       show_password: Boolean,
+      prepend_icon: String,
       append_icon: String,
       placeholder: String,
       maxlength: String,
@@ -128,8 +129,8 @@ export default {
         case "last_name":
           this.field.value = fieldToUper_(this.field.value);
           break;
-        case "user":
-          // this.field.value = fieldWithoutSpace(this.field.value);
+        case "email":
+          this.field.value = this.field.value.trim();
           break;
         default:
           break;
@@ -147,8 +148,16 @@ export default {
     },
   },
   mounted() {
-    formarPhoneNumber_();
-    formatDocument_();
+    switch (this.field.id) {
+      case "phone_number":
+        formatPhoneNumber_();
+        break;
+      case "document":
+        formatDocument_();
+        break;
+      default:
+        break;
+    }
   },
 };
 </script>

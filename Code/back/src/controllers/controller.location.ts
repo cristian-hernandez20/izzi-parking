@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { LocationModel } from "../models/model.location";
 
+
 export const addLocation = async (req: Request, res: Response) => {
-  console.log("->", req.body);
   try {
     new LocationModel(req.body).save((error) => {
       if (error) {
@@ -13,6 +13,7 @@ export const addLocation = async (req: Request, res: Response) => {
     });
   } catch (error) {}
 };
+
 export const getAllLocation = async (req: Request, res: Response) => {
   try {
     const data = await LocationModel.find({});
@@ -21,6 +22,7 @@ export const getAllLocation = async (req: Request, res: Response) => {
     res.json({ msg: "locations-get" });
   }
 };
+
 export const deleteLocation = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;

@@ -30,7 +30,7 @@
               <INPUT :field="form.password_repetir" />
             </v-col>
             <v-col cols="5" class="pt-1 pb-8">
-              <v-btn elevation="0" color="primary" dark @click="registrarUsuario()" large>Crear cuenta</v-btn>
+              <v-btn elevation="0" color="primary" class="botone" dark @click="registrarUsuario()" large>Crear cuenta</v-btn>
             </v-col>
           </v-row>
         </v-form>
@@ -45,11 +45,11 @@
             <v-divider class="mt-2 mr-10"></v-divider>
           </v-col>
           <v-col cols="12" class="px-13 pt-4 pb-6 text-center">
-            <v-btn color="primary" outlined @click="register_usuario.estado = false">Iniciar sesión</v-btn>
+            <v-btn color="primary" class="botone" outlined @click="register_usuario.estado = false">Iniciar sesión</v-btn>
           </v-col>
         </v-row>
       </v-container>
-      <ALT @exitEsc="cancel()" @cancel="cancel()" @cancelAlert="cancelAlert()" @confirm="confirm()" :alert="alert" v-if="alert.estado" />
+      <ALERT @confirm="confirm()" @cancel="cancel()" v-if="alert.state" :alert="alert"></ALERT>
     </v-card>
   </v-dialog>
 </template>
@@ -104,7 +104,6 @@ export default {
             { id: "0", text: "C.C" },
             { id: "1", text: "T.I" },
             { id: "2", text: "C.E" },
-            { id: "3", text: "C.C" },
           ],
           rules: [(v) => !!v || "Obligatorio"],
         },
@@ -113,6 +112,7 @@ export default {
           id: "phone_number",
           label: "Telefono",
           maxlength: "30",
+          rules: [(v) => !!v || "Teléfono es requerido"],
         },
         document: {
           value: "",
@@ -146,7 +146,9 @@ export default {
     ...mapActions({
       _registerUser: "user/_createUser",
     }),
-
+    cancel() {
+      this.deletAlert();
+    },
     async registrarUsuario() {
       const validacion = this.$refs.form.validate();
       const data = {
@@ -158,28 +160,12 @@ export default {
         password: this.form.password.value,
         phone_number: this.form.phone_number.value,
       };
-      console.log(data);
       if (validacion) {
-        const respuesta = await this._registerUser({ data });
-        console.log(respuesta);
-        if (respuesta.status == 200) {
-          this.form.name.value = "";
-          this.form.last_name.value = "";
-          this.form.email.value = "";
-          this.form.type_document.value = "";
-          this.form.document.value = "";
-          this.form.password.value = "";
-          this.ALT_("CORREO-0");
-        } else if (respuesta.status == 400) this.ALT_("CORREO-3");
-      } else {
+        const RES = await this._registerUser({ data });
+        RES.S && this.sendAlert("user_post", "success");
+        RES.msg && this.sendAlert(RES.msg, "error");
       }
     },
-    cancel() {
-      this.ALTD_();
-    },
-  },
-  created() {
-    console.log("hello");
   },
 };
 </script>

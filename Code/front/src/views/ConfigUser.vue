@@ -133,7 +133,7 @@
                     @keypress.enter="nextAction(form, change, validate(form.name))"
                     @focus="change = 'name'"
                     :onblur="(validate_current_password = false)"
-                    @input="form.name = nameToUper(form.name)"
+                    @input="form.name = fieldToUper_(form.name)"
                     :rules="rules_name"
                     v-model="form.name"
                     label="Nombres"
@@ -150,7 +150,7 @@
                   <v-text-field
                     @keydown.esc="nextAction(form, change, validate(form.last_name), null)"
                     @keypress.enter="nextAction(form, change, validate(form.last_name))"
-                    @input="form.last_name = nameToUper(form.last_name)"
+                    @input="form.last_name = fieldToUper_(form.last_name)"
                     @focus="change = 'last_name'"
                     v-model="form.last_name"
                     :rules="rules_last_name"
@@ -247,7 +247,7 @@
   </v-container>
 </template>
 <script>
-import { current_user, nameToUper, phoneNumberImask } from "@/global";
+import { current_user, fieldToUper_, formatPhoneNumber_ } from "@/global";
 import { controller } from "@/mixins/controler";
 import { mapGetters, mapActions } from "vuex";
 import { Alert } from "@/mixins/alert";
@@ -322,8 +322,8 @@ export default {
     }),
   },
   methods: {
-    nameToUper,
-    phoneNumberImask,
+    fieldToUper_,
+    formatPhoneNumber_,
     ...mapActions({
       _getUsers: "user/_getUsers",
       _putUser: "user/_putUser",
@@ -436,7 +436,7 @@ export default {
     },
   },
   mounted() {
-    phoneNumberImask();
+    formatPhoneNumber_();
   },
   created() {
     this._getUsers();

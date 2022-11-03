@@ -54,7 +54,7 @@ export default {
         console.error("_putUser", error);
       }
     },
-    async putUserNoPassword_({ commit }, { USER, data }) {
+    async _putUserNoPassword({ commit }, { USER, data }) {
       try {
         const RES = await postData({
           url: `users/${USER}`,
@@ -67,7 +67,7 @@ export default {
         console.error("_putUser", error);
       }
     },
-    async deleteUser_({ commit }, { USER }) {
+    async _deleteUser({ commit }, { USER }) {
       try {
         const RES = await postData({ url: `users/${USER}`, header: { x_token: NEKOT }, method: "DELETE" });
         return RES;
@@ -75,7 +75,7 @@ export default {
         console.error("deleteUser_", error);
       }
     },
-    async validPassword_({ commit }, { document, current_password }) {
+    async _validPassword({ commit }, { document, current_password }) {
       try {
         const RES = await postData({
           url: `passsword/${document}/${current_password}`,
