@@ -54,7 +54,7 @@
                   </template>
                   <v-list>
                     <v-list-item @click="type = 'day'">
-                      <v-list-item-title>Dia</v-list-item-title>
+                      <v-list-item-title>Día</v-list-item-title>
                     </v-list-item>
                     <v-list-item @click="type = 'week'">
                       <v-list-item-title>Semana</v-list-item-title>
