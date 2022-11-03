@@ -26,7 +26,6 @@ const axiosSc = ({ url, data = {}, method = "POST", header = {}, responseType = 
         index.commit("loadingState_", null, { root: true });
       })
       .catch((error) => {
-        convertToObject.log("hh");
         let response = { status: -1, message: null };
         if (error.response) {
           response.status = error.response.status;

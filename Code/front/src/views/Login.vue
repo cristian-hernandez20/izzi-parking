@@ -68,7 +68,7 @@
         </v-card>
       </v-hover>
     </v-img>
-    <RegisterUser :register_usuario="register_usuario" />
+    <RegisterUser :register_usuario="register_usuario" v-if="register_usuario.estado" />
     <ALERT @confirm="confirm()" @cancel="cancel()" v-if="alert.state" :alert="alert"></ALERT>
   </v-card>
 </template>
@@ -173,6 +173,7 @@ export default {
           password: data.password.value,
         };
         const RES = await this._loginUser({ data_ });
+        console.log(RES);
         RES.msg && this.sendAlert(RES.msg, "error");
       } catch (error) {
         console.error("login", error);

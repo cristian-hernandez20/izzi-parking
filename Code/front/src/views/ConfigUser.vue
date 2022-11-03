@@ -24,12 +24,12 @@
 
                 <v-list-item-content>
                   <v-list-item-title class="text-title">
-                    <v-chip v-if="current_user.level_user == 'ADMIN'" color="secondary">
+                    <v-chip v-if="['ADMIN', 'SP'].includes(current_user.level_user)" color="secondary">
                       ADMINISTRADOR
                       <v-icon color="white" small class="botone ml-2"> mdi-shield-account </v-icon>
                     </v-chip>
                     <v-chip v-else color="primary">
-                      CELADOR
+                      USUARIO
                       <v-icon color="white" small class="botone ml-2"> mdi-account-badge </v-icon>
                     </v-chip>
                   </v-list-item-title>
@@ -54,64 +54,27 @@
         <v-card elevation="12" class="mt-6">
           <v-card-text class="primary--text">
             <h2 class="text-title text-center py-4">Cambiar contraseña</h2>
-            <v-form class="mx-auto" ref="form_change_password" v-model="valid_change_password" lazy-validation>
+            <v-form class="mx-auto" ref="form_change" v-model="valid_change_password" lazy-validation>
               <v-row justify="center" align="center" class="mt-2 px-4">
-                <v-col cols="12" lg="12" sm="12" md="12" class="py-0 px-2">
-                  <v-text-field
-                    :append-icon="showPassword_current ? 'mdi-eye' : 'mdi-eye-off'"
-                    @keypress.enter="nextAction(form_change_password, change, validate(form_change_password.current_password))"
-                    @click:append="showPassword_current = !showPassword_current"
-                    :type="showPassword_current ? 'text' : 'password'"
-                    @focus="change = 'current_password'"
-                    placeholder="Contraseña actual"
-                    v-model="form_change_password.current_password"
-                    label="Contraseña Actual"
-                    :rules="rules_password"
-                    ref="current_password"
-                    color="primary"
-                    maxlength="15"
-                    required
-                    outlined
-                    filled
-                    shaped
-                    dense
-                  ></v-text-field>
+                <v-col cols="12" class="py-0">
+                  <INPUT :field="form_change.password_current" />
                 </v-col>
-                <v-col cols="12" lg="12" sm="12" md="12" class="py-0 px-2">
-                  <v-text-field
-                    :append-icon="showPassword_new ? 'mdi-eye' : 'mdi-eye-off'"
-                    @keypress.enter="nextAction(form_change_password, change, validate(form_change_password.new_password), changePassword())"
-                    @keydown.esc="nextAction(form_change_password, change)"
-                    @click:append="showPassword_new = !showPassword_new"
-                    v-model="form_change_password.new_password"
-                    :type="showPassword_new ? 'text' : 'password'"
-                    @focus="change = 'new_password'"
-                    placeholder="Contraseña nueva"
-                    :rules="rules_password"
-                    label="Contraseña Nueva"
-                    color="primary"
-                    ref="new_password"
-                    maxlength="15"
-                    required
-                    outlined
-                    filled
-                    shaped
-                    dense
-                  ></v-text-field>
+                <v-col cols="12" class="py-0">
+                  <INPUT :field="form_change.password_repetir" />
                 </v-col>
-                <v-btn @click="$refs.form_change_password.reset()" class="mb-2 mx-2" justify="center" color="warning" filled shaped dense>
+                <v-btn @click="$refs.form_change.reset()" class="mb-2 mx-2" justify="center" color="warning" filled shaped dense>
                   <v-icon class="ml-1">mdi-lock-reset</v-icon>
                 </v-btn>
                 <v-btn
-                  dense
-                  filled
-                  shaped
-                  justify="center"
                   :disabled="!valid_change_password"
-                  color="success"
-                  class="mb-2"
                   @click="changePassword()"
                   :loading="_stateLoading"
+                  justify="center"
+                  color="success"
+                  class="mb-2"
+                  shaped
+                  filled
+                  dense
                 >
                   Cambiar
                   <v-icon small class="ml-1">mdi-key-change</v-icon>
@@ -125,117 +88,28 @@
         <v-card elevation="12">
           <v-card-text class="primary--text">
             <h2 class="text-title text-center py-4">Cambiar información de la cuenta</h2>
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-row justify="center" class="mt-2 px-4">
-                <v-col cols="12" lg="6" sm="6" md="6" class="py-0 px-2">
-                  <v-text-field
-                    @keydown.esc="nextAction(form, change, validate(form.name))"
-                    @keypress.enter="nextAction(form, change, validate(form.name))"
-                    @focus="change = 'name'"
-                    :onblur="(validate_current_password = false)"
-                    @input="form.name = fieldToUper_(form.name)"
-                    :rules="rules_name"
-                    v-model="form.name"
-                    label="Nombres"
-                    maxlength="25"
-                    ref="name"
-                    required
-                    outlined
-                    filled
-                    shaped
-                    dense
-                  ></v-text-field>
+            <v-form v-model="validate" ref="for" lazy-validation class="mt-10">
+              <v-row justify="center" class="px-5">
+                <v-col cols="12" md="6" sm="6" xl="6" lg="6" class="py-0">
+                  <INPUT :field="form.name" />
                 </v-col>
-                <v-col cols="12" lg="6" sm="6" md="6" class="py-0 px-2">
-                  <v-text-field
-                    @keydown.esc="nextAction(form, change, validate(form.last_name), null)"
-                    @keypress.enter="nextAction(form, change, validate(form.last_name))"
-                    @input="form.last_name = fieldToUper_(form.last_name)"
-                    @focus="change = 'last_name'"
-                    v-model="form.last_name"
-                    :rules="rules_last_name"
-                    label="Apellidos"
-                    ref="last_name"
-                    maxlength="25"
-                    required
-                    outlined
-                    filled
-                    shaped
-                    dense
-                  ></v-text-field>
+                <v-col cols="12" md="6" sm="6" xl="6" lg="6" class="py-0">
+                  <INPUT :field="form.last_name" />
                 </v-col>
-                <v-col cols="12" lg="6" sm="6" md="6" class="py-0 px-2">
-                  <v-text-field
-                    onkeypress="return (event.charCode > 47 && event.charCode < 123)"
-                    @keydown.esc="nextAction(form, change, validate(form.document))"
-                    @keypress.enter="nextAction(form, change, validate(form.document))"
-                    @focus="change = 'document'"
-                    label="Numero de cedula"
-                    v-model="form.document"
-                    ref="document"
-                    maxlength="10"
-                    required
-                    outlined
-                    filled
-                    shaped
-                    dense
-                  ></v-text-field>
+                <v-col cols="6" class="py-0">
+                  <INPUT :field="form.phone_number" />
                 </v-col>
-                <v-col cols="12" lg="6" sm="6" md="6" class="py-0 px-2">
-                  <v-text-field
-                    onkeypress="return (event.charCode > 47 && event.charCode < 123)"
-                    @keypress.enter="nextAction(form, change, true)"
-                    @keydown.esc="nextAction(form, change, true)"
-                    @focus="(change = 'phone_number'), (validate_current_password = false)"
-                    v-model="form.phone_number"
-                    label="Numero de celular"
-                    ref="phone_number"
-                    id="phone_number"
-                    :maxlength="'17'"
-                    required
-                    outlined
-                    filled
-                    shaped
-                    dense
-                  ></v-text-field>
+                <v-col cols="6" class="py-0">
+                  <INPUT :field="form.email" />
                 </v-col>
-
-                <v-col cols="12" lg="6" sm="6" md="6" class="py-0 px-2">
-                  <v-text-field
-                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                    @keypress.enter="nextAction(form, change, validate(form.password), saveChange())"
-                    @click:append="showPassword = !showPassword"
-                    :type="showPassword ? 'text' : 'password'"
-                    @keydown.esc="nextAction(form, change)"
-                    placeholder="Contraseña actual"
-                    @focus="change = 'password'"
-                    v-model="form.password"
-                    :rules="rules_password"
-                    label="Contraseña"
-                    color="primary"
-                    ref="password"
-                    maxlength="17"
-                    required
-                    outlined
-                    filled
-                    shaped
-                    dense
-                  ></v-text-field>
+                <v-col cols="4" class="py-0">
+                  <AUTOCOMPLETE :field="form.type_document" />
                 </v-col>
-                <v-col cols="12" lg="12" sm="12" md="12" class="py-0 text-center">
-                  <v-btn
-                    :loading="_stateLoading"
-                    :disabled="!valid"
-                    @click="saveChange()"
-                    justify="center"
-                    class="my-2 botone"
-                    color="success"
-                    filled
-                    shaped
-                    dense
-                  >
-                    Guardar <v-icon class="ml-1" small>mdi-content-save</v-icon>
-                  </v-btn>
+                <v-col cols="8" class="py-0">
+                  <INPUT :field="form.document" />
+                </v-col>
+                <v-col cols="5" class="pt-1 pb-8">
+                  <v-btn elevation="0" color="primary" class="botone" dark @click="registrarUsuario()" large>Actualizar</v-btn>
                 </v-col>
               </v-row>
             </v-form>
@@ -247,74 +121,129 @@
   </v-container>
 </template>
 <script>
-import { current_user, fieldToUper_, formatPhoneNumber_ } from "@/global";
-import { controller } from "@/mixins/controler";
+import { INPUT, AUTOCOMPLETE } from "@/mixins/global";
 import { mapGetters, mapActions } from "vuex";
+import { current_user } from "@/global";
 import { Alert } from "@/mixins/alert";
 import moment from "moment";
 
 export default {
   name: "Config-user",
-  mixins: [Alert, controller],
+  mixins: [INPUT, AUTOCOMPLETE, Alert],
   data: () => ({
     current_user: current_user,
+    validate: true,
+    show_password: false,
+    show_password2: false,
+
     form: {
-      name: current_user.name,
-      last_name: current_user.last_name,
-      document: current_user.document,
-      phone_number: current_user.phone_number,
-      password: "",
+      name: {
+        value: current_user.name,
+        id: "name",
+        label: "Nombres",
+        maxlength: "50",
+        required: true,
+        rules: [(v) => !!v || "Nombres son requeridos"],
+      },
+      last_name: {
+        value: current_user.last_name,
+        id: "last_name",
+        label: "Apellidos",
+        maxlength: "50",
+        rules: [(v) => !!v || "Apellidos son requeridos"],
+      },
+      email: {
+        value: current_user.email,
+        tipo: "email",
+        id: "email",
+        label: "Email",
+        type: "email",
+        maxlength: "50",
+        rules: [(v) => !!v || "Email es requerido", (v) => /.+@.+\..+/.test(v) || "Email no es valido"],
+      },
+      type_document: {
+        value: current_user.type_document,
+        id: "type_document",
+        label: "Tipo",
+        required: true,
+        item_value: "id",
+        items: [
+          { id: "0", text: "C.C" },
+          { id: "1", text: "T.I" },
+          { id: "2", text: "C.E" },
+        ],
+        rules: [(v) => !!v || "Obligatorio"],
+      },
+      phone_number: {
+        value: current_user.phone_number,
+        id: "phone_number",
+        label: "Telefono",
+        maxlength: "30",
+        rules: [(v) => !!v || "Teléfono es requerido"],
+      },
+      document: {
+        value: current_user.document,
+        id: "document",
+        label: "Documento",
+        maxlength: "12",
+        rules: [(v) => !!v || "Documento es requerido"],
+      },
     },
-    form_change: {},
     change: "",
     showPassword_current: false,
     showPassword_new: false,
     showPassword: false,
-    form_change_password: {
-      current_password: "",
-      new_password: "",
+    form_change: {
+      password_current: {
+        value: "",
+        id: "password_current",
+        label: "Contraseña",
+        maxlength: "25",
+        placeholder: "Ingresar contraseña",
+        show_password: false,
+        rules: [(v) => !!v || "Contraseña es requerida"],
+      },
+      password_repetir: {
+        value: "",
+        id: "password_repetir",
+        label: "Nueva contraseña",
+        maxlength: "25",
+        placeholder: "Nueva contraseña",
+        show_password: false,
+        rules: [(v) => !!v || "Contraseña es requerida", (v) => v === this.form_change.password_current.value || `Las contraseñas no coinciden`],
+      },
     },
     validate_current_password: false,
     validate_new_password: false,
     validate_document: null,
     valid_change_password: true,
     valid: true,
-
-    rules_name: [(v) => !!v || "Nombre es requerido", (v) => (v && v.length <= 30) || "Nombre no puede tener mas de 30 letras"],
-    rules_last_name: [(v) => !!v || "Apellido es requerido", (v) => (v && v.length <= 30) || "Apellido no puede tener mas de 30 letras"],
-    max_length_number: "10",
-    max_length_document: "10",
-    rules_password: [
-      (v) => !!v || "Contraseña es requerida",
-      (v) => (v && v.length <= 30) || "Contraseña no válida",
-      (v) => (v && v.length >= 3) || "Contraseña muy corta",
-    ],
   }),
 
   watch: {
-    "form.document"() {
-      this.validate_document = null;
-      const USERS = this.getUserData_("get_users");
-      USERS.forEach((user) => {
-        if (this.form.document != this.current_user.document) {
-          if (this.form.document == user.document) {
-            this.validate_document = user.document;
-            return this.sendAlert("doc_1", "info", null, null);
-          }
-        }
-      });
-    },
+    // "form.document.value"() {
+    //   this.validate_document = null;
+    //   const USERS = this.getUserData_("get_users");
+    //   USERS.forEach((user) => {
+    //     if (this.form.document.value != this.current_user.document) {
+    //       if (this.form.document.value == user.document) {
+    //         this.validate_document = user.document;
+    //         return this.sendAlert("doc_1", "info", null, null);
+    //       }
+    //     }
+    //   });
+    // },
   },
   computed: {
     date() {
       moment.locale("es");
-      let fecha = moment().format("ll");
-      let hora = moment().format("dddd");
-      const FECHA_ACTUAL = {
-        fech: fecha,
-        time: hora,
+      let date_moment = moment().format("ll");
+      let time = moment().format("dddd");
+      const date = {
+        fech: date_moment,
+        time: time,
       };
-      return FECHA_ACTUAL;
+      return date;
     },
     ...mapGetters({
       _stateLoading: "_stateLoading",
@@ -322,12 +251,11 @@ export default {
     }),
   },
   methods: {
-    fieldToUper_,
-    formatPhoneNumber_,
     ...mapActions({
-      _getUsers: "user/_getUsers",
-      _putUser: "user/_putUser",
       validPassword_: "user/validPassword_",
+      _getUsers: "user/_getUsers",
+      _getUser: "user/_getUser",
+      _putUser: "user/_putUser",
     }),
     cancel() {
       if (!["new_password", "password"].includes(this.change)) {
@@ -350,22 +278,6 @@ export default {
         this.$refs[foco].focus();
       }, 100);
     },
-    validate(value) {
-      if (["", undefined].includes(value)) {
-        this.sendAlert("field_0", "info", null, null);
-        return false;
-      }
-      switch (this.change) {
-        case "current_password":
-          this.validPasswordCurrent();
-          return this.validate_current_password;
-        case "new_password":
-          return this.validPasswordNew();
-        default:
-          return true;
-      }
-    },
-
     async validPasswordNew() {
       const { new_password, current_password } = this.form_change_password;
       if (new_password == current_password && new_password) {
@@ -436,9 +348,6 @@ export default {
     },
   },
   mounted() {
-    formatPhoneNumber_();
-  },
-  created() {
     this._getUsers();
   },
 };

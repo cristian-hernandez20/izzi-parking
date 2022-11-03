@@ -1,33 +1,31 @@
 <template>
-  <div>
-    <v-text-field
-      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-      :append-icon="field.id == 'password' ? (field.show_password ? 'mdi-eye' : 'mdi-eye-off') : undefined"
-      :type="field.id == 'password' ? (field.show_password ? 'text' : 'password') : field.tipo"
-      @click:append="field.show_password = !field.show_password"
-      :hide-details="field.details == false ? true : false"
-      :counter="field.counter ? field.maxlength : false"
-      :error="field.error == true ? true : false"
-      :prepend-icon="field.prepend_icon"
-      :placeholder="field.placeholder"
-      :maxlength="field.maxlength"
-      :autofocus="field.autofocus"
-      @keydown.enter="pressEnter"
-      :disabled="field.disabled"
-      :messages="field.message"
-      @keydown.esc="pressEsc"
-      v-model="field.value"
-      :label="field.label"
-      :rules="field.rules"
-      @input="input()"
-      :ref="field.id"
-      :id="field.id"
-      outlined
-      shaped
-      dense
-    >
-    </v-text-field>
-  </div>
+  <v-text-field
+    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+    :append-icon="field.id == 'password' ? (field.show_password ? 'mdi-eye' : 'mdi-eye-off') : undefined"
+    :type="field.id == 'password' ? (field.show_password ? 'text' : 'password') : field.tipo"
+    @click:append="field.show_password = !field.show_password"
+    :hide-details="field.details == false ? true : false"
+    :counter="field.counter ? field.maxlength : false"
+    :error="field.error == true ? true : false"
+    :prepend-icon="field.prepend_icon"
+    :placeholder="field.placeholder"
+    :maxlength="field.maxlength"
+    :autofocus="field.autofocus"
+    @keydown.enter="pressEnter"
+    :disabled="field.disabled"
+    :messages="field.message"
+    @keydown.esc="pressEsc"
+    v-model="field.value"
+    :label="field.label"
+    :rules="field.rules"
+    @input="input()"
+    :ref="field.id"
+    :id="field.id"
+    outlined
+    shaped
+    dense
+  >
+  </v-text-field>
 </template>
 <script>
 import { fieldToUper_, formatDocument_, formatPhoneNumber_ } from "@/global";
@@ -45,7 +43,7 @@ export default {
       label: String,
       error: String,
       value: String,
-
+      id: String,
       rules: {
         type: Array,
         default: () => false,
@@ -89,39 +87,9 @@ export default {
   methods: {
     async pressEnter() {
       if (this.field.value.length == 0) {
-        if (this.field.required) {
-          this.$emit("inputAlert");
-        } else if (this.field.validation) {
-          const res = await this.field.validation();
-          if (res) this.$emit("controller", { key: "enter", field: this.field.id });
-        } else this.$emit("controller", { key: "enter", field: this.field.id });
-      } else {
-        if (this.field.validation) {
-          this.field.disabled = true;
-          const res = await this.field.validation();
-          if (res) {
-            this.$emit("controller", { key: "enter", field: this.field.id });
-          }
-        }
-      }
-      this.$emit("controller", { key: "enter", field: this.field.id });
-    },
-    async pressEsc() {
-      if (this.field.escValidation) {
-        const res = await this.field.escValidation();
-        if (res) {
-          this.$emit("controller", {
-            key: "esc",
-            field: this.field.id,
-          });
-        }
-      } else {
-        this.$emit("controller", {
-          key: "esc",
-          field: this.field.id,
-        });
       }
     },
+    async pressEsc() {},
 
     input() {
       switch (this.field.id) {

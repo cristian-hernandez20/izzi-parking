@@ -3,7 +3,7 @@
     <v-card style="border-radius: 20px" color="white" elevation="3">
       <v-container>
         <h1 class="text-center primary--text pt-2 pb-10">Registrar cuenta</h1>
-        <v-form v-model="validacion" ref="form" lazy-validation>
+        <v-form v-model="validate" ref="form" lazy-validation>
           <v-row justify="center" class="px-5">
             <v-col cols="12" md="6" sm="6" xl="6" lg="6" class="py-0">
               <INPUT :field="form.name" />
@@ -66,7 +66,7 @@ export default {
   },
   data() {
     return {
-      validacion: true,
+      validate: true,
       show_password: false,
       show_password2: false,
       form: {
@@ -147,10 +147,11 @@ export default {
       _registerUser: "user/_createUser",
     }),
     cancel() {
+      this.register_usuario.estado = false;
       this.deletAlert();
     },
     async registrarUsuario() {
-      const validacion = this.$refs.form.validate();
+      const validate = this.$refs.form.validate();
       const data = {
         name: this.form.name.value,
         last_name: this.form.last_name.value,
@@ -160,9 +161,10 @@ export default {
         password: this.form.password.value,
         phone_number: this.form.phone_number.value,
       };
-      if (validacion) {
+      if (validate) {
         const RES = await this._registerUser({ data });
         RES.S && this.sendAlert("user_post", "success");
+        RES.S && this.$refs.form.reset();
         RES.msg && this.sendAlert(RES.msg, "error");
       }
     },

@@ -141,7 +141,7 @@ export default {
           this.body = `Debes ingresar un usuario`;
           break;
         case "user_01":
-          this.body = `Este documento de usuario ya existe`;
+          this.body = `Este documento o email ya existe`;
           break;
         case "user_1":
           this.body = `Nombre de usuario en uso`;

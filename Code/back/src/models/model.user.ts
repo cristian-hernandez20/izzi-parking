@@ -6,7 +6,7 @@ interface Users {
   phone_number: string;
   level_user: string;
   last_name: string;
-  document: string;
+  document: String;
   password: string;
   email: String;
   state: string;
@@ -17,7 +17,7 @@ const users_schema = new Schema<Users>(
     type_document: {
       type: String,
       required: true,
-      enum: ["0","1", "2"],
+      enum: ["0", "1", "2"],
     },
     password: {
       type: String,
