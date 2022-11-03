@@ -88,7 +88,7 @@
         <v-card elevation="12">
           <v-card-text class="primary--text">
             <h2 class="text-title text-center py-4">Cambiar información de la cuenta</h2>
-            <v-form v-model="validate" ref="for" lazy-validation class="mt-10">
+            <v-form v-model="validate" ref="form" lazy-validation class="mt-10">
               <v-row justify="center" class="px-5">
                 <v-col cols="12" md="6" sm="6" xl="6" lg="6" class="py-0">
                   <INPUT :field="form.name" />
@@ -109,7 +109,7 @@
                   <INPUT :field="form.document" />
                 </v-col>
                 <v-col cols="5" class="pt-1 pb-8">
-                  <v-btn elevation="0" color="primary" class="botone" dark @click="registrarUsuario()" large>Actualizar</v-btn>
+                  <v-btn elevation="0" color="primary" class="botone" dark @click="saveChange()" large>Actualizar</v-btn>
                 </v-col>
               </v-row>
             </v-form>
@@ -130,95 +130,98 @@ import moment from "moment";
 export default {
   name: "Config-user",
   mixins: [INPUT, AUTOCOMPLETE, Alert],
-  data: () => ({
-    current_user: current_user,
-    validate: true,
-    show_password: false,
-    show_password2: false,
 
-    form: {
-      name: {
-        value: current_user.name,
-        id: "name",
-        label: "Nombres",
-        maxlength: "50",
-        required: true,
-        rules: [(v) => !!v || "Nombres son requeridos"],
+  data() {
+    return {
+      current_user: current_user,
+      validate: true,
+      show_password: false,
+      show_password2: false,
+
+      form: {
+        name: {
+          value: current_user.name,
+          id: "name",
+          label: "Nombres",
+          maxlength: "50",
+          required: true,
+          rules: [(v) => !!v || "Nombres son requeridos"],
+        },
+        last_name: {
+          value: current_user.last_name,
+          id: "last_name",
+          label: "Apellidos",
+          maxlength: "50",
+          rules: [(v) => !!v || "Apellidos son requeridos"],
+        },
+        email: {
+          value: current_user.email,
+          tipo: "email",
+          id: "email",
+          label: "Email",
+          type: "email",
+          maxlength: "50",
+          rules: [(v) => !!v || "Email es requerido", (v) => /.+@.+\..+/.test(v) || "Email no es valido"],
+        },
+        type_document: {
+          value: current_user.type_document,
+          id: "type_document",
+          label: "Tipo",
+          required: true,
+          item_value: "id",
+          items: [
+            { id: "0", text: "C.C" },
+            { id: "1", text: "T.I" },
+            { id: "2", text: "C.E" },
+          ],
+          rules: [(v) => !!v || "Obligatorio"],
+        },
+        phone_number: {
+          value: current_user.phone_number,
+          id: "phone_number",
+          label: "Telefono",
+          maxlength: "30",
+          rules: [(v) => !!v || "Teléfono es requerido"],
+        },
+        document: {
+          value: current_user.document,
+          id: "document",
+          label: "Documento",
+          maxlength: "12",
+          rules: [(v) => !!v || "Documento es requerido"],
+        },
       },
-      last_name: {
-        value: current_user.last_name,
-        id: "last_name",
-        label: "Apellidos",
-        maxlength: "50",
-        rules: [(v) => !!v || "Apellidos son requeridos"],
+      change: "",
+      showPassword_current: false,
+      showPassword_new: false,
+      showPassword: false,
+      form_change: {
+        password_current: {
+          value: "",
+          id: "password_current",
+          label: "Contraseña",
+          maxlength: "25",
+          placeholder: "Ingresar contraseña",
+          show_password: false,
+          rules: [(v) => !!v || "Contraseña es requerida"],
+        },
+        password_repetir: {
+          value: "",
+          id: "password_repetir",
+          label: "Nueva contraseña",
+          maxlength: "25",
+          placeholder: "Nueva contraseña",
+          show_password: false,
+          rules: [(v) => !!v || "Contraseña es requerida", (v) => v === this.form_change.password_current.value || `Las contraseñas no coinciden`],
+        },
       },
-      email: {
-        value: current_user.email,
-        tipo: "email",
-        id: "email",
-        label: "Email",
-        type: "email",
-        maxlength: "50",
-        rules: [(v) => !!v || "Email es requerido", (v) => /.+@.+\..+/.test(v) || "Email no es valido"],
-      },
-      type_document: {
-        value: current_user.type_document,
-        id: "type_document",
-        label: "Tipo",
-        required: true,
-        item_value: "id",
-        items: [
-          { id: "0", text: "C.C" },
-          { id: "1", text: "T.I" },
-          { id: "2", text: "C.E" },
-        ],
-        rules: [(v) => !!v || "Obligatorio"],
-      },
-      phone_number: {
-        value: current_user.phone_number,
-        id: "phone_number",
-        label: "Telefono",
-        maxlength: "30",
-        rules: [(v) => !!v || "Teléfono es requerido"],
-      },
-      document: {
-        value: current_user.document,
-        id: "document",
-        label: "Documento",
-        maxlength: "12",
-        rules: [(v) => !!v || "Documento es requerido"],
-      },
-    },
-    change: "",
-    showPassword_current: false,
-    showPassword_new: false,
-    showPassword: false,
-    form_change: {
-      password_current: {
-        value: "",
-        id: "password_current",
-        label: "Contraseña",
-        maxlength: "25",
-        placeholder: "Ingresar contraseña",
-        show_password: false,
-        rules: [(v) => !!v || "Contraseña es requerida"],
-      },
-      password_repetir: {
-        value: "",
-        id: "password_repetir",
-        label: "Nueva contraseña",
-        maxlength: "25",
-        placeholder: "Nueva contraseña",
-        show_password: false,
-        rules: [(v) => !!v || "Contraseña es requerida", (v) => v === this.form_change.password_current.value || `Las contraseñas no coinciden`],
-      },
-    },
-    validate_current_password: false,
-    validate_new_password: false,
-    validate_document: null,
-    valid_change_password: true,
-    valid: true,
-  }),
+      validate_current_password: false,
+      validate_new_password: false,
+      validate_document: null,
+      valid_change_password: true,
+      valid: true,
+    };
+  },
 
   watch: {
     // "form.document.value"() {
@@ -317,33 +320,29 @@ export default {
       }
     },
     async saveChange() {
-      this.$refs.form.validate();
-      if (this.validate_document) return this.sendAlert("doc_1", "info", null, null);
-      if (this.$refs.form.validate()) {
+      // const validate = this.$refs.form.validate();
+      if (this.validate) {
         for (let i in this.form) {
-          if (![this.form[i], undefined].includes(this.current_user[i])) {
-            let va = JSON.parse(`{"${i}" : "${this.form[i]}"}`);
-            Object.assign(this.form_change, va);
-          }
+          console.log(i);
+          // if (![this.form[i], undefined].includes(this.current_user[i])) {
+          //   let va = JSON.parse(`{"${i}" : "${this.form[i]}"}`);
+          //   Object.assign(this.form_change, va);
+          // }
         }
-        if (Object.entries(this.form_change).length === 0) {
-          return this.sendAlert("user_3", "info", null, null);
-        } else {
-          const data = JSON.parse(JSON.stringify(this.form_change));
-          const { password } = this.form;
-          const USER = current_user.document;
-          const RES = await this._putUser({ USER, password, data });
-          if (RES.S) {
-            this.sendAlert("user_put", "success", null, null);
-            let auth = JSON.parse(atob(sessionStorage.auth_code));
-            auth.data.document = this.form.document;
-            auth.data.last_name = this.form.last_name;
-            auth.data.name = this.form.name;
-            auth.data.phone_number = this.form.phone_number;
-            sessionStorage.auth_code = btoa(JSON.stringify(auth));
-            this.$refs.password.reset();
-          }
-        }
+        // const data = JSON.parse(JSON.stringify(this.form_change));
+        // const { password } = this.form;
+        // const USER = current_user.document;
+        // const RES = await this._putUser({ USER, password, data });
+        // if (RES.S) {
+        //   this.sendAlert("user_put", "success", null, null);
+        //   let auth = JSON.parse(atob(sessionStorage.auth_code));
+        //   auth.data.document = this.form.document;
+        //   auth.data.last_name = this.form.last_name;
+        //   auth.data.name = this.form.name;
+        //   auth.data.phone_number = this.form.phone_number;
+        //   sessionStorage.auth_code = btoa(JSON.stringify(auth));
+        //   this.$refs.password.reset();
+        // }
       }
     },
   },
