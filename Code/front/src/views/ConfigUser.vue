@@ -21,7 +21,6 @@
                     {{ `${current_user.name.slice(0, 1)}${current_user.last_name.slice(0, 1)} ` }}
                   </span>
                 </v-list-item-avatar>
-
                 <v-list-item-content>
                   <v-list-item-title class="text-title">
                     <v-chip v-if="['ADMIN', 'SP'].includes(current_user.level_user)" color="secondary">

@@ -99,6 +99,15 @@ const routes = [
           title: `${TITLE} - Escanear punto`,
         },
       },
+      {
+        path: "/helps",
+        name: "helps",
+        component: () => import("../views/user/Helps.vue"),
+        meta: {
+          requiresAuth: false,
+          title: `${TITLE} - Ayudas`,
+        },
+      },
     ],
   },
 ];

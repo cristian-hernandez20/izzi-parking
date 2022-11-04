@@ -63,14 +63,6 @@
       "to": {
         "name": ""
       }
-    },
-    {
-      "text": "ayuda",
-      "icon": "mdi-face-agent",
-      "icon_color": "accent",
-      "to": {
-        "name": ""
-      }
     }
   ],
   "menu_user": [
@@ -104,6 +96,14 @@
       "icon_color": "accent",
       "to": {
         "name": "scan-point"
+      }
+    },
+    {
+      "text": "ayuda",
+      "icon": "mdi-face-agent",
+      "icon_color": "accent",
+      "to": {
+        "name": "helps"
       }
     }
   ]

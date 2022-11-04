@@ -66,7 +66,7 @@ export function formatDocument_() {
     mask: Number,
     min: -99999999999999,
     max: 99999999999999,
-    thousandsSeparator: ".",
+    thousandsSeparator: ",",
   });
   return numberMask;
 }
