@@ -1,5 +1,4 @@
 import { default as axios } from "axios";
-import { convertToObject } from "typescript";
 import index from "./store/index";
 
 const URI = "http://localhost:3000/api/";
