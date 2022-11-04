@@ -62,12 +62,13 @@ export function formatPhoneNumber_() {
   return phoneMask;
 }
 export function formatDocument_() {
-  var numberMask = IMask(document.getElementById("document"), {
+  let numberMask = IMask(document.getElementById("document"), {
     mask: Number,
     min: -99999999999999,
     max: 99999999999999,
     thousandsSeparator: ".",
   });
+  return numberMask;
 }
 
 export function imageBase64_(url) {

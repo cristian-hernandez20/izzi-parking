@@ -158,11 +158,14 @@ export default {
         case "user_put":
           this.body = `Usuario modificado`;
           break;
+        case "user_put_e":
+          this.body = `Usuario modificado`;
+          break;
         case "user_error":
           this.body = `Error creando usuario`;
           break;
         case "user-get":
-          this.body = `Error creando usuario`;
+          this.body = `Error obteniendo usuario`;
           break;
         case "user_inac":
           this.body = `Usuario inactivo, imposible acceder`;

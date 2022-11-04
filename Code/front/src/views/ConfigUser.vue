@@ -313,36 +313,40 @@ export default {
           const RES = await this._putUser({ USER, password, data });
           if (RES) {
             this.$refs.form_change_password.reset();
-            return this.sendAlert("pass_1", "success", null, null);
+            return this.sendAlert("pass_1", "success");
           }
-          if (!RES.S) this.sendAlert("pass_3", "error", null, null);
+          if (!RES.S) this.sendAlert("pass_3", "error");
         }
       }
     },
     async saveChange() {
-      // const validate = this.$refs.form.validate();
       if (this.validate) {
-        for (let i in this.form) {
-          console.log(i);
-          // if (![this.form[i], undefined].includes(this.current_user[i])) {
-          //   let va = JSON.parse(`{"${i}" : "${this.form[i]}"}`);
-          //   Object.assign(this.form_change, va);
-          // }
+        const data_ = {
+          name: this.form.name.value,
+          last_name: this.form.last_name.value,
+          email: this.form.email.value,
+          type_document: this.form.type_document.value,
+          document: this.form.document.value,
+          phone_number: this.form.phone_number.value,
+        };
+
+        const _id = current_user._id;
+        const RES = await this._putUser({ _id, data_ });
+
+        console.log(RES);
+
+        if (RES.S) {
+          this.sendAlert(RES.S, "success");
+          let auth = JSON.parse(atob(sessionStorage.auth_code));
+
+          auth.DATA.document = this.form.type_document.value;
+          auth.DATA.last_name = this.form.last_name.value;
+          auth.DATA.name = this.form.name.value;
+          auth.DATA.phone_number = this.form.phone_number.value;
+          auth.DATA.email = this.form.email.value;
+          auth.DATA.document = this.form.document.value;
+          sessionStorage.auth_code = btoa(JSON.stringify(auth));
         }
-        // const data = JSON.parse(JSON.stringify(this.form_change));
-        // const { password } = this.form;
-        // const USER = current_user.document;
-        // const RES = await this._putUser({ USER, password, data });
-        // if (RES.S) {
-        //   this.sendAlert("user_put", "success", null, null);
-        //   let auth = JSON.parse(atob(sessionStorage.auth_code));
-        //   auth.data.document = this.form.document;
-        //   auth.data.last_name = this.form.last_name;
-        //   auth.data.name = this.form.name;
-        //   auth.data.phone_number = this.form.phone_number;
-        //   sessionStorage.auth_code = btoa(JSON.stringify(auth));
-        //   this.$refs.password.reset();
-        // }
       }
     },
   },

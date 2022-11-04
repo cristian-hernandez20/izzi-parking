@@ -41,13 +41,13 @@ export default {
         console.error("_getUsers", error);
       }
     },
-    async _putUser({ commit }, { USER, password, data }) {
+    async _putUser({ commit }, { _id, data_ }) {
       try {
         const RES = await postData({
-          url: `users/${USER}/${password}`,
+          url: `put&user/${_id}`,
           header: { x_token: NEKOT },
           method: "PUT",
-          data: data,
+          data: data_,
         });
         return RES;
       } catch (error) {

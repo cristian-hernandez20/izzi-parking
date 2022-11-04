@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { json, Request, Response } from "express";
 import { generarJwt } from "../helpers/jwtGenerator";
 import { User_Model } from "../models/model.user";
 
@@ -60,7 +60,11 @@ export const putUser = async (req: Request, res: Response) => {
     const data = req.body;
     console.log("XXX", id, data);
     const edit = await User_Model.updateOne({ _id: id }, data, { runValidators: true });
-    res.json(edit);
+    if (edit) {
+      res.json({ S: "user_put" });
+    } else {
+      res.json({ msg: "user_put_e" });
+    }
   } catch (error) {
     res.json(error);
     console.error(error);
