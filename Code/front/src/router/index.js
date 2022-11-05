@@ -66,7 +66,7 @@ const routes = [
       {
         path: "/reservas",
         name: "reservas",
-        component: () => import("../views/Reservas.vue"),
+        component: () => import("../views/Reserve.vue"),
         meta: {
           requiresAuth: true,
           title: `${TITLE} - Reservas`,

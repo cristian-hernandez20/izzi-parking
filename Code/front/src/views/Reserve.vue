@@ -106,7 +106,6 @@ export default {
   },
   async created() {
     this._getReserva();
-    console.log(await this._getReserva());
   },
 };
 </script>
