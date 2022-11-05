@@ -48,22 +48,22 @@ export default {
         {
           title: "Guia#1:Como registrarse, e Iniciar sesion en IZZI PARKING",
           video: "https://www.youtube.com/embed/-CLCwIBzBbs",
-          descrip: "Esto es una desripción",
+          descrip: "Descripción:",
         },
         {
           title: "Guia#1:Como registrarse, e Iniciar sesion en IZZI PARKING",
           video: "https://www.youtube.com/embed/-CLCwIBzBbs",
-          descrip: "",
+          descrip: "Descripción:",
         },
         {
           title: "Guia#1:Como registrarse, e Iniciar sesion en IZZI PARKING",
           video: "https://www.youtube.com/embed/-CLCwIBzBbs",
-          descrip: "",
+          descrip: "Descripción:",
         },
         {
           title: "Guia#1:Como registrarse, e Iniciar sesion en IZZI PARKING",
           video: "https://www.youtube.com/embed/-CLCwIBzBbs",
-          descrip: "",
+          descrip: "Descripción",
         },
       ],
     };
