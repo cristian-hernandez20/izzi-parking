@@ -16,7 +16,6 @@ export const Alert = {
   },
   methods: {
     sendAlert(code, type, description, option) {
-      console.log(code, type, description, option)
       this.alert.state = true;
       this.alert.code = code;
       this.alert.type = type;

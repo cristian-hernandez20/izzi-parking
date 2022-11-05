@@ -82,6 +82,15 @@ const routes = [
         },
       },
       {
+        path: "/admin-position",
+        name: "admin-position",
+        component: () => import("../views/admin/AdminPosition.vue"),
+        meta: {
+          requiresAuth: true,
+          title: `${TITLE} - Admininstrar Puestos`,
+        },
+      },
+      {
         path: "/config-user",
         name: "config-user",
         component: () => import("../views/ConfigUser.vue"),

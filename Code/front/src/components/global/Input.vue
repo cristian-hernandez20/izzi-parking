@@ -98,7 +98,7 @@ export default {
           this.field.value = fieldToUper_(this.field.value);
           break;
         case "email":
-          this.field.value = this.field.value.trim();
+          this.field.value = this.field.value;
           break;
         default:
           break;

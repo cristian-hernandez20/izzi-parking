@@ -30,7 +30,7 @@
               <INPUT :field="form.password_repetir" />
             </v-col>
             <v-col cols="5" class="pt-1 pb-8">
-              <v-btn elevation="0" color="primary" class="botone" dark @click="registrarUsuario()" large>Crear cuenta</v-btn>
+              <v-btn elevation="0" color="primary" :disabled="!validate" class="botone" @click="registrarUsuario()" large>Crear cuenta</v-btn>
             </v-col>
           </v-row>
         </v-form>
@@ -118,7 +118,7 @@ export default {
           value: "",
           id: "document",
           label: "Documento",
-          maxlength: "12",
+          maxlength: "10",
           rules: [(v) => !!v || "Documento es requerido"],
         },
         password: {
@@ -144,10 +144,9 @@ export default {
   },
   methods: {
     ...mapActions({
-      _registerUser: "user/_createUser",
+      _registerUser: "user/_postUser",
     }),
     cancel() {
-      this.register_usuario.estado = false;
       this.deletAlert();
     },
     async registrarUsuario() {
@@ -163,9 +162,11 @@ export default {
       };
       if (validate) {
         const RES = await this._registerUser({ data });
-        RES.S && this.sendAlert("user_post", "success");
-        RES.S && this.$refs.form.reset();
-        RES.msg && this.sendAlert(RES.msg, "error");
+        if (RES.S) {
+          this.$refs.form.reset();
+          this.sendAlert(RES.S, RES.alert);
+        }
+        RES.msg && this.sendAlert(RES.msg, RES.alert);
       }
     },
   },

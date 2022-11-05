@@ -21,7 +21,7 @@
       "icon": "mdi-car",
       "icon_color": "accent",
       "to": {
-        "name": ""
+        "name": "/0"
       }
     },
     {
@@ -33,19 +33,34 @@
       }
     },
     {
-      "text": "Puestos disponibles",
-      "icon": "mdi-database",
+      "text": "Gestion de puestos",
+      "icon": "mdi-car-select",
       "icon_color": "accent",
-      "to": {
-        "name": "available-positions"
-      }
+      "sub": [
+        {
+          "text": "Puestos disponibles",
+          "icon": "mdi-database",
+          "icon_color": "accent",
+          "to": {
+            "name": "available-positions"
+          }
+        },
+        {
+          "text": "Administrar Puestos",
+          "icon": "mdi-car-wrench",
+          "icon_color": "accent",
+          "to": {
+            "name": "admin-position"
+          }
+        }
+      ]
     },
     {
       "text": "Clientes",
       "icon": "mdi-account-group",
       "icon_color": "accent",
       "to": {
-        "name": ""
+        "name": "/4"
       }
     },
     {
@@ -53,7 +68,7 @@
       "icon": "mdi-arrow-right-circle-outline",
       "icon_color": "accent",
       "to": {
-        "name": ""
+        "name": "/1"
       }
     },
     {
@@ -61,7 +76,7 @@
       "icon": "mdi-car-cog",
       "icon_color": "accent",
       "to": {
-        "name": ""
+        "name": "/2"
       }
     }
   ],

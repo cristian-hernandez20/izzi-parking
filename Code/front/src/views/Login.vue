@@ -110,6 +110,7 @@ export default {
           label: "Contraseña",
           type: "password",
           maxlength: "20",
+          show_password: false,
           prepend_icon: "mdi-lock",
           rules: [(v) => !!v || "Contraseña es requerida"],
         },

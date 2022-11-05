@@ -34,7 +34,7 @@ export const createUser = async (req: Request, res: Response) => {
     console.log(req.body);
     new User_Model(req.body).save((error) => {
       if (error) {
-        res.json({ msg: "user_01" });
+        res.json({ msg: error });
       } else {
         res.json({ S: "success" });
       }
@@ -58,8 +58,28 @@ export const putUser = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const data = req.body;
-    console.log("XXX", id, data);
     const edit = await User_Model.updateOne({ _id: id }, data, { runValidators: true });
+    if (edit) res.json({ S: "user_put" });
+    else res.json({ msg: "user_put_e" });
+  } catch (error) {
+    res.json({ msg: error });
+    console.error(error);
+  }
+};
+
+export const putUserPassword = async (req: Request, res: Response) => {
+  try {
+    const { id, password } = req.params;
+    const data = req.body;
+
+    const edit = await User_Model.updateOne(
+      {
+        $and: [{ _id: id }, { password: password }],
+      },
+      data,
+      { runValidators: true }
+    );
+    console.log("editar", edit);
     if (edit) {
       res.json({ S: "user_put" });
     } else {

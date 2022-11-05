@@ -140,8 +140,8 @@ export default {
         case "user_0":
           this.body = `Debes ingresar un usuario`;
           break;
-        case "user_01":
-          this.body = `Este documento o email ya existe`;
+        case "doc_1":
+          this.body = `Este documento ya existe`;
           break;
         case "user_1":
           this.body = `Nombre de usuario en uso`;
@@ -185,8 +185,14 @@ export default {
         case "adress_1":
           this.body = `La dirección o nombre ya existe`;
           break;
-        case "zone_1":
-          this.body = `Puesto de control creado`;
+        case "z-00":
+          this.body = `Ocurrio un problema no se pudo crear puesto`;
+          break;
+        case "z-01":
+          this.body = `El puesto ya existe con este nombre`;
+          break;
+        case "z-s":
+          this.body = `Puesto creado correctamente`;
           break;
         case "zone_post":
           this.body = `No se pudo crear el punto de control`;

@@ -9,4 +9,5 @@ RouteUser.get("/get&users", JwtValidator_, getUsers);
 RouteUser.post("/create&users", createUser);
 RouteUser.get("/get&user/:document", getUser);
 RouteUser.put("/put&user/:id", JwtValidator_, putUser);
+RouteUser.put("/put&user&password/:id/:password", JwtValidator_, putUser);
 RouteUser.delete("/delete&user/:id", deleteUser);

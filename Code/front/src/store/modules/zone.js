@@ -15,12 +15,14 @@ export default {
     },
   },
   actions: {
-    async postZone_({ commit }, { data }) {
+    async _postZone({ commit }, { data }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `zone`, data });
+        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `add&location`, data });
+        if (RES?.msg?.keyPattern?.name) return { msg: "z-01" };
+        else if (RES?.msg) return { msg: "z-00" };
         return RES;
       } catch (error) {
-        console.error("postZone_", error);
+        console.error("_postZone", error);
       }
     },
     async postPoint_({ commit }, { zone, data }) {

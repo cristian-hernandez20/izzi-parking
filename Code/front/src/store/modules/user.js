@@ -15,12 +15,14 @@ export default {
     },
   },
   actions: {
-    async _createUser({ commit }, { data }) {
+    async _postUser({ commit }, { data }) {
       try {
         const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `/create&users`, data });
-        return RES;
+        if (RES?.msg?.keyPattern?.document) return { msg: "doc_1", alert: "error" };
+        else if (RES?.msg?.keyPattern?.email) return { msg: "email_1", alert: "error" };
+        else return { S: "user_post", alert: "success" };
       } catch (error) {
-        console.error("_createUser", error);
+        console.error("_postUser", error);
       }
     },
     async _getUsers({ commit }) {
@@ -49,18 +51,21 @@ export default {
           method: "PUT",
           data: data_,
         });
-        return RES;
+        console.log(RES);
+        if (RES?.msg?.keyPattern?.document) return { msg: "doc_1", alert: "error" };
+        else if (RES?.msg?.keyPattern?.email) return { msg: "email_1", alert: "error" };
+        else return { S: "user_put", alert: "success" };
       } catch (error) {
         console.error("_putUser", error);
       }
     },
-    async _putUserNoPassword({ commit }, { USER, data }) {
+    async _putUserPassword({ commit }, { _id, password, data_ }) {
       try {
         const RES = await postData({
-          url: `users/${USER}`,
+          url: `put&user&password/${_id}/${password}`,
           header: { x_token: NEKOT },
           method: "PUT",
-          data: data,
+          data: data_,
         });
         return RES;
       } catch (error) {

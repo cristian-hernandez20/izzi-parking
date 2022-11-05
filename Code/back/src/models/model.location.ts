@@ -16,11 +16,12 @@ const LocationSchema = new Schema<Location>(
       type: String,
       default: "1",
       required: true,
-      enum: ["1", "2", "3"],
+      enum: ["0", "1", "2"],
     },
     name: {
       type: String,
       required: true,
+      unique: true,
     },
   },
   { versionKey: false }
