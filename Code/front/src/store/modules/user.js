@@ -51,7 +51,6 @@ export default {
           method: "PUT",
           data: data_,
         });
-        console.log(RES);
         if (RES?.msg?.keyPattern?.document) return { msg: "doc_1", alert: "error" };
         else if (RES?.msg?.keyPattern?.email) return { msg: "email_1", alert: "error" };
         else return { S: "user_put", alert: "success" };

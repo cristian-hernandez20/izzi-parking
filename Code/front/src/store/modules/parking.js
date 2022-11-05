@@ -17,10 +17,9 @@ export default {
   },
   actions: {
     async _loadStation({ commit }) {
-      console.log("_loadStation");
       try {
         const RES = await firebase.get("/Puestos.json");
-
+        console.log("hello", RES);
         const available_station = [];
         for (let id of Object.keys(RES.data)) {
           available_station.push({

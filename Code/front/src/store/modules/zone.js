@@ -4,33 +4,42 @@ import { NEKOT } from "@/global";
 export default {
   namespaced: true,
   state: {
-    get_zones: null,
+    zone_car: null,
+    zone_motorcycle: null,
+    botones: [
+      {
+        id: "2",
+        text: "hello",
+      },
+    ],
   },
   getters: {
-    getZoneData_: (state) => (list) => state[list],
+    getZone: (state) => (list) => state[list],
   },
   mutations: {
     setZoneData_(state, data) {
       state[data.list] = data.res;
+    },
+    pushZone(state, data) {
+      state[data.list].push(data.data);
+    },
+    editZone(state, data) {
+      const indice = state[data.list].map((e) => e._id).indexOf(data._id);
+      state[data.list][indice].state = data.data_.state;
     },
   },
   actions: {
     async _postZone({ commit }, { data }) {
       try {
         const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `add&location`, data });
-        if (RES?.msg?.keyPattern?.name) return { msg: "z-01" };
-        else if (RES?.msg) return { msg: "z-00" };
-        return RES;
+        if (RES?.msg?.keyPattern?.name) return { msg: "Z-001" };
+        else if (RES?.msg) return { msg: "Z-000" };
+        else {
+          commit("pushZone", { list: "zone_car", data });
+          return RES;
+        }
       } catch (error) {
         console.error("_postZone", error);
-      }
-    },
-    async postPoint_({ commit }, { zone, data }) {
-      try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "PUT", url: `point/${zone}`, data });
-        return RES;
-      } catch (error) {
-        console.error("postPoint_", error);
       }
     },
     async deletePoint_({ commit }, { id_point, id }) {
@@ -45,37 +54,35 @@ export default {
         console.error("deletePoint_", error);
       }
     },
-    async getZones_({ commit }) {
+    async _getZones({ commit }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `zone` });
+        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&locations` });
+        console.log(RES);
         if (!RES.msg) {
           return commit("setZoneData_", {
-            list: "get_zones",
+            list: "zone_car",
             res: RES,
           });
-        }
-        return RES;
+        } else return { msg: "Z-003", alert: "info" };
       } catch (error) {
-        console.error("getZones_", error);
+        console.error("_getZones", error);
       }
     },
-    async putZone_({ commit }, { USER, password, data }) {
+    async _putZone({ commit }, { _id, data_ }) {
       try {
         const RES = await postData({
-          url: `users/${USER}/${password}`,
+          url: `editar&location/${_id}`,
           header: { x_token: NEKOT },
           method: "PUT",
-          data: data,
+          data: data_,
         });
-        if (!RES.msg) {
-          commit("setZoneData_", {
-            list: "get_zones",
-            res: RES,
-          });
+        if (RES.msg) return RES.msg;
+        else {
+          commit("editZone", { list: "zone_car", data_, _id });
+          return RES;
         }
-        return RES;
       } catch (error) {
-        console.error("putZone_", error);
+        console.error("_putZone", error);
       }
     },
     async deleteZone_({ commit }, { zone }) {

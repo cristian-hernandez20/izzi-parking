@@ -14,7 +14,7 @@ const LocationSchema = new Schema<Location>(
     },
     state: {
       type: String,
-      default: "1",
+      default: "0",
       required: true,
       enum: ["0", "1", "2"],
     },

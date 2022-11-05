@@ -72,19 +72,28 @@
                     <v-list rounded flat transition="scale-transition">
                       <v-list-item-group>
                         <v-row justify="space-around">
-                          <v-menu v-for="(item, i) in _getStation('get_station')" :key="i" offset-y>
+                          <v-menu v-for="(item, i) in getZone('zone_car').filter((e) => e.type == 1)" :key="i" offset-y>
                             <template v-slot:activator="{}">
                               <v-hover v-slot="{ hover }" open-delay="10">
-                                <v-card :elevation="hover ? 24 : 0" width="92" height="47" shaped outline style="margin: 2px" color="white">
+                                <v-card
+                                  :elevation="hover ? 24 : 0"
+                                  @click="editZone(item)"
+                                  style="margin: 2px"
+                                  color="white"
+                                  height="47"
+                                  width="92"
+                                  outline
+                                  shaped
+                                >
                                   <v-divider></v-divider>
                                   <v-btn
+                                    :color="item.state == 0 ? 'green' : item.state == 1 ? 'red' : 'orange'"
+                                    class="mx-4 my-2 zoomIt"
                                     width="20"
                                     text
-                                    :color="item.estado == 0 ? 'green' : item.estado == 1 ? 'red' : 'orange'"
-                                    class="mx-4 my-2 zoomIt"
                                   >
                                     <v-icon>mdi-car </v-icon>
-                                    <h4>-{{ item.text }}</h4>
+                                    <h4>-{{ item.name }}</h4>
                                   </v-btn>
                                 </v-card>
                               </v-hover>
@@ -109,19 +118,28 @@
                     <v-list rounded flat transition="scale-transition">
                       <v-list-item-group>
                         <v-row justify="space-around">
-                          <v-menu v-for="(item, i) in _getStation('get_station')" :key="i" offset-y>
+                          <v-menu v-for="(item, i) in getZone('zone_car').filter((e) => e.type == 0)" :key="i" offset-y>
                             <template v-slot:activator="{}">
                               <v-hover v-slot="{ hover }" open-delay="10">
-                                <v-card :elevation="hover ? 24 : 0" width="92" height="47" shaped outline style="margin: 2px" color="white">
+                                <v-card
+                                  :elevation="hover ? 24 : 0"
+                                  @click="editZone(item)"
+                                  style="margin: 2px"
+                                  color="white"
+                                  height="47"
+                                  width="92"
+                                  outline
+                                  shaped
+                                >
                                   <v-divider></v-divider>
                                   <v-btn
+                                    :color="item.state == 0 ? 'green' : item.state == 1 ? 'red' : 'orange'"
+                                    class="mx-4 my-2 zoomIt"
                                     width="20"
                                     text
-                                    :color="item.estado == 0 ? 'green' : item.estado == 1 ? 'red' : 'orange'"
-                                    class="mx-4 my-2 zoomIt"
                                   >
-                                    <v-icon>mdi-car </v-icon>
-                                    <h4>-{{ item.text }}</h4>
+                                    <v-icon>mdi-atv </v-icon>
+                                    <h4>-{{ item.name }}</h4>
                                   </v-btn>
                                 </v-card>
                               </v-hover>
@@ -139,19 +157,30 @@
       </v-row>
     </v-container>
     <ALERT v-if="alert.state" :alert="alert" @exitEsc="cancel()" @cancel="cancel()" @confirm="confirm()"></ALERT>
+    <ZoneEdit v-if="zone.state_dialog" :zone="zone"></ZoneEdit>
   </v-app>
 </template>
 <script>
+import ZoneEdit from "../../components/zone/ZoneEdit.vue";
 import { INPUT, AUTOCOMPLETE } from "@/mixins/global";
 import { mapActions, mapGetters } from "vuex";
 import { Alert } from "@/mixins/alert";
-import moment from "moment";
 
 export default {
   mixins: [INPUT, AUTOCOMPLETE, Alert],
+  components: {
+    ZoneEdit,
+  },
   data() {
     return {
       validate: false,
+      zone: {
+        state_dialog: false,
+        name: "",
+        type: "",
+        state: "",
+        _id: "",
+      },
       form: {
         name: {
           value: "".toUpperCase(),
@@ -179,38 +208,51 @@ export default {
       dialogDelete: false,
       selectedItem: 0,
       search: "",
-      fecha_ini: false,
-      fecha_fin: false,
-      hora_ini: false,
-      hora_fin: false,
+
       term: "",
     };
   },
-  created() {},
-  mounted() {
+  created() {
     this._loadStation();
+    this._getZones();
   },
+  mounted() {},
   computed: {
     ...mapGetters({ _getStation: "parking/_getStation" }),
+    ...mapGetters({ getZone: "zone/getZone" }),
   },
   watch: {},
-
+  created() {
+    this._getZones();
+  },
+  mounted() {},
   methods: {
     ...mapActions({
       _loadStation: "parking/_loadStation",
       _postZone: "zone/_postZone",
+      _getZones: "zone/_getZones",
+      boton_: "zone/boton",
     }),
+
     cancel() {
       this.deletAlert();
+    },
+    editZone(item) {
+      this.zone.state_dialog = true;
+      this.zone.name = item.name;
+      this.zone.type = item.type;
+      this.zone.state = item.state;
+      this.zone._id = item._id;
     },
     async createZone() {
       const data = {
         type: this.form.type.value,
         name: this.form.name.value,
+        state: "0",
       };
       const RES = this.validate && (await this._postZone({ data }));
       if (RES.S) {
-        this.sendAlert("z-s", "success");
+        this.sendAlert(RES.S, RES.alert);
         this.$refs.form.reset();
       }
       RES.msg && this.sendAlert(RES.msg, "error");

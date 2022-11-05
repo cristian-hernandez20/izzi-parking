@@ -159,7 +159,7 @@ export default {
           this.body = `Usuario modificado`;
           break;
         case "user_put_e":
-          this.body = `Usuario modificado`;
+          this.body = `Error creando usuario`;
           break;
         case "user_error":
           this.body = `Error creando usuario`;
@@ -185,26 +185,23 @@ export default {
         case "adress_1":
           this.body = `La dirección o nombre ya existe`;
           break;
-        case "z-00":
+        case "Z-000":
           this.body = `Ocurrio un problema no se pudo crear puesto`;
           break;
-        case "z-01":
+        case "Z-001":
           this.body = `El puesto ya existe con este nombre`;
           break;
-        case "z-s":
+        case "Z-002":
           this.body = `Puesto creado correctamente`;
           break;
-        case "zone_post":
-          this.body = `No se pudo crear el punto de control`;
+        case "Z-003":
+          this.body = `No se pudo realizar la consulta de los parqueaderos`;
           break;
-        case "zone_delete_1":
-          this.body = `No se pudo eliminar el punto de control`;
+        case "Z-040":
+          this.body = `No se pudo modificar el puesto`;
           break;
-        case "zone_delete":
-          this.body = `Puesto de control eliminado`;
-          break;
-        case "zone_point":
-          this.body = `Este puesto de control no tiene puntos agregados`;
+        case "Z-042":
+          this.body = `Puesto modificado correctamente`;
           break;
         case "point_1":
           this.body = `Punto creado exitosamente`;
