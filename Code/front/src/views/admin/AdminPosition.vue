@@ -72,7 +72,7 @@
                     <v-list rounded flat transition="scale-transition">
                       <v-list-item-group>
                         <v-row justify="space-around">
-                          <v-menu v-for="(item, i) in getZone('zone_car').filter((e) => e.type == 1)" :key="i" offset-y>
+                          <v-menu v-for="(item, i) in getZone('zone').filter((e) => e.type == 1)" :key="i" offset-y>
                             <template v-slot:activator="{}">
                               <v-hover v-slot="{ hover }" open-delay="10">
                                 <v-card
@@ -118,7 +118,7 @@
                     <v-list rounded flat transition="scale-transition">
                       <v-list-item-group>
                         <v-row justify="space-around">
-                          <v-menu v-for="(item, i) in getZone('zone_car').filter((e) => e.type == 0)" :key="i" offset-y>
+                          <v-menu v-for="(item, i) in getZone('zone').filter((e) => e.type == 0)" :key="i" offset-y>
                             <template v-slot:activator="{}">
                               <v-hover v-slot="{ hover }" open-delay="10">
                                 <v-card
@@ -218,8 +218,7 @@ export default {
   },
   mounted() {},
   computed: {
-    ...mapGetters({ _getStation: "parking/_getStation" }),
-    ...mapGetters({ getZone: "zone/getZone" }),
+    ...mapGetters({ _getStation: "parking/_getStation", getZone: "zone/getZone" }),
   },
   watch: {},
   created() {

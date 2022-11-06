@@ -98,7 +98,10 @@ export default {
           this.field.value = fieldToUper_(this.field.value);
           break;
         case "email":
-          this.field.value = this.field.value;
+          this.field.value = this.field.value.toLowerCase();
+          break;
+        case "placa":
+          this.field.value = this.field.value.toUpperCase();
           break;
         default:
           break;

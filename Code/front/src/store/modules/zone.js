@@ -4,14 +4,7 @@ import { NEKOT } from "@/global";
 export default {
   namespaced: true,
   state: {
-    zone_car: null,
-    zone_motorcycle: null,
-    botones: [
-      {
-        id: "2",
-        text: "hello",
-      },
-    ],
+    zone: [],
   },
   getters: {
     getZone: (state) => (list) => state[list],
@@ -35,7 +28,7 @@ export default {
         if (RES?.msg?.keyPattern?.name) return { msg: "Z-001" };
         else if (RES?.msg) return { msg: "Z-000" };
         else {
-          commit("pushZone", { list: "zone_car", data });
+          commit("pushZone", { list: "zone", data });
           return RES;
         }
       } catch (error) {
@@ -60,7 +53,7 @@ export default {
         console.log(RES);
         if (!RES.msg) {
           return commit("setZoneData_", {
-            list: "zone_car",
+            list: "zone",
             res: RES,
           });
         } else return { msg: "Z-003", alert: "info" };
@@ -78,7 +71,7 @@ export default {
         });
         if (RES.msg) return RES.msg;
         else {
-          commit("editZone", { list: "zone_car", data_, _id });
+          commit("editZone", { list: "zone", data_, _id });
           return RES;
         }
       } catch (error) {

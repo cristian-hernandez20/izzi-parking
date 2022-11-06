@@ -25,8 +25,19 @@
                 <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0">
                   <AUTOCOMPLETE :field="form.type_vehicle" />
                 </v-col>
-                <v-col cols="5" class="pt-1 pb-8">
-                  <v-btn elevation="0" color="primary" :disabled="!validate" class="botone" @click="registrarUsuario()" large>Crear cuenta</v-btn>
+                <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0" v-if="form.type_vehicle.value == 'Carro'">
+                  <AUTOCOMPLETE :field="form.array_car" />
+                </v-col>
+                <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0" v-if="form.type_vehicle.value == 'Moto'">
+                  <AUTOCOMPLETE :field="form.array_motorcycle" />
+                </v-col>
+                <v-col cols="3" md="3" sm="3" xl="3" lg="3" class="py-0">
+                  <INPUT :field="form.placa" />
+                </v-col>
+                <v-col cols="12" class="pt-1 pb-8 text-center">
+                  <v-btn elevation="0" color="primary" :disabled="!validate" class="botone" @click="registrarUsuario()" large
+                    >Registrar reserva</v-btn
+                  >
                 </v-col>
               </v-row>
             </v-form>
@@ -70,7 +81,7 @@ export default {
         type_vehicle: {
           value: "",
           id: "type_vehicle",
-          label: "Tipo",
+          label: "Puestos",
           required: true,
           item_value: "text",
           items: [
@@ -82,7 +93,7 @@ export default {
         array_car: {
           value: "",
           id: "array_car",
-          label: "Tipo",
+          label: "Puestos",
           required: true,
           item_value: "text",
           items: [],
@@ -110,12 +121,14 @@ export default {
   computed: {
     ...mapGetters({
       _stateLoading: "_stateLoading",
+      getZone: "zone/getZone",
     }),
   },
   methods: {
     ...mapActions({
       _getReserva: "reserva/_getReserva",
       _addReserva: "reserva/_addReserva",
+      _loadZones: "zone/_getZones",
     }),
     async registrarReserva() {
       const DATA = {
@@ -126,9 +139,13 @@ export default {
       };
       let res = await this._addReserva({ DATA });
     },
+
+    async loadZones() {
+      await await this._loadZones();
+    },
   },
   async created() {
-    this._getReserva();
+    await this._getReserva();
   },
 };
 </script>

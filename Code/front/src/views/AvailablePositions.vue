@@ -39,7 +39,7 @@
                 <v-list rounded flat transition="scale-transition">
                   <v-list-item-group>
                     <v-row justify="space-around">
-                      <v-menu v-for="(item, i) in getZone('get_zones').filter((e) => e.type == 1)" :key="i" offset-y>
+                      <v-menu v-for="(item, i) in getZone('zone').filter((e) => e.type == 1)" :key="i" offset-y>
                         <template v-slot:activator="{}">
                           <v-hover v-slot="{ hover }" open-delay="10">
                             <v-card :elevation="hover ? 24 : 0" style="margin: 2px" color="white" height="47" width="92" outline shaped>
@@ -71,7 +71,7 @@
                 <v-list rounded flat transition="scale-transition">
                   <v-list-item-group>
                     <v-row justify="space-around">
-                      <v-menu v-for="(item, i) in getZone('get_zones').filter((e) => e.type == 0)" :key="i" offset-y>
+                      <v-menu v-for="(item, i) in getZone('zone').filter((e) => e.type == 0)" :key="i" offset-y>
                         <template v-slot:activator="{}">
                           <v-hover v-slot="{ hover }" open-delay="10">
                             <v-card :elevation="hover ? 24 : 0" style="margin: 2px" color="white" height="47" width="92" outline shaped>
