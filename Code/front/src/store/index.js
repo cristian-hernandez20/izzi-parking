@@ -4,7 +4,7 @@ import Vue from "vue";
 Vue.use(Vuex);
 
 import parking from "./modules/parking";
-import reserva from "./modules/reserve";
+import reserve from "./modules/reserve";
 import sesion from "./modules/sesion";
 import record from "./modules/record";
 import user from "./modules/user";
@@ -33,7 +33,7 @@ export default new Vuex.Store({
   },
   modules: {
     parking,
-    reserva,
+    reserve,
     record,
     sesion,
     zone,

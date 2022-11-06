@@ -127,8 +127,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      _getReserva: "reserva/_getReserva",
-      _postReserve: "reserva/_postReserve",
+      _postReserve: "reserve/_postReserve",
       _loadZones: "zone/_getZones",
       _putZone: "zone/_putZone",
     }),
@@ -148,6 +147,7 @@ export default {
         };
 
         const RES = await this._postReserve({ data_ });
+
         if (RES.S) {
           this.sendAlert(RES.S, RES.alert);
           // this.$refs.form.reset();
@@ -173,8 +173,7 @@ export default {
     },
   },
   async created() {
-    this.loadZones();
-    await this._getReserva();
+    await this.loadZones();
   },
 };
 </script>

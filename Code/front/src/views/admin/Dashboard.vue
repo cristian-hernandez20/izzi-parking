@@ -82,7 +82,7 @@
                 @click:date="viewDay"
                 @change="updateRange"
               ></v-calendar>
-              <v-menu v-model="selectedOpen" :close-on-content-click="false" :activator="selectedElement" offset-x>
+              <!-- <v-menu v-model="selectedOpen" :close-on-content-click="false" :activator="selectedElement" offset-x>
                 <v-card color="grey lighten-4" min-width="350px" flat>
                   <v-toolbar :color="selectedEvent.color" dark>
                     <v-btn icon>
@@ -104,7 +104,7 @@
                     <v-btn text color="secondary" @click="selectedOpen = false"> Cancelar </v-btn>
                   </v-card-actions>
                 </v-card>
-              </v-menu>
+              </v-menu> -->
             </v-sheet>
           </v-col>
         </v-row>
@@ -119,7 +119,6 @@ import { mapActions, mapGetters } from "vuex";
 import LottieAnimation from "lottie-web-vue";
 import { current_user } from "@/global";
 import { Alert } from "@/mixins/alert";
-import moment from "moment";
 
 export default {
   components: {
@@ -162,8 +161,7 @@ export default {
   },
   async created() {
     await this._getReserves();
-    const a = this.getReserves("reserve");
-    console.log("este es a", a);
+
     setTimeout(() => {
       this.state_animation = false;
     }, 3000);
@@ -212,25 +210,19 @@ export default {
       nativeEvent.stopPropagation();
     },
     updateRange({ start, end }) {
-      // const events = [];
-      // const min = new Date(`${start.date}T00:00:00`);
-      // const max = new Date(`${end.date}T23:59:59`);
-      // console.log(min, max);
-      // const days = (max.getTime() - min.getTime()) / 86400000;
-      // const eventCount = this.rnd(days, days + 20);
-      // for (let i = 0; i < eventCount; i++) {
-      //   const first = "2022-11-08";
-      //   const second = "2022-11-07";
-      //   events.push({
-      //     name: this.names[this.rnd(0, this.names.length - 1)],
-      //     start: first,
-      //     end: second,
-      //     color: this.colors[this.rnd(0, this.colors.length - 1)],
-      //     timed: !allDay,
-      //   });
-      // }
-      // this.events = events;
-      // console.log(this.events);
+      const events = [];
+
+      this.getReserves("reserve").forEach((e, i) => {
+        const first = `${e.date} ${e.time}`;
+        const second = `${e.date} ${e.time}`;
+        events.push({
+          name: e.placa,
+          start: first,
+          end: second,
+          color: this.colors[this.rnd(0, this.colors.length - 1)],
+        });
+      });
+      this.events = events;
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
