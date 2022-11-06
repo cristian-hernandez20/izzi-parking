@@ -14,55 +14,19 @@
       <v-col cols="12" lg="12" sm="12" md="12">
         <v-card elevation="12">
           <v-card-text class="primary--text">
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-row justify="center" class="mt-10">
-                <v-col cols="12" lg="4" sm="4" md="4" class="py-0 px-2">
-                  <v-text-field v-model="form.hora" label="Hora" type="time" ref="hora" required outlined filled shaped dense></v-text-field>
+            <v-form v-model="validate" ref="form" lazy-validation>
+              <v-row justify="center" class="px-5 pt-8">
+                <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0">
+                  <INPUT :field="form.time" />
                 </v-col>
-                <v-col cols="12" lg="4" sm="4" md="4" class="py-0 px-2">
-                  <v-text-field
-                    v-model="form.fecha"
-                    :maxlength="'17'"
-                    label="Fecha"
-                    ref="date"
-                    id="date"
-                    type="date"
-                    required
-                    outlined
-                    filled
-                    shaped
-                    dense
-                  ></v-text-field>
+                <v-col cols="3" md="3" sm="3" xl="3" lg="3" class="py-0">
+                  <INPUT :field="form.date" />
                 </v-col>
-                <v-col cols="12" lg="4" sm="4" md="4" class="py-0 px-2">
-                  <v-autocomplete
-                    v-model="form.puesto"
-                    :maxlength="'17'"
-                    label="Puesto"
-                    ref="puesto"
-                    id="puesto"
-                    required
-                    outlined
-                    filled
-                    shaped
-                    dense
-                  ></v-autocomplete>
+                <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0">
+                  <AUTOCOMPLETE :field="form.type_vehicle" />
                 </v-col>
-
-                <v-col cols="12" lg="12" sm="12" md="12" class="py-0 text-center">
-                  <v-btn
-                    :loading="_stateLoading"
-                    :disabled="!valid"
-                    @click="registrarReserva()"
-                    justify="center"
-                    class="my-2 botone"
-                    color="success"
-                    filled
-                    shaped
-                    dense
-                  >
-                    Reservar <v-icon class="ml-1" small>mdi-content-save</v-icon>
-                  </v-btn>
+                <v-col cols="5" class="pt-1 pb-8">
+                  <v-btn elevation="0" color="primary" :disabled="!validate" class="botone" @click="registrarUsuario()" large>Crear cuenta</v-btn>
                 </v-col>
               </v-row>
             </v-form>
@@ -73,17 +37,76 @@
   </v-container>
 </template>
 <script>
-import { current_user } from "@/global";
+import { INPUT, AUTOCOMPLETE } from "@/mixins/global";
 import { mapGetters, mapActions } from "vuex";
+import { Alert } from "@/mixins/alert";
+import { current_user } from "@/global";
+
 export default {
-  data: () => ({
-    valid: false,
-    form: {
-      hora: "",
-      fecha: "",
-      puesto: "",
-    },
-  }),
+  mixins: [INPUT, AUTOCOMPLETE, Alert],
+  data() {
+    return {
+      validate: true,
+      show_password: false,
+      show_password2: false,
+      form: {
+        time: {
+          value: "",
+          id: "time",
+          tipo: "time",
+          label: "Hora",
+          maxlength: "10",
+          required: true,
+          rules: [(v) => !!v || "La hora es requerida"],
+        },
+        date: {
+          value: "",
+          id: "date",
+          tipo: "date",
+          label: "Fecha",
+          maxlength: "10",
+          rules: [(v) => !!v || "La fecha es requerida"],
+        },
+        type_vehicle: {
+          value: "",
+          id: "type_vehicle",
+          label: "Tipo",
+          required: true,
+          item_value: "text",
+          items: [
+            { id: "0", text: "Moto" },
+            { id: "1", text: "Carro" },
+          ],
+          rules: [(v) => !!v || "Obligatorio"],
+        },
+        array_car: {
+          value: "",
+          id: "array_car",
+          label: "Tipo",
+          required: true,
+          item_value: "text",
+          items: [],
+          rules: [(v) => !!v || "Obligatorio"],
+        },
+        array_motorcycle: {
+          value: "",
+          id: "array_motorcycle",
+          label: "Tipo",
+          required: true,
+          item_value: "text",
+          items: [],
+          rules: [(v) => !!v || "Obligatorio"],
+        },
+        placa: {
+          value: "",
+          id: "placa",
+          label: "Placa",
+          maxlength: "30",
+          rules: [(v) => !!v || "Teléfono es requerido"],
+        },
+      },
+    };
+  },
   computed: {
     ...mapGetters({
       _stateLoading: "_stateLoading",

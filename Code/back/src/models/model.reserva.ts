@@ -2,28 +2,50 @@ import mongoose, { Schema, model, mongo } from "mongoose";
 mongoose.pluralize(null);
 
 interface Reserva {
-  hora: string;
-  fecha: string;
-  puesto: string;
-  estado: string;
+  time: String;
+  date: Date;
+  zone: string;
+  state: string;
+  document_user: Number;
+  name_user: String;
+  type_vehicle: String;
+  placa: String;
 }
 const ReservaSchema = new Schema<Reserva>(
   {
-    hora: {
+    time: {
       type: String,
       required: true,
     },
-    fecha: {
+    document_user: {
+      type: Number,
+      required: true,
+    },
+    name_user: {
       type: String,
       required: true,
     },
-    puesto: {
+    type_vehicle: {
+      type: String,
+      required: true,
+    },
+    placa: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
+    zone: {
       type: String,
       required: false,
     },
-    estado: {
+    state: {
       type: String,
-      required: false,
+      required: true,
+      default: "ACTIVA",
+      enum: ["ACTIVA", "CANCELADA"],
     },
   },
   { versionKey: false }
