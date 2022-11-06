@@ -100,12 +100,12 @@ const routes = [
         },
       },
       {
-        path: "/scan-point",
-        name: "scan-point",
-        component: () => import("../views/user/ScanPoint.vue"),
+        path: "/puestos-disponibles",
+        name: "puestos-disponibles",
+        component: () => import("../views/AvailablePositions.vue"),
         meta: {
           requiresAuth: false,
-          title: `${TITLE} - Escanear punto`,
+          title: `${TITLE} - Puestos disponibles`,
         },
       },
       {

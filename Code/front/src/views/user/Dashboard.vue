@@ -12,12 +12,12 @@
         </v-card>
       </v-col>
       <v-col cols="12" lg="12" md="12" sm="12">
-        <v-card elevation="4" @click="$router.push('/scan-point')">
+        <v-card elevation="4">
           <v-alert border="top" colored-border type="info" elevation="4">
             <lottie-animation
-              :animationData="welcome"
+              :animationData="require('@/assets/image/car-welcome.json')"
               class="mx-auto botone"
-              style="height: 150px"
+              style="height: 400px"
               ref="anim_user"
               :autoPlay="true"
               id="anim_user"
@@ -32,14 +32,12 @@
   </v-container>
 </template>
 <script>
-import welcomes from "@/assets/image/segurity.json";
 import LottieAnimation from "lottie-web-vue";
 import { current_user } from "@/global";
 
 export default {
   data: () => ({
     name: `${current_user.name} ${current_user.last_name}`,
-    welcome: welcomes,
   }),
   components: {
     LottieAnimation,

@@ -110,7 +110,7 @@
       "icon": "mdi-car",
       "icon_color": "accent",
       "to": {
-        "name": "scan-point"
+        "name": "puestos-disponibles"
       }
     },
     {
