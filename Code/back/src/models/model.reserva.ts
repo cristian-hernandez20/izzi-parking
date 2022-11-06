@@ -3,7 +3,7 @@ mongoose.pluralize(null);
 
 interface Reserva {
   time: String;
-  date: Date;
+  date: String;
   zone: string;
   state: string;
   document_user: Number;
@@ -34,7 +34,7 @@ const ReservaSchema = new Schema<Reserva>(
       required: true,
     },
     date: {
-      type: Date,
+      type: String,
       required: true,
     },
     zone: {

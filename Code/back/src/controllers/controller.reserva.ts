@@ -13,9 +13,9 @@ export const createReserva = async (req: Request, res: Response) => {
   try {
     new ReservaModel(req.body).save((error) => {
       if (error) {
-        res.json({ msg: error });
+        res.json({ msg: "R-002", alert: "error" });
       } else {
-        res.json({ S: "success" });
+        res.json({ S: "R-002", alert: "success" });
       }
     });
   } catch (error) {
@@ -27,6 +27,7 @@ export const editarReserva = async (req: Request, res: Response) => {
     const { id } = req.params;
     const data = req.body;
     const edit = await ReservaModel.updateOne({ _id: id }, data, { runValidators: true });
+
     res.json(edit);
   } catch (error) {
     res.json(error);

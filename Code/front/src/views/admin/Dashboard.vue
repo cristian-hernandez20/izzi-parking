@@ -13,14 +13,14 @@
               </v-card-text>
             </v-card>
           </v-col>
-          <v-col cols="12" lg="12" md="12" sm="12">
+          <v-col cols="12" lg="12" md="12" sm="12" v-if="state_animation">
             <v-card elevation="4" @click="$router.push('/scan-point')">
               <v-alert border="top" colored-border type="info" elevation="4">
-                <h4>Bienvenidos estamos trabajando en algunas funcionalidades</h4>
+                <h1>Bienvenidos estamos trabajando en algunas funcionalidades</h1>
                 <lottie-animation
-                  :animationData="welcome"
+                  :animationData="require('@/assets/image/car-welcome.json')"
                   class="mx-auto botone"
-                  style="height: 150px"
+                  style="height: 400px"
                   ref="anim_user"
                   :autoPlay="true"
                   id="anim_user"
@@ -116,55 +116,70 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import LottieAnimation from "lottie-web-vue";
 import { current_user } from "@/global";
 import { Alert } from "@/mixins/alert";
 import moment from "moment";
 
 export default {
+  components: {
+    LottieAnimation,
+  },
   mixins: [Alert],
-  data: () => ({
-    object_records: {
-      state: false,
-    },
-    focus: "",
-    type: "month",
-    typeToLabel: {
-      month: "Mes",
-      week: "Semana",
-      day: "Dia",
-      "4day": "4 Dias",
-    },
-    selectedEvent: {},
-    selectedElement: null,
-    selectedOpen: false,
-    events: [],
-    colors: ["blue", "indigo", "deep-purple", "cyan", "green", "orange", "grey darken-1"],
-    names: ["Meeting", "Holiday", "PTO", "Travel", "Event", "Birthday", "Conference", "Party"],
-    name: `${current_user.name} ${current_user.last_name}`,
-    zones: [],
-  }),
+  data() {
+    return {
+      state_animation: true,
+      object_records: {
+        state: false,
+      },
+      focus: "",
+      type: "month",
+      typeToLabel: {
+        month: "Mes",
+        week: "Semana",
+        day: "Dia",
+        "4day": "4 Dias",
+      },
+      selectedEvent: {},
+      selectedElement: null,
+      selectedOpen: false,
+      events: [],
+      colors: ["blue", "indigo", "deep-purple", "cyan", "green", "orange", "grey darken-1"],
+      names: ["Meeting", "Holiday", "PTO", "Travel", "Event", "Birthday", "Conference", "Party"],
+      name: `${current_user.name} ${current_user.last_name}`,
+      zones: [],
+    };
+  },
   computed: {
     name_complete() {
       let name = this.name.split(" ");
       name = name.map((p) => p[0].toUpperCase() + p.substring(1));
       return name.join(" ");
     },
-    ...mapGetters({}),
+    ...mapGetters({
+      getReserves: "reserve/getReserves",
+    }),
+  },
+  async created() {
+    await this._getReserves();
+    const a = this.getReserves("reserve");
+    console.log("este es a", a);
+    setTimeout(() => {
+      this.state_animation = false;
+    }, 3000);
   },
   methods: {
-    ...mapActions({}),
+    ...mapActions({
+      _getReserves: "reserve/_getReserves",
+    }),
+
     cancel() {
       this.deletAlert();
-    },
-    redirect() {
-      let name = "enanohpta";
-      window.open(`http://localhost:3000/login/${name}`);
     },
     fib(n) {
       if (n < 20) return 1;
       else return n - 1 + (n - 2);
     },
-
     viewDay({ date }) {
       this.focus = date;
       this.type = "day";
@@ -194,41 +209,32 @@ export default {
       } else {
         open();
       }
-
       nativeEvent.stopPropagation();
     },
     updateRange({ start, end }) {
-      const events = [];
-
-      const min = new Date(`${start.date}T00:00:00`);
-      const max = new Date(`${end.date}T23:59:59`);
-      const days = (max.getTime() - min.getTime()) / 86400000;
-      const eventCount = this.rnd(days, days + 20);
-
-      for (let i = 0; i < eventCount; i++) {
-        const allDay = this.rnd(0, 3) === 0;
-        const firstTimestamp = this.rnd(min.getTime(), max.getTime());
-        const first = new Date(firstTimestamp - (firstTimestamp % 900000));
-        const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
-        const second = new Date(first.getTime() + secondTimestamp);
-
-        events.push({
-          name: this.names[this.rnd(0, this.names.length - 1)],
-          start: first,
-          end: second,
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
-          timed: !allDay,
-        });
-      }
-
-      this.events = events;
+      // const events = [];
+      // const min = new Date(`${start.date}T00:00:00`);
+      // const max = new Date(`${end.date}T23:59:59`);
+      // console.log(min, max);
+      // const days = (max.getTime() - min.getTime()) / 86400000;
+      // const eventCount = this.rnd(days, days + 20);
+      // for (let i = 0; i < eventCount; i++) {
+      //   const first = "2022-11-08";
+      //   const second = "2022-11-07";
+      //   events.push({
+      //     name: this.names[this.rnd(0, this.names.length - 1)],
+      //     start: first,
+      //     end: second,
+      //     color: this.colors[this.rnd(0, this.colors.length - 1)],
+      //     timed: !allDay,
+      //   });
+      // }
+      // this.events = events;
+      // console.log(this.events);
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
     },
-  },
-  created() {
-    this.$refs.calendar.checkChange();
   },
 };
 </script>

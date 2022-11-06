@@ -203,42 +203,13 @@ export default {
         case "Z-042":
           this.body = `Puesto modificado correctamente`;
           break;
-        case "point_1":
-          this.body = `Punto creado exitosamente`;
+        case "R-000":
+          this.body = `Ocurrio un problema, no se pudo registrar reserva`;
           break;
-        case "point_2":
-          this.body = `Punto eliminado correctamente`;
+        case "R-002":
+          this.body = `Reserva registrada correctamente`;
           break;
-        case "point_error_2":
-          this.body = `Error eliminando punto`;
-          break;
-        case "point_0":
-          this.body = `El punto ya existe`;
-          break;
-        case "point_error":
-          this.body = `Error creando punto`;
-          break;
-        case "record_0":
-          this.body = `No existen registros`;
-          break;
-        case "doc_1":
-          this.body = `Número de cédula existe`;
-          break;
-        case "N1":
-          this.body = `Dato ${this.alert.description} correctamente`;
-          break;
-        case "serv_0":
-          this.body = `Error de conexión con el servidor`;
-          break;
-        case "qr_0":
-          this.body = `Registro agregado correctamente`;
-          break;
-        case "qr_1":
-          this.body = `Error leyendo QR`;
-          break;
-        case "qr_2":
-          this.body = `Qr no valido`;
-          break;
+
         default:
           this.body = this.alert.description;
           break;

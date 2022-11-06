@@ -4,7 +4,7 @@ import Vue from "vue";
 Vue.use(Vuex);
 
 import parking from "./modules/parking";
-import reserva from "./modules/reserva";
+import reserva from "./modules/reserve";
 import sesion from "./modules/sesion";
 import record from "./modules/record";
 import user from "./modules/user";

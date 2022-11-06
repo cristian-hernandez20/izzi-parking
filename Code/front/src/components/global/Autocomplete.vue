@@ -1,6 +1,7 @@
 <template>
   <v-autocomplete
     :item-value="field.item_value"
+    :item-text="field.item_text"
     :required="field.required"
     :disabled="field.disabled"
     :messages="field.message"
@@ -20,12 +21,13 @@ export default {
   name: "Combobox",
   props: {
     field: {
-      id: String,
+      item_value: String,
+      item_text: String,
+      disabled: Boolean,
       label: String,
       value: String,
-      disabled: Boolean,
       items: Array,
-      item_value: String,
+      id: String,
       rules: {
         type: Array,
         default: () => false,

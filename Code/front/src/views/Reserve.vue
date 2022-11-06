@@ -16,11 +16,11 @@
           <v-card-text class="primary--text">
             <v-form v-model="validate" ref="form" lazy-validation>
               <v-row justify="center" class="px-5 pt-8">
-                <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0">
-                  <INPUT :field="form.time" />
-                </v-col>
                 <v-col cols="3" md="3" sm="3" xl="3" lg="3" class="py-0">
                   <INPUT :field="form.date" />
+                </v-col>
+                <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0">
+                  <INPUT :field="form.time" />
                 </v-col>
                 <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0">
                   <AUTOCOMPLETE :field="form.type_vehicle" />
@@ -35,9 +35,7 @@
                   <INPUT :field="form.placa" />
                 </v-col>
                 <v-col cols="12" class="pt-1 pb-8 text-center">
-                  <v-btn elevation="0" color="primary" :disabled="!validate" class="botone" @click="registrarUsuario()" large
-                    >Registrar reserva</v-btn
-                  >
+                  <v-btn elevation="0" color="primary" :disabled="!validate" class="botone" @click="registerReserve()" large>Registrar reserva</v-btn>
                 </v-col>
               </v-row>
             </v-form>
@@ -45,6 +43,7 @@
         </v-card>
       </v-col>
     </v-row>
+    <ALERT @confirm="confirm()" @cancel="cancel()" v-if="alert.state" :alert="alert"></ALERT>
   </v-container>
 </template>
 <script>
@@ -81,7 +80,7 @@ export default {
         type_vehicle: {
           value: "",
           id: "type_vehicle",
-          label: "Puestos",
+          label: "Tipo",
           required: true,
           item_value: "text",
           items: [
@@ -95,16 +94,18 @@ export default {
           id: "array_car",
           label: "Puestos",
           required: true,
-          item_value: "text",
+          item_value: "_id",
+          item_text: "name",
           items: [],
           rules: [(v) => !!v || "Obligatorio"],
         },
         array_motorcycle: {
           value: "",
           id: "array_motorcycle",
-          label: "Tipo",
+          label: "Puesto",
           required: true,
-          item_value: "text",
+          item_value: "_id",
+          item_text: "name",
           items: [],
           rules: [(v) => !!v || "Obligatorio"],
         },
@@ -112,7 +113,7 @@ export default {
           value: "",
           id: "placa",
           label: "Placa",
-          maxlength: "30",
+          maxlength: "6",
           rules: [(v) => !!v || "Teléfono es requerido"],
         },
       },
@@ -127,24 +128,52 @@ export default {
   methods: {
     ...mapActions({
       _getReserva: "reserva/_getReserva",
-      _addReserva: "reserva/_addReserva",
+      _postReserve: "reserva/_postReserve",
       _loadZones: "zone/_getZones",
+      _putZone: "zone/_putZone",
     }),
-    async registrarReserva() {
-      const DATA = {
-        hora: this.form.hora,
-        fecha: this.form.fecha,
-        puesto: this.form.puesto,
-        usuario: current_user._id,
-      };
-      let res = await this._addReserva({ DATA });
+    cancel() {
+      this.deletAlert();
     },
+    async registerReserve() {
+      if (this.$refs.form.validate()) {
+        const data_ = {
+          time: this.form.time.value,
+          date: this.form.date.value,
+          zone: this.form.array_car.value || this.form.array_motorcycle.value,
+          document_user: current_user.document,
+          name_user: `${current_user.name} ${current_user.last_name}`,
+          type_vehicle: this.form.type_vehicle.value,
+          placa: this.form.placa.value,
+        };
 
+        const RES = await this._postReserve({ data_ });
+        if (RES.S) {
+          this.sendAlert(RES.S, RES.alert);
+          // this.$refs.form.reset();
+          this.editZone();
+        } else this.sendAlert(RES.msg, RES.alert);
+      }
+    },
+    async editZone() {
+      const data_ = {
+        state: "2",
+      };
+      const _id = this.form.array_car.value || this.form.array_motorcycle.value;
+      console.log(_id, data_);
+      const RES = await this._putZone({ _id, data_ });
+      if (RES.S) {
+        this.sendAlert(RES.S, RES.alert);
+      } else this.sendAlert(RES.msg, RES.alert);
+    },
     async loadZones() {
-      await await this._loadZones();
+      await this._loadZones();
+      this.form.array_motorcycle.items = this.getZone("zone").filter((e) => e.type == 0);
+      this.form.array_car.items = this.getZone("zone").filter((e) => e.type == 1);
     },
   },
   async created() {
+    this.loadZones();
     await this._getReserva();
   },
 };

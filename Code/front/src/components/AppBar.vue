@@ -4,7 +4,7 @@
       <v-spacer></v-spacer>
       <div>
         <lottie-animation
-          :animationData="require('@/assets/image/watchman.json')"
+          :animationData="require('@/assets/image/car-header.json')"
           class="mx-auto mr-2 botone"
           style="height: 50px"
           :autoPlay="true"
@@ -36,12 +36,12 @@
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-subtitle class="text-title">
-                  <v-chip v-if="current_user.level_user == 'ADMIN'" color="secondary">
+                  <v-chip v-if="['ADMIN', 'SP'].includes(current_user.level_user)" color="secondary">
                     ADMINISTRADOR
                     <v-icon color="white" small class="botone ml-2"> mdi-shield-account </v-icon>
                   </v-chip>
                   <v-chip v-else color="primary">
-                    CELADOR
+                    USUARIO
                     <v-icon color="white" small class="botone ml-2"> mdi-account-badge </v-icon>
                   </v-chip>
                 </v-list-item-subtitle>
@@ -72,6 +72,7 @@
                   :class="hover ? `botone ` : null"
                   :elevation="hover ? 24 : 0"
                   class="mr-2 boton botone"
+                  to="config-user"
                   rounded
                   block
                   dark

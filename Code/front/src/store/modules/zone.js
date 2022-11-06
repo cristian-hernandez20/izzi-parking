@@ -50,7 +50,6 @@ export default {
     async _getZones({ commit }) {
       try {
         const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&locations` });
-        console.log(RES);
         if (!RES.msg) {
           return commit("setZoneData_", {
             list: "zone",

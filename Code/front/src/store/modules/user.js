@@ -20,7 +20,7 @@ export default {
         const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `/create&users`, data });
         if (RES?.msg?.keyPattern?.document) return { msg: "doc_1", alert: "error" };
         else if (RES?.msg?.keyPattern?.email) return { msg: "email_1", alert: "error" };
-        else return { S: "user_post", alert: "success" };
+        else return RES;
       } catch (error) {
         console.error("_postUser", error);
       }
