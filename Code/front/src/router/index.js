@@ -54,6 +54,15 @@ const routes = [
           title: `${TITLE} - Admininstrar Puestos`,
         },
       },
+      {
+        path: "/vehiculo",
+        name: "vehiculo",
+        component: () => import("../views/admin/Vehicle.vue"),
+        meta: {
+          requiresAuth: true,
+          title: `${TITLE} - Administrar Vehiculos`,
+        },
+      },
     ],
   },
   {

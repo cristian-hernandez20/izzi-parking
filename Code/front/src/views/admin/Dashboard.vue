@@ -161,6 +161,7 @@ export default {
   },
   async created() {
     await this._getReserves();
+    this.updateRange()
 
     setTimeout(() => {
       this.state_animation = false;

@@ -21,7 +21,7 @@
       "icon": "mdi-car",
       "icon_color": "accent",
       "to": {
-        "name": "/0"
+        "name": "vehiculo"
       }
     },
     {
