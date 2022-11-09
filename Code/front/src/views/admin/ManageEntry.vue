@@ -7,7 +7,7 @@
             <v-card-text class="text-title primary--text mt-0">
               <h2 class="text-start">
                 <v-icon color="primary" class="mb-1">mdi-car-limousine </v-icon>
-                Administración de ingreso
+                Administrar de ingreso
               </h2>
             </v-card-text>
           </v-card>

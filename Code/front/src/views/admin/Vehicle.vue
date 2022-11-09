@@ -7,7 +7,7 @@
             <v-card-text class="text-title primary--text mt-0">
               <h2 class="text-start">
                 <v-icon color="primary" class="mb-1">mdi-car</v-icon>
-                Administración vehiculos
+                Administrar vehículos
               </h2>
             </v-card-text>
           </v-card>
@@ -25,7 +25,7 @@
             solo
           ></v-text-field>
           <v-btn color="primary" class="my-4 botone" dark elevation="10" @click="addVehicle()">
-            Registrar vehiculo
+            Registrar vehículo
             <v-icon class="ml-2">mdi-car</v-icon>
           </v-btn>
         </v-col>

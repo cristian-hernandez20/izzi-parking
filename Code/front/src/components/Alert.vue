@@ -37,7 +37,7 @@
                 </v-col>
                 <v-col cols="6" lg="6" md="6" sm="6" class="py-2 my-0" v-if="btn_cancel">
                   <v-btn color="error" outlined width="110" @click="cancel()" class="botone" ref="btn2">
-                    cancelar
+                    Cancelar
                     <v-icon>mdi-close-circle</v-icon>
                   </v-btn>
                 </v-col>
@@ -122,10 +122,10 @@ export default {
           this.body = "¿Desea eliminar punto de control?";
           break;
         case "delete_point":
-          this.body = `Desea eliminar el punto "${this.alert.description}"`;
+          this.body = `¿Desea eliminar el punto? "${this.alert.description}"`;
           break;
         case "V-005":
-          this.body = "¿Desea eliminar vehiculo?";
+          this.body = "¿Desea eliminar vehículo?";
           break;
         case "out_0":
           this.body = "¿Desea cerrar la sesión?";
@@ -193,13 +193,13 @@ export default {
           this.body = `La contraseña es incorrecta`;
           break;
         case "pass_3":
-          this.body = `La contraseña no fue cambiada, intentelo nuevamente`;
+          this.body = `La contraseña no fue cambiada, inténtelo nuevamente`;
           break;
         case "adress_1":
           this.body = `La dirección o nombre ya existe`;
           break;
         case "Z-000":
-          this.body = `Ocurrio un problema no se pudo crear puesto`;
+          this.body = `Ocurrió un problema, no se pudo crear puesto`;
           break;
         case "Z-001":
           this.body = `El puesto ya existe con este nombre`;
@@ -217,40 +217,40 @@ export default {
           this.body = `Puesto modificado correctamente`;
           break;
         case "R-000":
-          this.body = `Ocurrio un problema, no se pudo registrar reserva`;
+          this.body = `Ocurrió un problema, no se pudo registrar reserva`;
           break;
         case "R-002":
           this.body = `Reserva registrada correctamente`;
           break;
         case "V-000":
-          this.body = `Ocurrio un problema no se pudo registrar el vehiculo`;
+          this.body = `Ocurrió un problema, no se pudo registrar el vehículo`;
           break;
         case "V-001":
-          this.body = `El vehiculo ya existe con esta placa`;
+          this.body = `El vehículo ya existe con esta placa`;
           break;
         case "V-002":
-          this.body = `Vehiculo agregado correctamente`;
+          this.body = `Vehículo agregado correctamente`;
           break;
         case "V-003":
-          this.body = `No se pudo realizar la consulta de vehiculos`;
+          this.body = `No se pudo realizar la consulta de vehículos`;
           break;
         case "V-040":
-          this.body = `No se pudo modificar el vehiculos`;
+          this.body = `No se pudo modificar el vehículo`;
           break;
         case "V-042":
-          this.body = `Vehiculo modificado correctamente`;
+          this.body = `Vehículo modificado correctamente`;
           break;
         case "V-050":
-          this.body = `Vehiculo no se pudo eliminar, intentelo de nuevo`;
+          this.body = `Vehículo no se pudo eliminar, inténtelo de nuevo`;
           break;
         case "V-052":
-          this.body = `Vehiculo eliminado correctamente`;
+          this.body = `Vehículo eliminado correctamente`;
           break;
         case "E-000":
-          this.body = `Ocurrio un problema no se pudo registrar la entrada`;
+          this.body = `Ocurrió un problema, no se pudo registrar la entrada`;
           break;
         case "E-002":
-          this.body = `Entrada agregado correctamente`;
+          this.body = `Entrada agregada correctamente`;
           break;
         case "E-003":
           this.body = `No se pudo realizar la consulta de entradas`;

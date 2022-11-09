@@ -7,7 +7,7 @@
             <v-card-text class="text-title primary--text mt-0">
               <h2 class="text-start">
                 <v-icon color="primary" class="mb-1">mdi-account-circle</v-icon>
-                Perfil > Administra datos de tu cuenta
+                Perfil > Administrar datos de la cuenta
               </h2>
             </v-card-text>
           </v-card>
@@ -43,7 +43,7 @@
                   <v-list-item-title class="text-title"> Apellidos: {{ current_user.last_name }} </v-list-item-title>
                 </v-list-item>
                 <v-list-item class="ml-0">
-                  <v-list-item-title class="text-title"> Telefono: {{ ` ${current_user.phone_number}` }} </v-list-item-title>
+                  <v-list-item-title class="text-title"> Teléfono: {{ ` ${current_user.phone_number}` }} </v-list-item-title>
                 </v-list-item>
                 <v-list-item class="ml-0">
                   <v-list-item-title class="text-title"> Documento: {{ ` ${current_user.document}` }} </v-list-item-title>
