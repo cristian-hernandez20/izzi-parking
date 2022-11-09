@@ -29,7 +29,7 @@ export const editVehiculo = async (req: Request, res: Response) => {
     const data = req.body;
     const edit = await VehiculosModel.updateOne({ _id: id }, data, { runValidators: true });
     if (edit) res.json({ S: "V-042", alert: "success" });
-    else res.json({ S: "V-040", alert: "error" });
+    else res.json({ msg: "V-040", alert: "error" });
   } catch (error) {
     res.json(error);
     console.error(error);
@@ -40,7 +40,8 @@ export const deleteVehiculo = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const data = await VehiculosModel.deleteOne({ _id: id });
-    res.json(data);
+    if (data) res.json({ S: "V-052", alert: "success" });
+    else res.json({ msg: "V-050", alert: "error" });
   } catch (error) {
     res.json(error);
     console.error(error);

@@ -114,6 +114,9 @@ export default {
         case "delete_point":
           this.body = `Desea eliminar el punto "${this.alert.description}"`;
           break;
+        case "V-005":
+          this.body = "¿Desea eliminar vehiculo?";
+          break;
         case "out_0":
           this.body = "¿Desea cerrar la sesión?";
           break;
@@ -226,6 +229,12 @@ export default {
           break;
         case "V-042":
           this.body = `Vehiculo modificado correctamente`;
+          break;
+        case "V-050":
+          this.body = `Vehiculo no se pudo eliminar, intentelo de nuevo`;
+          break;
+        case "V-052":
+          this.body = `Vehiculo eliminado correctamente`;
           break;
         default:
           this.body = this.alert.description;

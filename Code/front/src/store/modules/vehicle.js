@@ -14,7 +14,7 @@ export default {
       state[data.list] = data.res;
     },
     pushVehicle(state, data) {
-      state[data.list].push(data.data);
+      state[data.list].push(data.data_);
     },
     popVehicle(state, data) {
       const indice = state[data.list].map((e) => e._id).indexOf(data._id);
