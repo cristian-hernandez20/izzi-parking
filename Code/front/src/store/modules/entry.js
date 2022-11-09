@@ -4,23 +4,23 @@ import { NEKOT } from "@/global";
 export default {
   namespaced: true,
   state: {
-    vehicle: [],
+    entry: [],
   },
   getters: {
-    getVehicle: (state) => (list) => state[list],
+    getEntry: (state) => (list) => state[list],
   },
   mutations: {
-    _setVehicleData(state, data) {
+    _setEntryData(state, data) {
       state[data.list] = data.res;
     },
-    pushVehicle(state, data) {
+    pushEntry(state, data) {
       state[data.list].push(data.data_);
     },
-    popVehicle(state, data) {
+    popEntry(state, data) {
       const indice = state[data.list].map((e) => e._id).indexOf(data._id);
       state[data.list].splice(indice, 1);
     },
-    editVehicle(state, data) {
+    editEntry(state, data) {
       const indice = state[data.list].map((e) => e._id).indexOf(data._id);
       state[data.list][indice].color = data.data_.color;
       state[data.list][indice].type = data.data_.type;
@@ -28,60 +28,61 @@ export default {
     },
   },
   actions: {
-    async _postVehicle({ commit }, { data_ }) {
+    async _postEntry({ commit }, { data_ }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `/create&vehiculo`, data: data_ });
+        console.log(data_)
+        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `/create&entry`, data: data_ });
         if (RES?.msg?.keyPattern?.placa) return { msg: "V-001", alert: "error" };
         else if (RES?.msg) return { msg: "V-000", alert: "error" };
         else {
-          commit("pushVehicle", { list: "vehicle", data_ });
+          commit("pushEntry", { list: "entry", data_ });
           return RES;
         }
       } catch (error) {
-        console.error("_postVehicle", error);
+        console.error("_postEntry", error);
       }
     },
 
-    async _getVehicles({ commit }) {
+    async _getEntrys({ commit }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&vehiculos` });
+        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&entrys` });
         if (!RES.msg) {
-          return commit("_setVehicleData", {
-            list: "vehicle",
+          return commit("_setEntryData", {
+            list: "entry",
             res: RES,
           });
         } else return { msg: "V-003", alert: "info" };
       } catch (error) {
-        console.error("_getVehicles", error);
+        console.error("_getEntrys", error);
       }
     },
-    async _putVehicle({ commit }, { _id, data_ }) {
+    async _putEntry({ commit }, { _id, data_ }) {
       try {
         const RES = await postData({
-          url: `edit&vehiculo/${_id}`,
+          url: `edit&entry/${_id}`,
           header: { x_token: NEKOT },
           method: "PUT",
           data: data_,
         });
         if (RES.msg) return RES.msg;
         else {
-          commit("editVehicle", { list: "vehicle", data_, _id });
+          commit("editEntry", { list: "entry", data_, _id });
           return RES;
         }
       } catch (error) {
-        console.error("_putVehicle", error);
+        console.error("_putEntry", error);
       }
     },
-    async _deleteVehicle({ commit }, { _id }) {
+    async _deleteEntry({ commit }, { _id }) {
       try {
-        const RES = await postData({ url: `delet&vehiculo/${_id}`, header: { x_token: NEKOT }, method: "DELETE" });
+        const RES = await postData({ url: `delet&entry/${_id}`, header: { x_token: NEKOT }, method: "DELETE" });
         if (RES.msg) return RES.msg;
         else {
-          commit("popVehicle", { list: "vehicle", _id });
+          commit("popEntry", { list: "entry", _id });
           return RES;
         }
       } catch (error) {
-        console.error("_deleteVehicle", error);
+        console.error("_deleteEntry", error);
       }
     },
   },

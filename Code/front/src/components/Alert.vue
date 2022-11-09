@@ -236,6 +236,15 @@ export default {
         case "V-052":
           this.body = `Vehiculo eliminado correctamente`;
           break;
+        case "E-000":
+          this.body = `Ocurrio un problema no se pudo registrar la entrada`;
+          break;
+        case "E-002":
+          this.body = `Entrada agregado correctamente`;
+          break;
+        case "E-003":
+          this.body = `No se pudo realizar la consulta de entradas`;
+          break;
         default:
           this.body = this.alert.description;
           break;

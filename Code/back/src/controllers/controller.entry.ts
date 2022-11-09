@@ -10,6 +10,7 @@ export const getEntrys = async (req: Request, res: Response) => {
   }
 };
 export const createEntry = async (req: Request, res: Response) => {
+  console.log(req.body);
   try {
     new EntryModel(req.body).save((error) => {
       if (error) {

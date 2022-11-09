@@ -3,7 +3,7 @@
     <v-card>
       <v-footer color="primary" height="60">
         <h1 class="white--text mx-auto">
-          {{ `${option.option_text == "save" ? "Registrar cliente" : "Editar cliente"}` }}
+          Registrar ingreso
           <v-icon color="white" size="30">{{ option.icon }}</v-icon>
         </h1>
       </v-footer>
@@ -12,13 +12,22 @@
           <v-form v-model="validate" ref="form" lazy-validation class="mt-10">
             <v-row justify="center" class="px-5">
               <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
-                <INPUT :field="form.color" />
+                <INPUT :field="form.date_init" />
+              </v-col>
+              <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
+                <INPUT :field="form.time_init" />
+              </v-col>
+              <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
+                <INPUT :field="form.date_end" />
+              </v-col>
+              <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
+                <INPUT :field="form.time_end" />
               </v-col>
               <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
                 <INPUT :field="form.placa" />
               </v-col>
               <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
-                <AUTOCOMPLETE :field="form.type_vehicle" />
+                <AUTOCOMPLETE :field="form.puesto" />
               </v-col>
             </v-row>
           </v-form>
@@ -28,8 +37,7 @@
         <v-spacer></v-spacer>
         <div class="mr-5 mb-3">
           <v-btn color="primary" class="botone" @click="option.state = false"> Cancelar </v-btn>
-          <v-btn v-if="option.option_text == 'save'" color="green" class="botone ml-2" dark @click="addVehicle()"> Registrar </v-btn>
-          <v-btn v-else color="green" class="botone ml-2" dark @click="editVehicle()"> Editar </v-btn>
+          <v-btn v-if="option.option_text == 'save'" color="green" class="botone ml-2" dark @click="addEntry()"> Registrar </v-btn>
         </div>
       </v-card-actions>
     </v-card>
@@ -39,8 +47,8 @@
 
 <script>
 import { INPUT, AUTOCOMPLETE } from "../../mixins/global";
+import { mapActions, mapGetters } from "vuex";
 import { Alert } from "@/mixins/alert";
-import { mapActions } from "vuex";
 
 export default {
   mixins: [INPUT, AUTOCOMPLETE, Alert],
@@ -52,6 +60,38 @@ export default {
       validate: false,
       _id: "",
       form: {
+        date_init: {
+          value: "",
+          tipo: "date",
+          id: "date_init",
+          label: "Fecha ingreso",
+          maxlength: "10",
+          rules: [(v) => !!v || "Fecha es requerida"],
+        },
+        time_init: {
+          value: "",
+          tipo: "time",
+          id: "time_init",
+          label: "Hora ingreso",
+          maxlength: "10",
+          rules: [(v) => !!v || "Hora es requerida"],
+        },
+        date_end: {
+          value: "",
+          tipo: "date",
+          id: "date_end",
+          label: "Fecha salida",
+          maxlength: "10",
+          rules: [(v) => !!v || "Fecha es requerida"],
+        },
+        time_end: {
+          value: "",
+          tipo: "time",
+          id: "time_end",
+          label: "Hora salida",
+          maxlength: "10",
+          rules: [(v) => !!v || "Hora es requerida"],
+        },
         placa: {
           value: "",
           tipo: "placa",
@@ -60,79 +100,55 @@ export default {
           maxlength: "6",
           rules: [(v) => !!v || "La placa es requerida"],
         },
-        color: {
+
+        puesto: {
           value: "",
-          tipo: "name",
-          id: "color",
-          label: "Color",
-          maxlength: "50",
-          rules: [(v) => !!v || "Color es requerido"],
-        },
-        type_vehicle: {
-          value: "",
-          id: "type_vehicle",
-          label: "Tipo de vehiculo",
+          id: "puesto",
+          label: "Puestos",
           required: true,
-          item_value: "text",
-          items: [
-            { id: "0", text: "Moto" },
-            { id: "1", text: "Carro" },
-            { id: "3", text: "Camioneta" },
-            { id: "4", text: "Motocarguero" },
-            { id: "4", text: "Bus" },
-            { id: "4", text: "Taxi" },
-          ],
+          item_value: "name",
+          item_text: "name",
+          items: [],
           rules: [(v) => !!v || "Obligatorio"],
         },
       },
     };
   },
   watch: {},
+  computed: {
+    ...mapGetters({ getZone: "zone/getZone" }),
+  },
+  async mounted() {
+    await this._loadZones();
+    this.form.puesto.items = this.getZone("zone").filter((e) => ["0", "1"].includes(e.state));
+    console.log(this.form.puesto.items);
+  },
   methods: {
     ...mapActions({
-      _postVehicle: "vehicle/_postVehicle",
-      _putVehicle: "vehicle/_putVehicle",
+      _postEntry: "entry/_postEntry",
+      _loadZones: "zone/_getZones",
     }),
 
     cancel() {
       this.deletAlert();
       this.option.state = false;
     },
-
-    async editVehicle() {
-      this.deletAlert();
-      const _id = this._id;
+    async addEntry() {
       const data_ = {
-        type: this.form.type_vehicle.value,
+        date_init: this.form.date_init.value,
+        time_init: this.form.time_init.value,
+        date_end: this.form.date_end.value,
+        time_end: this.form.time_end.value,
         placa: this.form.placa.value,
-        color: this.form.color.value,
+        puesto: this.form.puesto.value,
       };
-      let RES = await this._putVehicle({ _id, data_ });
-      if (RES.S) {
-        this.sendAlert(RES.S, RES.alert);
-      } else this.sendAlert(RES.msg, RES.alert);
-    },
-
-    async addVehicle() {
-      const data_ = {
-        type: this.form.type_vehicle.value,
-        placa: this.form.placa.value,
-        color: this.form.color.value,
-      };
-      let RES = await this._postVehicle({ data_ });
+      const RES = await this._postEntry({ data_ });
+      console.log(RES)
       if (RES.S) {
         this.sendAlert(RES.S, RES.alert);
         this.$refs.form.reset();
       } else this.sendAlert(RES.msg, RES.alert);
     },
-  },
-  mounted() {
-    if (this.option.option_text == "edit") {
-      this.form.color.value = this.option.color;
-      this.form.type_vehicle.value = this.option.type;
-      this.form.placa.value = this.option.placa;
-      this._id = this.option._id;
-    }
   },
 };
 </script>

@@ -6,7 +6,7 @@
           <v-card elevation="4">
             <v-card-text class="text-title primary--text mt-0">
               <h2 class="text-start">
-                <v-icon color="primary" class="mb-1">mdi-account-circle </v-icon>
+                <v-icon color="primary" class="mb-1">mdi-car-limousine </v-icon>
                 Administración de ingreso
               </h2>
             </v-card-text>
@@ -24,15 +24,15 @@
             dense
             solo
           ></v-text-field>
-          <v-btn color="primary" class="my-4 botone" dark elevation="10" @click="addVehicle()">
+          <v-btn color="primary" class="my-4 botone" dark elevation="10" @click="addEntry()">
             Registrar ingreso
-            <v-icon class="ml-2">mdi-account-circle </v-icon>
+            <v-icon class="ml-2">mdi-car-limousine </v-icon>
           </v-btn>
         </v-col>
         <v-col cols="12" lg="12" sm="12" md="12">
           <v-data-table
             loading-text="Cargando... Por favor Espere"
-            :items="getVehicle('vehicle')"
+            :items="getEntry('entry')"
             :loading="_stateLoading"
             :items-per-page="5"
             class="elevation-5"
@@ -45,7 +45,7 @@
               </v-chip>
             </template>
             <template v-slot:no-data>
-              <v-btn color="primary" @click="_getVehicles()"> Cargar clientes </v-btn>
+              <v-btn color="primary" @click="_getEntrys()"> Cargar clientes </v-btn>
             </template>
           </v-data-table>
           <v-card-text class="primary--text"> </v-card-text>
@@ -78,41 +78,44 @@ export default {
       confir_delete: false,
       _id: "",
       headers: [
+        { text: "Fecha ingreso", value: "date_init", align: "center" },
+        { text: "Hora ingreso", value: "time_init", align: "center" },
+        { text: "Fecha salida", value: "date_end", align: "center" },
+        { text: "Hora salida", value: "time_end", align: "center" },
         { text: "Placa", value: "placa", align: "center" },
-        { text: "Tipo", value: "type", align: "center" },
-        { text: "Color", align: "center", value: "color" },
+        { text: "Puesto", value: "puesto", align: "center" },
       ],
     };
   },
   computed: {
     ...mapGetters({
       _stateLoading: "_stateLoading",
-      getVehicle: "vehicle/getVehicle",
+      getEntry: "entry/getEntry",
     }),
   },
   mounted() {
-    this._getVehicles();
+    this._getEntrys();
   },
   methods: {
     ...mapActions({
-      _getVehicles: "vehicle/_getVehicles",
-      _deleteVehicle: "vehicle/_deleteVehicle",
+      _getEntrys: "entry/_getEntrys",
+      _deleteEntry: "entry/_deleteEntry",
     }),
     cancel() {
       this.deletAlert();
     },
     confirm() {
-      if (this.confir_delete) this.deleteVehicle();
+      if (this.confir_delete) this.deleteEntry();
     },
     comfirDelete(item) {
       this._id = item._id;
       this.sendAlert("V-005", "warning", null, "P");
       this.confir_delete = true;
     },
-    async deleteVehicle() {
+    async deleteEntry() {
       this.deletAlert();
       const _id = this._id;
-      const RES = await this._deleteVehicle({ _id });
+      const RES = await this._deleteEntry({ _id });
       if (RES.S) {
         setTimeout(() => this.sendAlert(RES.S, RES.alert), 200);
         this.deletAlert();
@@ -120,7 +123,7 @@ export default {
       RES.msg && this.sendAlert(RES.msg, RES.alert);
     },
 
-    editVehicle(item) {
+    editEntry(item) {
       this.option = {
         state: true,
         option_text: "edit",
@@ -131,7 +134,7 @@ export default {
         _id: item._id,
       };
     },
-    addVehicle() {
+    addEntry() {
       this.option = {
         state: true,
         option_text: "save",
