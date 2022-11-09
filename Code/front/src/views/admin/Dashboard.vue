@@ -161,11 +161,9 @@ export default {
   },
   async created() {
     await this._getReserves();
-    this.updateRange()
-
     setTimeout(() => {
       this.state_animation = false;
-    }, 3000);
+    }, 1000);
   },
   methods: {
     ...mapActions({
@@ -212,7 +210,7 @@ export default {
     },
     updateRange({ start, end }) {
       const events = [];
-
+      console.log(this.getReserves("reserve"));
       this.getReserves("reserve").forEach((e, i) => {
         const first = `${e.date} ${e.time}`;
         const second = `${e.date} ${e.time}`;

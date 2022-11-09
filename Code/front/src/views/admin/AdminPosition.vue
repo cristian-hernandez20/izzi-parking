@@ -212,11 +212,11 @@ export default {
       term: "",
     };
   },
-  created() {
+
+  mounted() {
     this._loadStation();
     this._getZones();
   },
-  mounted() {},
   computed: {
     ...mapGetters({ _getStation: "parking/_getStation", getZone: "zone/getZone" }),
   },
@@ -224,7 +224,6 @@ export default {
   created() {
     this._getZones();
   },
-  mounted() {},
   methods: {
     ...mapActions({
       _loadStation: "parking/_loadStation",

@@ -18,17 +18,19 @@ export default {
     },
     editVehicle(state, data) {
       const indice = state[data.list].map((e) => e._id).indexOf(data._id);
-      state[data.list][indice].state = data.data_.state;
+      state[data.list][indice].color = data.data_.color;
+      state[data.list][indice].type = data.data_.type;
+      state[data.list][indice].placa = data.data_.placa;
     },
   },
   actions: {
-    async _postVehicle({ commit }, { data }) {
+    async _postVehicle({ commit }, { data_ }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `add&location`, data });
-        if (RES?.msg?.keyPattern?.name) return { msg: "Z-001" };
-        else if (RES?.msg) return { msg: "Z-000" };
+        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `/create&vehiculo`, data: data_ });
+        if (RES?.msg?.keyPattern?.placa) return { msg: "V-001", alert: "error" };
+        else if (RES?.msg) return { msg: "V-000", alert: "error" };
         else {
-          commit("pushVehicle", { list: "vehicle", data });
+          commit("pushVehicle", { list: "vehicle", data_ });
           return RES;
         }
       } catch (error) {
@@ -39,13 +41,12 @@ export default {
     async _getVehicles({ commit }) {
       try {
         const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&vehiculos` });
-        console.log(RES)
         if (!RES.msg) {
           return commit("_setVehicleData", {
             list: "vehicle",
             res: RES,
           });
-        } else return { msg: "Z-003", alert: "info" };
+        } else return { msg: "V-003", alert: "info" };
       } catch (error) {
         console.error("_getVehicles", error);
       }
@@ -53,7 +54,7 @@ export default {
     async _putVehicle({ commit }, { _id, data_ }) {
       try {
         const RES = await postData({
-          url: `editar&location/${_id}`,
+          url: `edit&vehiculo/${_id}`,
           header: { x_token: NEKOT },
           method: "PUT",
           data: data_,

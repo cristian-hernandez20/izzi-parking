@@ -2,7 +2,7 @@
   <v-card style="height: 100%">
     <v-img :src="require('../assets/image/fondo.jpg')" style="height: 100%" class="mx-auto" disabled>
       <v-hover v-slot="{ hover }" open-delay="100">
-        <v-card :elevation="hover ? 12 : 10" :loading="_stateLoading" class="mx-auto my-8" width="400" shaped>
+        <v-card :elevation="hover ? 12 : 10" :loading="_stateLoading" class="mx-auto my-16" width="400" shaped>
           <v-card-text class="mt-0 text-title">
             <h1 class="primary--text text-center">Iniciar sesión</h1>
           </v-card-text>

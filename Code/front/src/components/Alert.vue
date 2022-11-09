@@ -209,7 +209,24 @@ export default {
         case "R-002":
           this.body = `Reserva registrada correctamente`;
           break;
-
+        case "V-000":
+          this.body = `Ocurrio un problema no se pudo registrar el vehiculo`;
+          break;
+        case "V-001":
+          this.body = `El vehiculo ya existe con esta placa`;
+          break;
+        case "V-002":
+          this.body = `Vehiculo agregado correctamente`;
+          break;
+        case "V-003":
+          this.body = `No se pudo realizar la consulta de vehiculos`;
+          break;
+        case "V-040":
+          this.body = `No se pudo modificar el vehiculos`;
+          break;
+        case "V-042":
+          this.body = `Vehiculo modificado correctamente`;
+          break;
         default:
           this.body = this.alert.description;
           break;

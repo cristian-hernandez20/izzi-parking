@@ -2,20 +2,20 @@ import mongoose, { Schema, model, mongo } from "mongoose";
 mongoose.pluralize(null);
 
 interface Vehiculos {
-  tipo: string;
+  type: string;
   placa: String;
   color: String;
 }
 const VehiculosSchema = new Schema<Vehiculos>(
   {
-    tipo: {
+    type: {
       type: String,
       required: true,
     },
     placa: {
       type: String,
       required: true,
-      unique:true
+      unique: true,
     },
     color: {
       type: String,
