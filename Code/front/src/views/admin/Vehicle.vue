@@ -104,7 +104,13 @@ export default {
   methods: {
     ...mapActions({
       _getVehicles: "vehicle/_getVehicles",
+      _deleteVehicle: "vehicle/_deleteVehicle",
     }),
+    async deleteVehicle(item) {
+      const _id = item._id;
+      const RES = await this._deleteVehicle({ _id });
+      console.log(RES);
+    },
 
     editVehicle(item) {
       this.option = {

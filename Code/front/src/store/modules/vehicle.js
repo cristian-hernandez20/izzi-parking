@@ -16,6 +16,10 @@ export default {
     pushVehicle(state, data) {
       state[data.list].push(data.data);
     },
+    popVehicle(state, data) {
+      const indice = state[data.list].map((e) => e._id).indexOf(data._id);
+      state[data.list].splice(indice, 1);
+    },
     editVehicle(state, data) {
       const indice = state[data.list].map((e) => e._id).indexOf(data._id);
       state[data.list][indice].color = data.data_.color;
@@ -68,12 +72,16 @@ export default {
         console.error("_putVehicle", error);
       }
     },
-    async deleteVehicle_({ commit }, { vehicle }) {
+    async _deleteVehicle({ commit }, { _id }) {
       try {
-        const RES = await postData({ url: `vehicle/${vehicle}`, header: { x_token: NEKOT }, method: "DELETE" });
-        return RES;
+        const RES = await postData({ url: `delet&vehiculo/${_id}`, header: { x_token: NEKOT }, method: "DELETE" });
+        if (RES.msg) return RES.msg;
+        else {
+          commit("popVehicle", { list: "vehicle", _id });
+          return RES;
+        }
       } catch (error) {
-        console.error("deleteVehicle_", error);
+        console.error("_deleteVehicle", error);
       }
     },
   },
