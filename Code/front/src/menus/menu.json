@@ -60,7 +60,7 @@
       "icon": "mdi-account-group",
       "icon_color": "accent",
       "to": {
-        "name": "/4"
+        "name": "cliente"
       }
     },
     {
@@ -68,7 +68,7 @@
       "icon": "mdi-arrow-right-circle-outline",
       "icon_color": "accent",
       "to": {
-        "name": "/1"
+        "name": "ingreso"
       }
     },
     {
@@ -76,7 +76,7 @@
       "icon": "mdi-car-cog",
       "icon_color": "accent",
       "to": {
-        "name": "/2"
+        "name": "ingreso-admin"
       }
     }
   ],

@@ -51,7 +51,7 @@
             </template>
             <template v-slot:[`item.actions`]="{ item }">
               <v-icon small class="mr-2" @click="editVehicle(item)"> mdi-pencil </v-icon>
-              <v-icon small @click="deleteVehicle(item)" color="red"> mdi-delete </v-icon>
+              <v-icon small @click="comfirDelete(item)" color="red"> mdi-delete </v-icon>
             </template>
             <template v-slot:no-data>
               <v-btn color="primary" @click="_getVehicles()"> Cargar tareas </v-btn>
@@ -84,6 +84,8 @@ export default {
         option_text: "Registrar vehiculo",
         icon: "mdi-car-plus",
       },
+      confir_delete: false,
+      _id: "",
       headers: [
         { text: "Placa", value: "placa", align: "center" },
         { text: "Tipo", value: "type", align: "center" },
@@ -104,7 +106,29 @@ export default {
   methods: {
     ...mapActions({
       _getVehicles: "vehicle/_getVehicles",
+      _deleteVehicle: "vehicle/_deleteVehicle",
     }),
+    cancel() {
+      this.deletAlert();
+    },
+    confirm() {
+      if (this.confir_delete) this.deleteVehicle();
+    },
+    comfirDelete(item) {
+      this._id = item._id;
+      this.sendAlert("V-005", "warning", null, "P");
+      this.confir_delete = true;
+    },
+    async deleteVehicle() {
+      this.deletAlert();
+      const _id = this._id;
+      const RES = await this._deleteVehicle({ _id });
+      if (RES.S) {
+        setTimeout(() => this.sendAlert(RES.S, RES.alert), 200);
+        this.deletAlert();
+      }
+      RES.msg && this.sendAlert(RES.msg, RES.alert);
+    },
 
     editVehicle(item) {
       this.option = {

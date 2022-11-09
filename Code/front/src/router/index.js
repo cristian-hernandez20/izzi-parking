@@ -63,6 +63,33 @@ const routes = [
           title: `${TITLE} - Administrar Vehiculos`,
         },
       },
+      {
+        path: "/cliente",
+        name: "cliente",
+        component: () => import("../views/admin/Client.vue"),
+        meta: {
+          requiresAuth: true,
+          title: `${TITLE} - Administrar clientes`,
+        },
+      },
+      {
+        path: "/ingreso",
+        name: "ingreso",
+        component: () => import("../views/admin/Entry.vue"),
+        meta: {
+          requiresAuth: true,
+          title: `${TITLE} - Registrar ingreso`,
+        },
+      },
+      {
+        path: "/ingreso-admin",
+        name: "ingreso-admin",
+        component: () => import("../views/admin/ManageEntry.vue"),
+        meta: {
+          requiresAuth: true,
+          title: `${TITLE} - Administrar ingresos`,
+        },
+      },
     ],
   },
   {

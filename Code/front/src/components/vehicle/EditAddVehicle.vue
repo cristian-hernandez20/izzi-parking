@@ -133,7 +133,6 @@ export default {
       this.form.placa.value = this.option.placa;
       this._id = this.option._id;
     }
-    // else this.form = Object.assign({}, this.form_default);
   },
 };
 </script>
