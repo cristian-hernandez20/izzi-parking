@@ -54,7 +54,9 @@
 <script>
 import { INPUT, AUTOCOMPLETE } from "../../mixins/global";
 import { mapActions, mapGetters } from "vuex";
+import { printComanda } from "../../pdf/index";
 import { Alert } from "@/mixins/alert";
+import { current_user } from "@/global";
 
 export default {
   mixins: [INPUT, AUTOCOMPLETE, Alert],
@@ -137,7 +139,21 @@ export default {
 
     cancel() {
       this.deletAlert();
-      this.option.state = false;
+      setTimeout(() => this.sendAlert("pdf-c", "info", "", "P"), 200);
+    },
+    confirm() {
+      const data = {
+        date_init: this.form.date_init.value,
+        time_init: this.form.time_init.value,
+        date_end: this.form.date_end.value,
+        time_end: this.form.time_end.value,
+        placa: this.form.placa.value,
+        puesto: this.form.puesto.value,
+        name: `${current_user.name} ${current_user.last_name}`,
+      };
+      printComanda(data);
+      this.$refs.form.reset();
+      this.deletAlert();
     },
     async addEntry() {
       const data_ = {
@@ -152,7 +168,6 @@ export default {
       console.log(RES);
       if (RES.S) {
         this.sendAlert(RES.S, RES.alert);
-        this.$refs.form.reset();
       } else this.sendAlert(RES.msg, RES.alert);
     },
   },

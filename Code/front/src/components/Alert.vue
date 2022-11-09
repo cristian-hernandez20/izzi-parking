@@ -16,20 +16,27 @@
                 </v-col>
                 <v-col cols="12" lg="12" md="12" sm="12" v-if="!btn_cancel" class="mx-auto py-0 my-0">
                   <v-card-actions class="mx-0">
-                    <v-btn ref="btn3" @click="cancel" class="botone mx-auto" :color="color" outlined
+                    <v-btn ref="btn3" @click="cancel()" class="botone mx-auto" :color="color" outlined
                       >cerrar
                       <v-icon :color="color" dark translate="true" class="ml-2">fa-circle-xmark</v-icon>
                     </v-btn>
                   </v-card-actions>
                 </v-col>
                 <v-col cols="6" lg="6" md="6" sm="6" class="py-2 my-0" v-if="btn_cancel">
-                  <v-btn ref="btn1" outlined color="success" width="110" class="botone ml-md-13 ml-sm-10" @click="confirm">
+                  <v-btn
+                    ref="btn1"
+                    outlined
+                    color="success"
+                    width="110"
+                    class="botone ml-md-13 ml-sm-10"
+                    @click="confirm"
+                  >
                     Aceptar
                     <v-icon>mdi-check</v-icon>
                   </v-btn>
                 </v-col>
                 <v-col cols="6" lg="6" md="6" sm="6" class="py-2 my-0" v-if="btn_cancel">
-                  <v-btn color="error" outlined width="110" @click="cancel" class="botone" ref="btn2">
+                  <v-btn color="error" outlined width="110" @click="cancel()" class="botone" ref="btn2">
                     cancelar
                     <v-icon>mdi-close-circle</v-icon>
                   </v-btn>
@@ -98,6 +105,9 @@ export default {
           break;
         case "pdf":
           this.body = `¿Generar Impresión Formato PDF?`;
+          break;
+        case "pdf-c":
+          this.body = `¿Quiere generar ticket?`;
           break;
         case "csv":
           this.body = `¿Generar Impresión Formato CSV?`;
