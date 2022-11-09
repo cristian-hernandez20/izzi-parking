@@ -3,7 +3,7 @@
     <v-card>
       <v-footer color="primary" height="60">
         <h1 class="white--text mx-auto">
-          {{ `${option.option_text == "save" ? "Registrar vehiculo" : "Editar vehiculo"}` }}
+          {{ `${option.option_text == "save" ? "Registrar cliente" : "Editar cliente"}` }}
           <v-icon color="white" size="30">{{ option.icon }}</v-icon>
         </h1>
       </v-footer>

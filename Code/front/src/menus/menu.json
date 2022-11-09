@@ -56,28 +56,28 @@
       ]
     },
     {
-      "text": "Clientes",
-      "icon": "mdi-account-group",
-      "icon_color": "accent",
-      "to": {
-        "name": "cliente"
-      }
-    },
-    {
-      "text": "Ingreso",
-      "icon": "mdi-arrow-right-circle-outline",
-      "icon_color": "accent",
-      "to": {
-        "name": "ingreso"
-      }
-    },
-    {
-      "text": "Parqueos",
+      "text": "Gestion de ingreso",
       "icon": "mdi-car-cog",
       "icon_color": "accent",
-      "to": {
-        "name": "ingreso-admin"
-      }
+      "sub": [
+        {
+          "text": "Ingreso",
+          "icon": "mdi-arrow-right-circle-outline",
+          "icon_color": "accent",
+          "to": {
+            "name": "ingreso"
+          }
+        },
+
+        {
+          "text": "Administrar ingresos",
+          "icon": "mdi-car-cog",
+          "icon_color": "accent",
+          "to": {
+            "name": "ingreso-admin"
+          }
+        }
+      ]
     }
   ],
   "menu_user": [

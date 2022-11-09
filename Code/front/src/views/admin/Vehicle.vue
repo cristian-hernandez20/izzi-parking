@@ -15,7 +15,7 @@
         <v-col cols="12" lg="12" sm="12" md="12">
           <v-text-field
             append-icon="mdi-text-search-variant"
-            label="Buscar tarea"
+            label="Buscar vehiculo"
             class="elevation-6"
             v-model="search"
             maxlength="30"
@@ -54,7 +54,7 @@
               <v-icon small @click="comfirDelete(item)" color="red"> mdi-delete </v-icon>
             </template>
             <template v-slot:no-data>
-              <v-btn color="primary" @click="_getVehicles()"> Cargar tareas </v-btn>
+              <v-btn color="primary" @click="_getVehicles()"> Cargar vehiculos </v-btn>
             </template>
           </v-data-table>
           <v-card-text class="primary--text"> </v-card-text>
