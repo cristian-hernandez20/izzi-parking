@@ -56,7 +56,7 @@ import { INPUT, AUTOCOMPLETE } from "../../mixins/global";
 import { mapActions, mapGetters } from "vuex";
 import { printComanda } from "../../pdf/index";
 import { Alert } from "@/mixins/alert";
-import { current_user } from "@/global";
+import { current_user, imageBase64_ } from "@/global";
 
 export default {
   mixins: [INPUT, AUTOCOMPLETE, Alert],
@@ -144,7 +144,7 @@ export default {
         this.print = false;
       }
     },
-    confirm() {
+    async confirm() {
       const data = {
         date_init: this.form.date_init.value,
         time_init: this.form.time_init.value,
@@ -154,8 +154,10 @@ export default {
         puesto: this.form.puesto.value,
         name: `${current_user.name} ${current_user.last_name}`,
       };
-      printComanda(data);
-      this.$refs.form.reset();
+      let image = await imageBase64_(require("../../assets/image/Logo.jpeg"));
+      console.log(image);
+      printComanda(data, image);
+      // this.$refs.form.reset();
       this.deletAlert();
     },
     async addEntry() {

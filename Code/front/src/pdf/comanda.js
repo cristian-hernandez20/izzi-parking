@@ -4,7 +4,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import moment from "moment";
 
 let structureImage = (image) => {
-  let format = { width: "13%", margin: [0, 2, 0, 2], alignment: "start" };
+  let format = { width: "13%", margin: [-30, -20, 0, 2], alignment: "start"};
   if (!image) format.stack = [{ text: "" }];
   else {
     format.fit = [50, 50];
@@ -30,17 +30,21 @@ let formatItem = (item) => {
   ];
 };
 
-export default function (items, info_print, logo) {
-  console.log(items);
+export default function (items, logo) {
+  console.log(items, logo);
   return new Promise((resolve) => {
     var dd = {
+      pageSize: {
+        width: 300,
+        height: 500,
+      },
       info: {
         title: "Ticket",
         author: "eonia",
         subject: "Informacion de parqueo",
         keywords: "keywords for document",
       },
-      pageMargins: [200, 95, 20, 60],
+      pageMargins: [70, 80, 10, 10],
       header: function (currentPage, pageCount, pageSize) {
         var width_page = pageSize.width - 40;
 
@@ -49,11 +53,12 @@ export default function (items, info_print, logo) {
           stack: [
             {
               columns: [
+                structureImage(logo),
                 {
-                  margin: [200, 20, 0, 0],
+                  margin: [20, 20, 0, 0],
                   stack: [{ text: "IZZI PARKING" }],
+                  fontSize: 20,
                   width: "100%",
-                  fontSize: 30,
                 },
               ],
             },
@@ -108,11 +113,12 @@ function llenarFormato(item) {
       marginTop: 15,
       columns: [
         {
+          fontSize: 9,
           table: {
             widths: ["30%", "35%", "35%"],
             body: [
               [
-                { text: " Encargado:", bold: true, border: [false, false, false, false] },
+                { text: "Encargado:", bold: true, border: [false, false, false, false] },
 
                 { text: item.name, border: [false, false, false, false] },
               ],
@@ -141,6 +147,7 @@ function llenarFormato(item) {
       marginTop: 15,
       columns: [
         {
+          fontSize: 9,
           table: {
             widths: ["30%", "35%", "35%"],
             body: [
@@ -161,10 +168,15 @@ function llenarFormato(item) {
                 { text: " Puesto", bold: true, border: [false, false, false, false] },
                 { text: item.puesto, border: [false, false, false, false] },
               ],
-              // [
-              //   { text: " Cedula:", bold: true, border: [false, false, false, false] },
-              //   { text: "412121836", border: [false, false, false, false] },
-              // ],
+
+              [
+                { text: " Tarifa:", bold: true, border: [false, false, false, false] },
+                { text: "Moto : 2500$-H-F ", border: [false, false, false, false] },
+              ],
+              [
+                { text: " Tarifa:", bold: true, border: [false, false, false, false] },
+                { text: "Carro :4000$xH-F ", border: [false, false, false, false] },
+              ],
             ],
           },
 
@@ -176,12 +188,13 @@ function llenarFormato(item) {
       marginTop: 15,
       columns: [
         {
+          fontSize: 5 ,
           table: {
             widths: ["68%"],
             body: [
               [
                 {
-                  text: " IZZI PARKING NO SE HACE RESPONSABLE POR DAÑOS O PERDIDAS CAUSADS POR MOTIN,INCENDIO,TERREMOTO,ATRAACOS, Y DEMAS PENDEJADAS QUE SE LE OCURRA >:v ",
+                  text: " IZZI PARKING NO SE HACE RESPONSABLE POR DAÑOS O PERDIDAS CAUSADS POR MOTIN,INCENDIO,TERREMOTO,ATRACOS ETC... ",
                   alignment: "center",
                   bold: true,
                   border: [false, false, false, false],
