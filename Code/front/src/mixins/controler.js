@@ -13,7 +13,7 @@ export const controller = {
           break;
         case 27:
           if (indice === 0) func1;
-          else this.$refs[`${keys[indice - 1]}`].focus();
+          else this.$refs[`${keys[indice - 1]}`].focus(); 
           break;
       }
     },
