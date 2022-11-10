@@ -90,7 +90,7 @@ export default {
         { text: "Placa", value: "placa", align: "center" },
         { text: "Tipo", value: "type", align: "center" },
         { text: "Color", align: "center", value: "color" },
-        { text: "Actions", value: "actions", sortable: false },
+        { text: "Opción", value: "actions", sortable: false },
       ],
     };
   },

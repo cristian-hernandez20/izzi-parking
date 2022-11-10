@@ -38,7 +38,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <div class="mr-5 mb-3">
+              <div class="mr-12 mb-3">
                 <v-btn color="primary" class="botone" @click="option.state = false"> Cancelar </v-btn>
                 <v-btn color="green" class="botone ml-2" dark @click="addEntry()"> Registrar </v-btn>
               </div>
@@ -67,6 +67,7 @@ export default {
     return {
       validate: false,
       _id: "",
+      print: false,
       form: {
         date_init: {
           value: "",
@@ -129,7 +130,6 @@ export default {
   async mounted() {
     await this._loadZones();
     this.form.puesto.items = this.getZone("zone").filter((e) => ["0", "1"].includes(e.state));
-    console.log(this.form.puesto.items);
   },
   methods: {
     ...mapActions({
@@ -139,7 +139,10 @@ export default {
 
     cancel() {
       this.deletAlert();
-      setTimeout(() => this.sendAlert("pdf-c", "info", "", "P"), 200);
+      if (this.print) {
+        setTimeout(() => this.sendAlert("pdf-c", "info", "", "P"), 200);
+        this.print = false;
+      }
     },
     confirm() {
       const data = {
@@ -165,8 +168,8 @@ export default {
         puesto: this.form.puesto.value,
       };
       const RES = await this._postEntry({ data_ });
-      console.log(RES);
       if (RES.S) {
+        this.print = true;
         this.sendAlert(RES.S, RES.alert);
       } else this.sendAlert(RES.msg, RES.alert);
     },

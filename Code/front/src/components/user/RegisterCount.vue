@@ -162,6 +162,7 @@ export default {
       };
       if (validate) {
         const RES = await this._registerUser({ data });
+        console.log(RES);
         if (RES.S) {
           this.$refs.form.reset();
           this.sendAlert(RES.S, RES.alert);

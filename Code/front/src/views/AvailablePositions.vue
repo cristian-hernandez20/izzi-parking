@@ -13,9 +13,9 @@
             </v-card>
           </v-col>
           <v-col cols="2" lg="2" sm="2" md="2">
-            <v-card class="ma-2 text-title" dark width="80" close color="red" label text-color="white">
+            <v-card class="ma-2 text-title" dark width="120" close color="red" label text-color="white">
               <v-icon left> mdi-close-octagon </v-icon>
-              Uso.
+              Ocupado
             </v-card>
           </v-col>
           <v-col cols="2" lg="2" sm="2" md="2">

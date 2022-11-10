@@ -68,11 +68,11 @@
             <v-list-item>
               <v-hover v-slot="{ hover }" open-delay="60">
                 <v-btn
+                  @click="$router.push('/config-user')"
                   :color="hover ? 'accent' : 'primary'"
                   :class="hover ? `botone ` : null"
                   :elevation="hover ? 24 : 0"
                   class="mr-2 boton botone"
-                  to="config-user"
                   rounded
                   block
                   dark

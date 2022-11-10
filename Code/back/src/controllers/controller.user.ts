@@ -36,7 +36,7 @@ export const createUser = async (req: Request, res: Response) => {
       if (error) {
         res.json({ msg: error });
       } else {
-        res.json({ S: "success" });
+        res.json({ S: "user_post", alert: "success" });
       }
     });
   } catch (error) {

@@ -23,14 +23,7 @@
                   </v-card-actions>
                 </v-col>
                 <v-col cols="6" lg="6" md="6" sm="6" class="py-2 my-0" v-if="btn_cancel">
-                  <v-btn
-                    ref="btn1"
-                    outlined
-                    color="success"
-                    width="110"
-                    class="botone ml-md-13 ml-sm-10"
-                    @click="confirm"
-                  >
+                  <v-btn ref="btn1" outlined color="success" width="110" class="botone ml-md-13 ml-sm-10" @click="confirm">
                     Aceptar
                     <v-icon>mdi-check</v-icon>
                   </v-btn>
