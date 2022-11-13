@@ -4,10 +4,10 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import moment from "moment";
 
 let structureImage = (image) => {
-  let format = { width: "13%", margin: [-30, -20, 0, 2], alignment: "start"};
+  let format = { width: "12%", margin: [-60, -30, 0, 2], alignment: "start"};
   if (!image) format.stack = [{ text: "" }];
   else {
-    format.fit = [50, 50];
+    format.fit = [100, 100];
     format.image = image;
   }
 
@@ -34,6 +34,7 @@ export default function (items, logo) {
   console.log(items, logo);
   return new Promise((resolve) => {
     var dd = {
+      watermark:{text:"IZZI PARKING", color:'black', opacity:0.2,},
       pageSize: {
         width: 300,
         height: 500,
@@ -152,9 +153,9 @@ function llenarFormato(item) {
             widths: ["30%", "35%", "35%"],
             body: [
               [
-                { text: " Tipo veh.:", bold: true, border: [false, false, false, false] },
+                { text: " Tipo veh:", bold: true, border: [false, false, false, false] },
 
-                { text: "MOTOS", border: [false, false, false, false] },
+                { text: item.type_vehiculo, border: [false, false, false, false] },
               ],
               // [
               //   { text: " Marca:", bold: true, border: [false, false, false, false] },
