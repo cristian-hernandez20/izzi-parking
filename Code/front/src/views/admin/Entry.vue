@@ -30,7 +30,7 @@
                       <INPUT :field="form.placa" />
                     </v-col>
                     <v-col cols="12" md="2" sm="2" xl="2" lg="2" class="py-0">
-                      <INPUT :field="form.type_vehiculo" />
+                      <INPUT :field="form.type_vehicle" />
                     </v-col>
                     
                     <v-col cols="12" md="2" sm="2" xl="2" lg="2" class="py-0">
@@ -114,10 +114,10 @@ export default {
           rules: [(v) => !!v || "La placa es requerida"],
         },
 
-        type_vehiculo: {
+        type_vehicle: {
           value: "",
-          tipo: "type_vehiculo",
-          id: "type_vehiculo",
+          tipo: "type_vehicle",
+          id: "type_vehicle",
           label: "Tipo vehiculo",
           maxlength: "5",
           rules: [(v) => !!v || "El vehiculo es requerido"],
@@ -165,7 +165,7 @@ export default {
         time_end: this.form.time_end.value,
         placa: this.form.placa.value,
         puesto: this.form.puesto.value,
-        type_vehiculo: this.form.type_vehiculo.value,
+        type_vehicle: this.form.type_vehicle.value,
         name: `${current_user.name} ${current_user.last_name}`,
       };
       let image = await imageBase64_(require("../../assets/image/Logo.jpeg"));
@@ -181,7 +181,7 @@ export default {
         date_end: this.form.date_end.value,
         time_end: this.form.time_end.value,
         placa: this.form.placa.value,
-        type_vehiculo: this.form.type_vehiculo.value,
+        type_vehicle: this.form.type_vehicle.value,
         puesto: this.form.puesto.value,
       };
       const RES = await this._postEntry({ data_ });

@@ -83,7 +83,7 @@ export default {
         { text: "Fecha salida", value: "date_end", align: "center" },
         { text: "Hora salida", value: "time_end", align: "center" },
         { text: "Placa", value: "placa", align: "center" },
-        { text: "Tipo vehiculo", value: "type_vehiculo", align: "center" },
+        { text: "Tipo vehiculo", value: "type_vehicle", align: "center" },
         { text: "Puesto", value: "puesto", align: "center" },
       ],
     };
