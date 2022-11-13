@@ -221,10 +221,6 @@ export default {
     ...mapGetters({ _getStation: "parking/_getStation", getZone: "zone/getZone" }),
   },
   watch: {},
-  created() {
-    this._getZones();
-  },
-
   methods: {
     ...mapActions({
       _loadStation: "parking/_loadStation",

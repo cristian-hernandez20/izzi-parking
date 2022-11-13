@@ -3,11 +3,11 @@ import { LocationModel } from "../models/model.location";
 
 export const addLocation = async (req: Request, res: Response) => {
   try {
-    new LocationModel(req.body).save((error) => {
+    new LocationModel(req.body).save((error, savedObj) => {
       if (error) {
         res.json({ msg: error });
       } else {
-        res.json({ S: "Z-002", alert: "success" });
+        res.json({ S: "Z-002", alert: "success", data: savedObj });
       }
     });
   } catch (error) {}

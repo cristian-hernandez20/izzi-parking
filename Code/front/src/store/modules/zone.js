@@ -14,6 +14,7 @@ export default {
       state[data.list] = data.res;
     },
     pushZone(state, data) {
+      console.log(data);
       state[data.list].push(data.data);
     },
     editZone(state, data) {
@@ -28,7 +29,7 @@ export default {
         if (RES?.msg?.keyPattern?.name) return { msg: "Z-001" };
         else if (RES?.msg) return { msg: "Z-000" };
         else {
-          commit("pushZone", { list: "zone", data });
+          commit("pushZone", { list: "zone", data: RES.data });
           return RES;
         }
       } catch (error) {
