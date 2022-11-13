@@ -32,7 +32,6 @@
                     <v-col cols="12" md="2" sm="2" xl="2" lg="2" class="py-0">
                       <INPUT :field="form.type_vehiculo" />
                     </v-col>
-                    
                     <v-col cols="12" md="2" sm="2" xl="2" lg="2" class="py-0">
                       <AUTOCOMPLETE :field="form.puesto" />
                     </v-col>
