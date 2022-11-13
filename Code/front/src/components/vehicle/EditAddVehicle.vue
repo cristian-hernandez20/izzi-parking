@@ -12,13 +12,10 @@
           <v-form v-model="validate" ref="form" lazy-validation class="mt-10">
             <v-row justify="center" class="px-5">
               <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
-                <INPUT :field="form.color" />
+                <INPUT :field="form.type" />
               </v-col>
               <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
-                <INPUT :field="form.placa" />
-              </v-col>
-              <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
-                <AUTOCOMPLETE :field="form.type_vehicle" />
+                <INPUT :field="form.fare" />
               </v-col>
             </v-row>
           </v-form>
@@ -39,6 +36,7 @@
 
 <script>
 import { INPUT, AUTOCOMPLETE } from "../../mixins/global";
+import { cleanForm_ } from "../../global";
 import { Alert } from "@/mixins/alert";
 import { mapActions } from "vuex";
 
@@ -52,37 +50,20 @@ export default {
       validate: false,
       _id: "",
       form: {
-        placa: {
+        type: {
           value: "",
-          tipo: "placa",
+          tipo: "type",
           id: "placa",
-          label: "Placa",
-          maxlength: "6",
-          rules: [(v) => !!v || "La placa es requerida"],
-        },
-        color: {
-          value: "",
-          tipo: "name",
-          id: "color",
-          label: "Color",
-          maxlength: "50",
-          rules: [(v) => !!v || "Color es requerido"],
-        },
-        type_vehicle: {
-          value: "",
-          id: "type_vehicle",
           label: "Tipo de vehiculo",
-          required: true,
-          item_value: "text",
-          items: [
-            { id: "0", text: "Moto" },
-            { id: "1", text: "Carro" },
-            { id: "3", text: "Camioneta" },
-            { id: "4", text: "Motocarguero" },
-            { id: "4", text: "Bus" },
-            { id: "4", text: "Taxi" },
-          ],
-          rules: [(v) => !!v || "Obligatorio"],
+          maxlength: "30",
+          rules: [(v) => !!v || "Tipo de vehiculo es requerido"],
+        },
+        fare: {
+          value: "",
+          id: "fare",
+          label: "Tarifa hora",
+          maxlength: "20",
+          rules: [(v) => !!v || "Tarifa es requerida"],
         },
       },
     };
@@ -103,9 +84,8 @@ export default {
       this.deletAlert();
       const _id = this._id;
       const data_ = {
-        type: this.form.type_vehicle.value,
-        placa: this.form.placa.value,
-        color: this.form.color.value,
+        type: this.form.type.value,
+        fare: this.form.fare.value,
       };
       let RES = await this._putVehicle({ _id, data_ });
       if (RES.S) {
@@ -115,12 +95,12 @@ export default {
 
     async addVehicle() {
       const data_ = {
-        type: this.form.type_vehicle.value,
-        placa: this.form.placa.value,
-        color: this.form.color.value,
+        type: this.form.type.value,
+        fare: this.form.fare.value,
       };
       let RES = await this._postVehicle({ data_ });
       if (RES.S) {
+        cleanForm_(this.form);
         this.sendAlert(RES.S, RES.alert);
         this.$refs.form.reset();
       } else this.sendAlert(RES.msg, RES.alert);
@@ -128,9 +108,9 @@ export default {
   },
   mounted() {
     if (this.option.option_text == "edit") {
-      this.form.color.value = this.option.color;
-      this.form.type_vehicle.value = this.option.type;
-      this.form.placa.value = this.option.placa;
+      this.form.type.value = this.option.type;
+      this.form.fare.value = this.option.fare;
+
       this._id = this.option._id;
     }
   },

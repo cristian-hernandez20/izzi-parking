@@ -3,14 +3,12 @@ import IMask from "imask";
 export function formarNumber_(val = 0, scale = 0) {
   let mask = IMask.createMask({
     mask: Number,
-    scale,
-    min: -9999999999999,
+    scale: 0,
     thousandsSeparator: ",",
     radix: ".",
   });
-  let val_num = typeof val == "string" ? val.trim() : val;
-  let num = parseFloat(val_num || 0).toString();
-  mask.resolve(num);
+
+  mask.resolve(val.toString());
   return `${mask.value}`;
 }
 export function formatDate_(fecha, id) {
@@ -69,6 +67,13 @@ export function formatDocument_() {
     // thousandsSeparator: ",",
   });
   return numberMask;
+}
+export function cleanForm_(cajas) {
+  let objs = Object.values(cajas);
+  objs.forEach((obj) => {
+    obj.value = "";
+    if (obj.dataCard) obj.dataCard = "";
+  });
 }
 
 export function imageBase64_(url) {

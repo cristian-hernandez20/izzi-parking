@@ -28,7 +28,7 @@
   </v-text-field>
 </template>
 <script>
-import { fieldToUper_, formatDocument_, formatPhoneNumber_ } from "@/global";
+import { fieldToUper_, formatDocument_, formatPhoneNumber_, formarNumber_ } from "@/global";
 export default {
   props: {
     field: {
@@ -102,6 +102,9 @@ export default {
           break;
         case "placa":
           this.field.value = this.field.value.toUpperCase();
+          break;
+        case "fare":
+          this.field.value = formarNumber_(this.field.value);
           break;
         default:
           break;

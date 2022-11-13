@@ -3,8 +3,7 @@ mongoose.pluralize(null);
 
 interface Vehiculos {
   type: string;
-  placa: String;
-  color: String;
+  fare: string;
 }
 const VehiculosSchema = new Schema<Vehiculos>(
   {
@@ -12,12 +11,7 @@ const VehiculosSchema = new Schema<Vehiculos>(
       type: String,
       required: true,
     },
-    placa: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    color: {
+    fare: {
       type: String,
       required: true,
     },
