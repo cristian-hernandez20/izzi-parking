@@ -82,11 +82,9 @@ export default {
           id: "type_vehicle",
           label: "Tipo",
           required: true,
-          item_value: "text",
-          items: [
-            { id: "0", text: "Moto" },
-            { id: "1", text: "Carro" },
-          ],
+          item_value: "type",
+          item_text: "type",
+          items: [],
           rules: [(v) => !!v || "Obligatorio"],
         },
         array_car: {
@@ -121,6 +119,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      getVehicle: "vehicle/getVehicle",
       _stateLoading: "_stateLoading",
       getZone: "zone/getZone",
     }),
@@ -130,6 +129,7 @@ export default {
       _postReserve: "reserve/_postReserve",
       _loadZones: "zone/_getZones",
       _putZone: "zone/_putZone",
+      _getVehicles: "vehicle/_getVehicles",
     }),
     cancel() {
       this.deletAlert();
@@ -150,7 +150,7 @@ export default {
 
         if (RES.S) {
           this.sendAlert(RES.S, RES.alert);
-          // this.$refs.form.reset();
+
           this.editZone();
         } else this.sendAlert(RES.msg, RES.alert);
       }
@@ -160,7 +160,7 @@ export default {
         state: "2",
       };
       const _id = this.form.array_car.value || this.form.array_motorcycle.value;
-      console.log(_id, data_);
+
       const RES = await this._putZone({ _id, data_ });
       if (RES.S) {
         this.sendAlert(RES.S, RES.alert);
@@ -174,6 +174,8 @@ export default {
   },
   async created() {
     await this.loadZones();
+    await this._getVehicles();
+    this.form.type_vehicle.items = this.getVehicle("vehicle");
   },
 };
 </script>

@@ -14,6 +14,9 @@
               <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
                 <INPUT :field="form.type" />
               </v-col>
+              <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
+                <INPUT :field="form.fare" />
+              </v-col>
             </v-row>
           </v-form>
         </v-container>
@@ -55,6 +58,13 @@ export default {
           maxlength: "30",
           rules: [(v) => !!v || "Tipo de vehiculo es requerido"],
         },
+        fare: {
+          value: "",
+          id: "fare",
+          label: "Tarifa hora",
+          maxlength: "20",
+          rules: [(v) => !!v || "Tarifa es requerida"],
+        },
       },
     };
   },
@@ -75,6 +85,7 @@ export default {
       const _id = this._id;
       const data_ = {
         type: this.form.type.value,
+        fare: this.form.fare.value,
       };
       let RES = await this._putVehicle({ _id, data_ });
       if (RES.S) {
@@ -85,6 +96,7 @@ export default {
     async addVehicle() {
       const data_ = {
         type: this.form.type.value,
+        fare: this.form.fare.value,
       };
       let RES = await this._postVehicle({ data_ });
       if (RES.S) {
@@ -97,6 +109,7 @@ export default {
   mounted() {
     if (this.option.option_text == "edit") {
       this.form.type.value = this.option.type;
+      this.form.fare.value = this.option.fare;
 
       this._id = this.option._id;
     }

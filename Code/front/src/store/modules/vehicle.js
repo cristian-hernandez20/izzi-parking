@@ -22,9 +22,8 @@ export default {
     },
     editVehicle(state, data) {
       const indice = state[data.list].map((e) => e._id).indexOf(data._id);
-      state[data.list][indice].color = data.data_.color;
       state[data.list][indice].type = data.data_.type;
-      state[data.list][indice].placa = data.data_.placa;
+      state[data.list][indice].fare = data.data_.fare;
     },
   },
   actions: {
@@ -45,6 +44,7 @@ export default {
     async _getVehicles({ commit }) {
       try {
         const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&vehiculos` });
+        console.log(RES);
         if (!RES.msg) {
           return commit("_setVehicleData", {
             list: "vehicle",

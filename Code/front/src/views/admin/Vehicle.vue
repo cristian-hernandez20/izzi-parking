@@ -44,6 +44,7 @@
                 {{ item.type }}
               </v-chip>
             </template>
+
             <template v-slot:[`item.actions`]="{ item }">
               <v-icon small class="mr-2" @click="editVehicle(item)"> mdi-pencil </v-icon>
               <v-icon small @click="comfirDelete(item)" color="red"> mdi-delete </v-icon>
@@ -64,6 +65,7 @@
 <script>
 import EditAddVehicle from "@/components/vehicle/EditAddVehicle.vue";
 import { mapActions, mapGetters } from "vuex";
+import { formatNum_ } from "../../global";
 import { Alert } from "@/mixins/alert";
 
 export default {
@@ -83,6 +85,7 @@ export default {
       _id: "",
       headers: [
         { text: "Tipo", value: "type", align: "center" },
+        { text: "Tarifa", value: "fare", align: "center" },
         { text: "Opción", value: "actions", sortable: false },
       ],
     };
@@ -101,6 +104,7 @@ export default {
       _getVehicles: "vehicle/_getVehicles",
       _deleteVehicle: "vehicle/_deleteVehicle",
     }),
+    formatNum_,
     cancel() {
       this.deletAlert();
     },
@@ -124,12 +128,12 @@ export default {
     },
 
     editVehicle(item) {
-      console.log(item)
       this.option = {
         state: true,
         option_text: "edit",
         icon: "mdi-car",
         type: item.type,
+        fare: item.fare,
         _id: item._id,
       };
     },
