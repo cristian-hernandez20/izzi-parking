@@ -70,6 +70,13 @@ export function formatDocument_() {
   });
   return numberMask;
 }
+export function cleanForm_(cajas) {
+  let objs = Object.values(cajas);
+  objs.forEach((obj) => {
+    obj.value = "";
+    if (obj.dataCard) obj.dataCard = "";
+  });
+}
 
 export function imageBase64_(url) {
   return new Promise((res) => {
