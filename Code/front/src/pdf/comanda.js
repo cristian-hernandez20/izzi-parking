@@ -20,16 +20,6 @@ let tableBody = (listado = []) => {
 
   return items_pdf;
 };
-let formatItem = (item) => {
-  return [
-    { text: item.point_name, fontSize: 9, bold: true, alignment: "start" },
-    { text: item.name_watchman, fontSize: 9, bold: true, alignment: "start" },
-    { text: item.document_watchman, fontSize: 9, bold: true, alignment: "center" },
-    { text: item.date, fontSize: 9, bold: true, alignment: "center" },
-    { text: item.time_date, fontSize: 9, bold: true, alignment: "center" },
-  ];
-};
-
 export default function (items, logo) {
   console.log(items, logo);
   return new Promise((resolve) => {
@@ -155,7 +145,7 @@ function llenarFormato(item) {
               [
                 { text: " Tipo veh:", bold: true, border: [false, false, false, false] },
 
-                { text: item.type_vehiculo, border: [false, false, false, false] },
+                { text: item.type_vehicle, border: [false, false, false, false] },
               ],
               // [
               //   { text: " Marca:", bold: true, border: [false, false, false, false] },
@@ -172,11 +162,11 @@ function llenarFormato(item) {
 
               [
                 { text: " Tarifa:", bold: true, border: [false, false, false, false] },
-                { text: "Moto : 2500$-H-F ", border: [false, false, false, false] },
+                { text: "Moto : 2.500$ ", border: [false, false, false, false] },
               ],
               [
                 { text: " Tarifa:", bold: true, border: [false, false, false, false] },
-                { text: "Carro :4000$xH-F ", border: [false, false, false, false] },
+                { text: "Carro :4.000$ ", border: [false, false, false, false] },
               ],
             ],
           },

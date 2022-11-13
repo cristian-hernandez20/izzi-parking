@@ -7,7 +7,7 @@ interface Entry {
   date_end: string;
   time_end: string;
   placa: string;
-  type_vehiculo:string;
+  type_vehicle:string;
   puesto: string;
 }
 const EntrySchema = new Schema<Entry>(
@@ -32,7 +32,7 @@ const EntrySchema = new Schema<Entry>(
       type: String,
       required: true,
     },
-    type_vehiculo: {
+    type_vehicle: {
       type: String,
       required: true,
     },
