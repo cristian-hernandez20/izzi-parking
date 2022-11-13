@@ -153,9 +153,9 @@ function llenarFormato(item) {
             widths: ["30%", "35%", "35%"],
             body: [
               [
-                { text: " Tipo veh.:", bold: true, border: [false, false, false, false] },
+                { text: " Tipo veh:", bold: true, border: [false, false, false, false] },
 
-                { text: "CARRO", border: [false, false, false, false] },
+                { text: item.type_vehiculo, border: [false, false, false, false] },
               ],
               // [
               //   { text: " Marca:", bold: true, border: [false, false, false, false] },
