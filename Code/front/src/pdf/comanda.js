@@ -4,7 +4,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import moment from "moment";
 
 let structureImage = (image) => {
-  let format = { width: "12%", margin: [-60, -30, 0, 2], alignment: "start"};
+  let format = { width: "12%", margin: [-60, -30, 0, 2], alignment: "start" };
   if (!image) format.stack = [{ text: "" }];
   else {
     format.fit = [100, 100];
@@ -24,7 +24,7 @@ export default function (items, logo) {
   console.log(items, logo);
   return new Promise((resolve) => {
     var dd = {
-      watermark:{text:"IZZI PARKING", color:'black', opacity:0.2,},
+      watermark: { text: "IZZI PARKING", color: "black", opacity: 0.2 },
       pageSize: {
         width: 300,
         height: 500,
@@ -115,7 +115,7 @@ function llenarFormato(item) {
               ],
               [
                 { text: " Tiquete No:", bold: true, border: [false, false, false, false] },
-                { text: "78945632454586", border: [false, false, false, false] },
+                { text: item.id_ticket.slice(0, 10), border: [false, false, false, false] },
               ],
               [
                 { text: " Fecha de ingreso ", bold: true, border: [false, false, false, false] },
@@ -161,12 +161,8 @@ function llenarFormato(item) {
               ],
 
               [
-                { text: " Tarifa:", bold: true, border: [false, false, false, false] },
-                { text: "Moto : 2.500$ ", border: [false, false, false, false] },
-              ],
-              [
-                { text: " Tarifa:", bold: true, border: [false, false, false, false] },
-                { text: "Carro :4.000$ ", border: [false, false, false, false] },
+                { text: " Tarifa hora:", bold: true, border: [false, false, false, false] },
+                { text: item.fare, border: [false, false, false, false] },
               ],
             ],
           },
@@ -179,7 +175,7 @@ function llenarFormato(item) {
       marginTop: 15,
       columns: [
         {
-          fontSize: 5 ,
+          fontSize: 5,
           table: {
             widths: ["68%"],
             body: [

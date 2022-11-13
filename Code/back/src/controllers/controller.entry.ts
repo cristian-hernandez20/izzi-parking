@@ -10,15 +10,15 @@ export const getEntrys = async (req: Request, res: Response) => {
   }
 };
 export const createEntry = async (req: Request, res: Response) => {
-  console.log(req.body);
   try {
-    new EntryModel(req.body).save((error) => {
+    const instance = new EntryModel(req.body).save((error, savedObj) => {
       if (error) {
         res.json({ msg: error });
       } else {
-        res.json({ S: "E-002", alert: "success" });
+        res.json({ S: "E-002", alert: "success", data: savedObj });
       }
     });
+    console.log(instance);
   } catch (error) {
     console.error(error);
   }

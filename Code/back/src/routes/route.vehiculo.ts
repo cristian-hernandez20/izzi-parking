@@ -8,4 +8,4 @@ RouteVehiculo.get("/get&vehiculos", JwtValidator_, getVehiculos);
 RouteVehiculo.post("/create&vehiculo", JwtValidator_, createVehiculo);
 RouteVehiculo.put("/edit&vehiculo/:id", JwtValidator_, editVehiculo);
 RouteVehiculo.delete("/delet&vehiculo/:id", JwtValidator_, deleteVehiculo);
-RouteVehiculo.get("/get&vehiculo/:placa", JwtValidator_, getVehiculo);
+RouteVehiculo.get("/get&vehiculo/:type", JwtValidator_, getVehiculo);

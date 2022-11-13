@@ -50,10 +50,10 @@ export const deleteVehiculo = async (req: Request, res: Response) => {
 
 export const getVehiculo = async (req: Request, res: Response) => {
   try {
-    const { placa } = req.params;
-    const data = await VehiculosModel.findOne({ placa: placa });
+    const { type } = req.params;
+    const data = await VehiculosModel.findOne({ type: type });
     res.json(data);
   } catch (error) {
-    res.json({ msg: "get-vehiculo" });
+    res.json({ msg: "reser-get" });
   }
 };

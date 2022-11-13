@@ -55,6 +55,14 @@ export default {
         console.error("_getVehicles", error);
       }
     },
+    async _getVehicle({ commit }, { type }) {
+      try {
+        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&vehiculo/${type}` });
+        return RES;
+      } catch (error) {
+        console.error("_getVehicles", error);
+      }
+    },
     async _putVehicle({ commit }, { _id, data_ }) {
       try {
         const RES = await postData({

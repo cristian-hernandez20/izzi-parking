@@ -14,6 +14,7 @@ export default {
       state[data.list] = data.res;
     },
     pushEntry(state, data) {
+      console.log(data);
       state[data.list].push(data.data_);
     },
     popEntry(state, data) {
@@ -30,12 +31,11 @@ export default {
   actions: {
     async _postEntry({ commit }, { data_ }) {
       try {
-        console.log(data_)
         const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `/create&entry`, data: data_ });
         if (RES?.msg?.keyPattern?.placa) return { msg: "V-001", alert: "error" };
         else if (RES?.msg) return { msg: "V-000", alert: "error" };
         else {
-          commit("pushEntry", { list: "entry", data_ });
+          commit("pushEntry", { list: "entry", data_: RES.data });
           return RES;
         }
       } catch (error) {
