@@ -26,7 +26,10 @@
               <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
                 <INPUT :field="form.placa" />
               </v-col>
-              <v-col cols="12" md="4" sm="4" xl="4" lg="4" class="py-0">
+              <v-col cols="12" md="2" sm="2" xl="2" lg="2" class="py-0">
+                <INPUT :field="form.type_vehiculo" />
+              </v-col>
+              <v-col cols="12" md="2" sm="2" xl="2" lg="2" class="py-0">
                 <AUTOCOMPLETE :field="form.puesto" />
               </v-col>
             </v-row>
@@ -100,6 +103,14 @@ export default {
           maxlength: "6",
           rules: [(v) => !!v || "La placa es requerida"],
         },
+        type_vehiculo: {
+          value: "",
+          tipo: "type_vehiculo",
+          id: "type_vehiculo",
+          label: "Tipo vehiculo",
+          maxlength: "5",
+          rules: [(v) => !!v || "El vehiculo es requerido"],
+        },
 
         puesto: {
           value: "",
@@ -140,6 +151,7 @@ export default {
         date_end: this.form.date_end.value,
         time_end: this.form.time_end.value,
         placa: this.form.placa.value,
+        type_vehiculo: this.form.type_vehiculo.value,
         puesto: this.form.puesto.value,
       };
       const RES = await this._postEntry({ data_ });
