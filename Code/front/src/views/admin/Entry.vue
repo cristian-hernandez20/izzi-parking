@@ -119,7 +119,7 @@ export default {
           tipo: "type_vehicle",
           id: "type_vehicle",
           label: "Tipo vehiculo",
-          maxlength: "5",
+          maxlength: "10",
           rules: [(v) => !!v || "El vehiculo es requerido"],
         },
 
