@@ -32,7 +32,7 @@
                 <v-col cols="12">
                   <v-row justify="center">
                     <h5 class="primary--text text-h7 py-1">¿No tienes una cuenta?</h5>
-                    <v-btn small text class="zoomIt" color="success" @click="register_usuario.estado = true">crear cuenta</v-btn>
+                    <v-btn small text class="zoomIt" color="success" @click="register_usuario.estado = true">Crear cuenta</v-btn>
                   </v-row>
                 </v-col>
                 <v-col cols="12" lg="9" md="9" sm="9" class="text-center">
