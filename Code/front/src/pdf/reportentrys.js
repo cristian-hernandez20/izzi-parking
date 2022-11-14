@@ -5,10 +5,10 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import moment from "moment";
 
 var estructure_image = (image) => {
-  let format = { width: "15%" };
+  let format = { width: "15%", margin: [-5, 5, 0, 0], };
   if (!image) format.stack = [{ text: "" }];
   else {
-    format.fit = [40, 40];
+    format.fit = [50, 50];
     format.image = image;
   }
 
@@ -41,17 +41,22 @@ var format_item = (item) => {
     { text: item.type_vehicle, fontSize: 7, alignment: "center" },
     { text: item.placa, fontSize: 7, bold: true, alignment: "left" },
     { text: item.puesto, fontSize: 7, bold: true, alignment: "center" },
-    { text: item.fare, fontSize: 7, alignment: "center" },
+    { text: item.date_end, fontSize: 7, alignment: "center" },
+    { text: item.time_end, fontSize: 7, alignment: "center" },
   ];
 };
 export default function ({ items, header, fecha_ini, fecha_fin }) {
   console.log(items);
   return new Promise((resolve) => {
-    let headers = ["Fecha inicio", "Hora ingreso", "Tipo vehiculo", "Placa", "Puesto", "Valor I.V.A"].map((el) => {
+    let headers = ["Fecha inicio", "Hora ingreso", "Tipo vehiculo", "Placa", "Puesto", "Fecha salida", "Hora salida"].map((el) => {
       return { text: el, fontSize: 9, bold: true, alignment: "center" };
     });
     var dd = {
-      userPassword: "IZZIPARKING",
+      info: {
+        title: 'Reportes IZZI PARKING',
+        author: 'Cristian',
+        },
+      // userPassword: 'IZZIPARKING',
       watermark: { text: "IZZI PARKING", color: "gray", opacity: 0.2 },
       pageMargins: [20, 95, 20, 60],
       header: function (currentPage, pageCount) {
@@ -61,15 +66,20 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
             columns: [
               estructure_image(header.logo),
               {
+                alignment:"center",
                 stack: [
                   { text: header.name, bold: true, fontSize: 16 },
-                  { text: "MOVIMIENTO POR COMPROBANTE ROOM SERVICE", bold: true, fontSize: 12 },
+                  { text: "REPORTES DE INGRESOS IZZIPARKING", bold: true, fontSize: 12 },
                   {
-                    text: `Desde:  Hasta: `,
+                    text: header.autor + " " + header.document,
                     bold: true,
                     fontSize: 9,
                   },
-                  { text: `Fecha de impresión: ${moment().format("YYYY/MM/DD")}`, bold: true, fontSize: 9 },
+                  {
+                    text: `Fecha de impresión: ${moment().format("DD/MM/YYYY")} Hora de impresión: ${moment().format("LTS")}`,
+                    bold: true,
+                    fontSize: 9,
+                  },
                 ],
               },
               {
@@ -95,10 +105,13 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
       content: [
         {
           style: "tableExample",
+          marginTop:25,
+          fillColor:"gray",
           table: {
-            widths: ["auto", "auto", "auto", "auto", "auto", "auto", "auto"],
-            body: [headers, ...tableBody(items)],
+            widths: ["15%", "15%", "15%", "15%", "15%", "15%", "10%"],
+            body: [headers, ...tableBody(items)]
           },
+          width: "100%",
         },
       ],
     };
