@@ -33,7 +33,7 @@
       }
     },
     {
-      "text": "Gestion de puestos",
+      "text": "Gestión de puestos",
       "icon": "mdi-car-select",
       "icon_color": "accent",
       "sub": [
@@ -46,7 +46,7 @@
           }
         },
         {
-          "text": "Administrar Puestos",
+          "text": "Administrar puestos",
           "icon": "mdi-car-wrench",
           "icon_color": "accent",
           "to": {
@@ -56,7 +56,7 @@
       ]
     },
     {
-      "text": "Gestion de ingreso",
+      "text": "Gestión de ingreso",
       "icon": "mdi-car-cog",
       "icon_color": "accent",
       "sub": [
@@ -114,7 +114,7 @@
       }
     },
     {
-      "text": "ayuda",
+      "text": "Ayuda",
       "icon": "mdi-face-agent",
       "icon_color": "accent",
       "to": {

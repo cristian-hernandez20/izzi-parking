@@ -31,7 +31,7 @@
         </v-col>
         <v-col cols="12" lg="12" sm="12" md="12">
           <v-data-table
-          loading-text="Cargando... Por favor Espere"
+            loading-text="Cargando... Por favor Espere"
             :items="getEntry('entry')"
             :loading="_stateLoading"
             :items-per-page="5"
@@ -50,10 +50,6 @@
           </v-data-table>
           <v-card-text class="primary--text"> </v-card-text>
         </v-col>
-        <v-col cols="12" lg="12" sm="12" md="12">
-          <v-btn color="red" @click="printEntrys()" dark> Imprimir reportes <v-icon>mdi-file-pdf-box</v-icon> </v-btn>  
-        </v-col>
-        
       </v-row>
     </v-container>
     <EditAddEntry :option="option" v-if="option.state" />
@@ -63,9 +59,7 @@
 
 <script>
 import EditAddEntry from "@/components/client/EditAddEntry.vue";
-import { reportEntrys } from "../../pdf/index.js";
 import { mapActions, mapGetters } from "vuex";
-import { imageBase64_, current_user, formarNumber_ } from "../../global";
 import { Alert } from "@/mixins/alert";
 
 export default {
@@ -89,7 +83,6 @@ export default {
         { text: "Fecha salida", value: "date_end", align: "center" },
         { text: "Hora salida", value: "time_end", align: "center" },
         { text: "Placa", value: "placa", align: "center" },
-        { text: "Tipo", value: "type_vehicle", align: "center" },
         { text: "Puesto", value: "puesto", align: "center" },
       ],
     };
@@ -110,18 +103,6 @@ export default {
     }),
     cancel() {
       this.deletAlert();
-    },
-    async printEntrys() {
-      const items = this.getEntry("entry");
-      console.log(items);
-      let image = await imageBase64_(require("../../assets/image/Logo.jpeg"));
-      const header = {
-        logo: image,
-        name: "IZZI PARKING",
-        autor: current_user.last_name + " " + current_user.name,
-        document: formarNumber_(current_user.document),
-      };
-      reportEntrys({ items, header });
     },
     confirm() {
       if (this.confir_delete) this.deleteEntry();

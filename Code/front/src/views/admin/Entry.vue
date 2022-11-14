@@ -43,7 +43,7 @@
               <v-spacer></v-spacer>
               <div class="mr-12 mb-3">
                 <v-btn color="primary" class="botone" @click="option.state = false"> Cancelar </v-btn>
-                <v-btn color="green" class="botone ml-2" dark @click="addEntry()"> Registrar </v-btn>
+                <v-btn color="green" class="mr-10 botone ml-2" dark @click="addEntry()"> Registrar </v-btn>
               </div>
             </v-card-actions>
           </v-card>
