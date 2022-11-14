@@ -53,11 +53,11 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
     });
     var dd = {
       info: {
-        title: "Reportes IZZI PARKING",
+        title: "Reportes IZZI-PARKING",
         author: "Cristian",
       },
       userPassword: "IZZIPARKING",
-      watermark: { text: "IZZI PARKING", color: "gray", opacity: 0.2 },
+      watermark: { text: "IZZI-PARKING", color: "gray", opacity: 0.2 },
       pageMargins: [20, 95, 20, 60],
       header: function (currentPage, pageCount) {
         return [
@@ -106,7 +106,7 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
         {
           style: "tableExample",
           marginTop: 25,
-          fillColor: "gray",
+          fillColor: "#EEEEEF",
           table: {
             widths: ["15%", "15%", "15%", "15%", "15%", "15%", "10%"],
             body: [headers, ...tableBody(items)],
@@ -116,7 +116,7 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
       ],
     };
     try {
-      pdfMake.createPdf(dd).download("Reportes IZZIPARKING");
+      pdfMake.createPdf(dd).download("Reportes IZZI-PARKING");
       pdfMake.createPdf(dd).open();
     } catch (error) {
       console.error(error);
