@@ -65,7 +65,7 @@
 import EditAddEntry from "@/components/client/EditAddEntry.vue";
 import { reportEntrys } from "../../pdf/index.js";
 import { mapActions, mapGetters } from "vuex";
-import { imageBase64_ } from "../../global";
+import { imageBase64_, current_user, formarNumber_ } from "../../global";
 import { Alert } from "@/mixins/alert";
 
 export default {
@@ -89,7 +89,7 @@ export default {
         { text: "Fecha salida", value: "date_end", align: "center" },
         { text: "Hora salida", value: "time_end", align: "center" },
         { text: "Placa", value: "placa", align: "center" },
-        { text: "Tipo vehiculo", value: "type_vehicle", align: "center" },
+        { text: "Tipo", value: "type_vehicle", align: "center" },
         { text: "Puesto", value: "puesto", align: "center" },
       ],
     };
@@ -118,6 +118,8 @@ export default {
       const header = {
         logo: image,
         name: "IZZI PARKING",
+        autor: current_user.last_name + " " + current_user.name,
+        document: formarNumber_(current_user.document),
       };
       reportEntrys({ items, header });
     },
