@@ -48,7 +48,7 @@
               <v-col cols="2" lg="2" sm="2" md="2">
                 <v-card class="ma-2 text-title" dark width="120" close color="red" label text-color="white">
                   <v-icon left> mdi-close-octagon </v-icon>
-                  Ocupado
+                  Ocupados
                 </v-card>
               </v-col>
               <v-col cols="2" lg="2" sm="2" md="2">
