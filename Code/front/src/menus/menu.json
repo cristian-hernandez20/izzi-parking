@@ -68,6 +68,14 @@
             "name": "ingreso"
           }
         },
+        {
+          "text": "Salida",
+          "icon": "mdi-exit-run",
+          "icon_color": "accent",
+          "to": {
+            "name": "salida"
+          }
+        },
 
         {
           "text": "Administrar ingresos",

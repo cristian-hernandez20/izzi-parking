@@ -51,6 +51,11 @@
           <v-card-text class="primary--text"> </v-card-text>
         </v-col>
       </v-row>
+      <v-row justify="center" class="pt-4 ml-16 mr-2">
+        <v-col cols="12">
+          <v-btn @click="printEntrys()" dark color="red"> Imprimir Ingresos <v-icon class="ml-2">mdi-file-pdf-box</v-icon></v-btn>
+        </v-col>
+      </v-row>
     </v-container>
     <EditAddEntry :option="option" v-if="option.state" />
     <ALERT v-if="alert.state" :alert="alert" @exitEsc="cancel()" @cancel="cancel()" @confirm="confirm()"></ALERT>
@@ -59,7 +64,9 @@
 
 <script>
 import EditAddEntry from "@/components/client/EditAddEntry.vue";
+import { reportEntrys } from "../../pdf/index";
 import { mapActions, mapGetters } from "vuex";
+import { current_user, imageBase64_ } from "../../global";
 import { Alert } from "@/mixins/alert";
 
 export default {
@@ -111,6 +118,20 @@ export default {
       this._id = item._id;
       this.sendAlert("V-005", "warning", null, "P");
       this.confir_delete = true;
+    },
+    async printEntrys() {
+      // const type_ = await this._getVehicle({ type });
+
+      const items = this.getEntry("entry");
+      console.log(items);
+      let image = await imageBase64_(require("../../assets/image/Logo.jpeg"));
+      const header = {
+        logo: image,
+        name: "IZZI PARKING",
+        author: current_user.name,
+        document: current_user.document,
+      };
+      reportEntrys({ items, header });
     },
     async deleteEntry() {
       this.deletAlert();

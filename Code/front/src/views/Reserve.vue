@@ -17,18 +17,18 @@
             <v-form v-model="validate" ref="form" lazy-validation>
               <v-row justify="center" class="px-5 pt-8">
                 <v-col cols="3" md="3" sm="3" xl="3" lg="3" class="py-0">
-                  <INPUT :field="form.date" />
+                  <DATE :field="form.date" />
                 </v-col>
                 <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0">
-                  <INPUT :field="form.time" />
+                  <TIME :field="form.time" />
                 </v-col>
                 <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0">
                   <AUTOCOMPLETE :field="form.type_vehicle" />
                 </v-col>
-                <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0" v-if="form.type_vehicle.value == 'Carro'">
+                <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0" v-if="form.type_vehicle.value == 'CAMIONETA'">
                   <AUTOCOMPLETE :field="form.array_car" />
                 </v-col>
-                <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0" v-if="form.type_vehicle.value == 'Moto'">
+                <v-col cols="6" md="3" sm="3" xl="3" lg="3" class="py-0" v-if="form.type_vehicle.value == 'MOTO'">
                   <AUTOCOMPLETE :field="form.array_motorcycle" />
                 </v-col>
                 <v-col cols="3" md="3" sm="3" xl="3" lg="3" class="py-0">
@@ -47,35 +47,33 @@
   </v-container>
 </template>
 <script>
-import { INPUT, AUTOCOMPLETE } from "@/mixins/global";
+import { INPUT, AUTOCOMPLETE, DATE, TIME } from "@/mixins/global";
 import { mapGetters, mapActions } from "vuex";
 import { Alert } from "@/mixins/alert";
-import { current_user } from "@/global";
+import { current_user, cleanForm_ } from "@/global";
 
 export default {
-  mixins: [INPUT, AUTOCOMPLETE, Alert],
+  mixins: [INPUT, AUTOCOMPLETE, DATE, TIME, Alert],
   data() {
     return {
       validate: true,
       show_password: false,
       show_password2: false,
       form: {
+        date: {
+          value: "",
+          id: "date",
+          label: "Fecha ingreso",
+          maxlength: "10",
+          rules: [(v) => !!v || "La fecha es requerida"],
+        },
         time: {
           value: "",
           id: "time",
-          tipo: "time",
           label: "Hora",
           maxlength: "10",
           required: true,
           rules: [(v) => !!v || "La hora es requerida"],
-        },
-        date: {
-          value: "",
-          id: "date",
-          tipo: "date",
-          label: "Fecha",
-          maxlength: "10",
-          rules: [(v) => !!v || "La fecha es requerida"],
         },
         type_vehicle: {
           value: "",
@@ -147,10 +145,10 @@ export default {
         };
 
         const RES = await this._postReserve({ data_ });
+        console.log(RES);
 
         if (RES.S) {
           this.sendAlert(RES.S, RES.alert);
-
           this.editZone();
         } else this.sendAlert(RES.msg, RES.alert);
       }
@@ -160,9 +158,10 @@ export default {
         state: "2",
       };
       const _id = this.form.array_car.value || this.form.array_motorcycle.value;
-
       const RES = await this._putZone({ _id, data_ });
       if (RES.S) {
+        cleanForm_(this.form);
+        this.$refs.form.resetValidation();
         this.sendAlert(RES.S, RES.alert);
       } else this.sendAlert(RES.msg, RES.alert);
     },

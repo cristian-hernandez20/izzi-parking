@@ -1,2 +1,3 @@
 import printComanda from "./comanda";
-export { printComanda };
+import reportEntrys from "./reportentrys";
+export { printComanda, reportEntrys };

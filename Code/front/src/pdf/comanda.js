@@ -21,7 +21,6 @@ let tableBody = (listado = []) => {
   return items_pdf;
 };
 export default function (items, logo) {
-  console.log(items, logo);
   return new Promise((resolve) => {
     var dd = {
       watermark: { text: "IZZI PARKING", color: "black", opacity: 0.2 },
@@ -44,12 +43,12 @@ export default function (items, logo) {
           stack: [
             {
               columns: [
-                structureImage(logo),
+                // structureImage(logo),
                 {
-                  margin: [20, 20, 0, 0],
+                  margin: [50, 20, 0, 0],
                   stack: [{ text: "IZZI PARKING" }],
                   fontSize: 20,
-                  width: "100%",
+                  width: "110%",
                 },
               ],
             },
@@ -74,6 +73,7 @@ export default function (items, logo) {
 function llenarFormato(item) {
   return [
     {
+      alignment: "center",
       columns: [
         {
           table: {
@@ -94,7 +94,7 @@ function llenarFormato(item) {
             ],
           },
 
-          width: "90%",
+          width: "110%",
         },
         {},
       ],
@@ -122,13 +122,21 @@ function llenarFormato(item) {
                 { text: item.date_init, border: [false, false, false, false] },
               ],
               [
-                { text: " Hora de ingreso", bold: true, border: [false, false, false, false] },
+                { text: " Hora ingreso", bold: true, border: [false, false, false, false] },
                 { text: item.time_init, border: [false, false, false, false] },
+              ],
+              [
+                { text: " Fecha de salida ", bold: true, border: [false, false, false, false] },
+                { text: item.date_end, border: [false, false, false, false] },
+              ],
+              [
+                { text: " Hora salida", bold: true, border: [false, false, false, false] },
+                { text: item.time_end, border: [false, false, false, false] },
               ],
             ],
           },
 
-          width: "90%",
+          width: "110%",
         },
         {},
       ],
@@ -167,7 +175,7 @@ function llenarFormato(item) {
             ],
           },
 
-          width: "90%",
+          width: "110%",
         },
       ],
     },
@@ -175,13 +183,13 @@ function llenarFormato(item) {
       marginTop: 15,
       columns: [
         {
-          fontSize: 5,
+          fontSize: 8,
           table: {
             widths: ["68%"],
             body: [
               [
                 {
-                  text: " IZZI PARKING NO SE HACE RESPONSABLE POR DAÑOS O PERDIDAS CAUSADS POR MOTIN,INCENDIO,TERREMOTO,ATRACOS ETC... ",
+                  text: " IZZI PARKING NO SE HACE RESPONSABLE POR DAÑOS, PERDIDAS O ROBOS QUE SE EFECTUEN DENTRO DEL ESTABLECIMIENTO CUANDO SE ESTE HACIENDO USO DE LA APLICACIÓN. ",
                   alignment: "center",
                   bold: true,
                   border: [false, false, false, false],
@@ -190,7 +198,7 @@ function llenarFormato(item) {
             ],
           },
 
-          width: "90%",
+          width: "110%",
         },
         {},
       ],

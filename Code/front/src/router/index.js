@@ -73,6 +73,15 @@ const routes = [
         },
       },
       {
+        path: "/salida",
+        name: "salida",
+        component: () => import("../views/admin/Exit.vue"),
+        meta: {
+          requiresAuth: true,
+          title: `${TITLE} - Registrar salida`,
+        },
+      },
+      {
         path: "/ingreso-admin",
         name: "ingreso-admin",
         component: () => import("../views/admin/ManageEntry.vue"),

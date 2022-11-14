@@ -56,6 +56,15 @@ export default {
         console.error("_getEntrys", error);
       }
     },
+    async _getEntry({ commit }, { placa }) {
+      try {
+        console.log(placa);
+        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&entry/${placa}` });
+        return RES;
+      } catch (error) {
+        console.error("_getEntrys", error);
+      }
+    },
     async _putEntry({ commit }, { _id, data_ }) {
       try {
         const RES = await postData({

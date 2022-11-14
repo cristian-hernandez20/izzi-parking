@@ -70,6 +70,7 @@ export function formatDocument_() {
 }
 export function cleanForm_(cajas) {
   let objs = Object.values(cajas);
+
   objs.forEach((obj) => {
     obj.value = "";
     if (obj.dataCard) obj.dataCard = "";

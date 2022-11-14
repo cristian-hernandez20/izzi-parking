@@ -18,6 +18,7 @@ export default {
       state[data.list].push(data.data);
     },
     editZone(state, data) {
+      console.log(data);
       const indice = state[data.list].map((e) => e._id).indexOf(data._id);
       state[data.list][indice].state = data.data_.state;
     },
@@ -36,7 +37,7 @@ export default {
         console.error("_postZone", error);
       }
     },
-    async deletePoint_({ commit }, { id_point, id }) {
+    async _deleteZone({ commit }, { id_point, id }) {
       try {
         const RES = await postData({
           url: `point/${id}/${id_point}`,
@@ -45,7 +46,7 @@ export default {
         });
         return RES;
       } catch (error) {
-        console.error("deletePoint_", error);
+        console.error("_deleteZone", error);
       }
     },
     async _getZones({ commit }) {
@@ -62,6 +63,7 @@ export default {
       }
     },
     async _putZone({ commit }, { _id, data_ }) {
+      console.log(_id, data_);
       try {
         const RES = await postData({
           url: `editar&location/${_id}`,
@@ -69,6 +71,7 @@ export default {
           method: "PUT",
           data: data_,
         });
+        console.log(RES);
         if (RES.msg) return RES.msg;
         else {
           commit("editZone", { list: "zone", data_, _id });

@@ -138,10 +138,22 @@ export default {
   },
   async created() {
     await this._getReserves();
+    const events = [];
+    this.getReserves("reserve").forEach((e, i) => {
+      const first = `${e.date} ${e.time}`;
+      events.push({
+        name: e.placa,
+        start: first,
+        color: this.colors[this.rnd(0, this.colors.length - 1)],
+      });
+    });
+    this.events = events;
+
     setTimeout(() => {
       this.state_animation = false;
     }, 1000);
   },
+  mounted() {},
   methods: {
     ...mapActions({
       _getReserves: "reserve/_getReserves",
@@ -150,7 +162,6 @@ export default {
       const events = [];
       this.getReserves("reserve").forEach((e, i) => {
         const first = `${e.date} ${e.time}`;
-        const second = `${e.date} ${e.time}`;
         events.push({
           name: e.placa,
           start: first,

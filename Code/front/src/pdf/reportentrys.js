@@ -26,15 +26,6 @@ var tableBody = (listado = []) => {
   return items_pdf;
 };
 var format_item = (item) => {
-  // let bruto = formarNumber_(item.bruto);
-
-  // bruto = bruto == "0" ? "" : bruto;
-  // let neto = formarNumber_(item.neto);
-
-  // neto = neto == "0" ? "" : neto;
-  // let iva = formarNumber_(item.iva);
-  // iva = iva == "0" ? "" : iva;
-
   return [
     { text: item.date_init, fontSize: 7, alignment: "center" },
     { text: item.time_init, fontSize: 7, alignment: "center" },
@@ -46,7 +37,7 @@ var format_item = (item) => {
   ];
 };
 export default function ({ items, header, fecha_ini, fecha_fin }) {
-  console.log(items);
+  console.log(header);
   return new Promise((resolve) => {
     let headers = ["Fecha inicio", "Hora ingreso", "Tipo vehiculo", "Placa", "Puesto", "Fecha salida", "Hora salida"].map((el) => {
       return { text: el, fontSize: 9, bold: true, alignment: "center" };
@@ -56,7 +47,7 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
         title: "Reportes IZZI-PARKING",
         author: "Cristian",
       },
-      userPassword: "IZZIPARKING",
+      // userPassword: "IZZIPARKING",
       watermark: { text: "IZZI-PARKING", color: "gray", opacity: 0.2 },
       pageMargins: [20, 95, 20, 60],
       header: function (currentPage, pageCount) {
@@ -71,7 +62,7 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
                   { text: header.name, bold: true, fontSize: 16 },
                   { text: "REPORTES DE INGRESOS IZZIPARKING", bold: true, fontSize: 12 },
                   {
-                    text: header.autor + " " + header.document,
+                    text: header.author + " " + header.document,
                     bold: true,
                     fontSize: 9,
                   },

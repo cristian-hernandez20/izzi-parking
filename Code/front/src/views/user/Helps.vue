@@ -46,6 +46,9 @@
           </v-card-text>
         </v-card>
       </v-col>
+      <v-btn color="primary" fab dark  fixed bottom right @click="chat.state = true">
+        <v-icon>mdi-face-agent</v-icon>
+      </v-btn>
     </v-row>
     <Chat :chat="chat" v-if="chat.state" />
   </v-container>

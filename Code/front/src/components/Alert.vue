@@ -248,6 +248,12 @@ export default {
         case "E-003":
           this.body = `No se pudo realizar la consulta de entradas`;
           break;
+        case "E-042":
+          this.body = `Ingreso completado`;
+          break;
+        case "E-005":
+          this.body = `No se encontraron ingresos de esta placa`;
+          break;
         default:
           this.body = this.alert.description;
           break;

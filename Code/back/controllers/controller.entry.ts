@@ -50,8 +50,10 @@ export const deleteEntry = async (req: Request, res: Response) => {
 };
 export const getEntry = async (req: Request, res: Response) => {
   try {
+    console.log(req.params);
     const { placa } = req.params;
     const data = await EntryModel.findOne({ placa: placa });
+    console.log(data);
     res.json(data);
   } catch (error) {
     res.json({ msg: error });
