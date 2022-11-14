@@ -5,7 +5,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import moment from "moment";
 
 var estructure_image = (image) => {
-  let format = { width: "15%", margin: [-5, 5, 0, 0], };
+  let format = { width: "15%", margin: [-5, 5, 0, 0] };
   if (!image) format.stack = [{ text: "" }];
   else {
     format.fit = [50, 50];
@@ -53,10 +53,10 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
     });
     var dd = {
       info: {
-        title: 'Reportes IZZI PARKING',
-        author: 'Cristian',
-        },
-      // userPassword: 'IZZIPARKING',
+        title: "Reportes IZZI PARKING",
+        author: "Cristian",
+      },
+      userPassword: "IZZIPARKING",
       watermark: { text: "IZZI PARKING", color: "gray", opacity: 0.2 },
       pageMargins: [20, 95, 20, 60],
       header: function (currentPage, pageCount) {
@@ -66,7 +66,7 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
             columns: [
               estructure_image(header.logo),
               {
-                alignment:"center",
+                alignment: "center",
                 stack: [
                   { text: header.name, bold: true, fontSize: 16 },
                   { text: "REPORTES DE INGRESOS IZZIPARKING", bold: true, fontSize: 12 },
@@ -105,17 +105,18 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
       content: [
         {
           style: "tableExample",
-          marginTop:25,
-          fillColor:"gray",
+          marginTop: 25,
+          fillColor: "gray",
           table: {
             widths: ["15%", "15%", "15%", "15%", "15%", "15%", "10%"],
-            body: [headers, ...tableBody(items)]
+            body: [headers, ...tableBody(items)],
           },
           width: "100%",
         },
       ],
     };
     try {
+      pdfMake.createPdf(dd).download("Reportes IZZIPARKING");
       pdfMake.createPdf(dd).open();
     } catch (error) {
       console.error(error);
