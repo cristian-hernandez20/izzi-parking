@@ -71,7 +71,6 @@ export default {
           method: "PUT",
           data: data_,
         });
-        console.log(RES);
         if (RES.msg) return RES.msg;
         else {
           commit("editZone", { list: "zone", data_, _id });
