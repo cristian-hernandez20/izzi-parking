@@ -109,6 +109,7 @@ export default function ChatContainer({ currentChat, socket }) {
 
 const Container = styled.div`
   display: grid;
+  background-color: #0d1a64;
   grid-template-rows: 10% 80% 10%;
   gap: 0.1rem;
   overflow: hidden;
@@ -137,6 +138,8 @@ const Container = styled.div`
     }
   }
   .chat-messages {
+    
+    background-color: white;
     padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
@@ -145,7 +148,7 @@ const Container = styled.div`
     &::-webkit-scrollbar {
       width: 0.2rem;
       &-thumb {
-        background-color: #ffffff39;
+        background-color: #0d1a64;
         width: 0.1rem;
         border-radius: 1rem;
       }
@@ -168,13 +171,13 @@ const Container = styled.div`
     .sended {
       justify-content: flex-end;
       .content {
-        background-color: #4f04ff21;
+        background-color: #0d1a64;
       }
     }
     .recieved {
       justify-content: flex-start;
       .content {
-        background-color: #9900ff20;
+        background-color: #0d1a64;
       }
     }
   }

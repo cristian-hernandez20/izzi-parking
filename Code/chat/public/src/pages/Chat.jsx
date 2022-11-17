@@ -69,10 +69,12 @@ const Container = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background-color: #eceef9;
+  border-radius: 20px;
   .container {
     height: 85vh;
     width: 85vw;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
     background-color: #00000076;
     display: grid;
     grid-template-columns: 25% 75%;

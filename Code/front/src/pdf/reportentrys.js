@@ -39,7 +39,7 @@ var format_item = (item) => {
 export default function ({ items, header, fecha_ini, fecha_fin }) {
   console.log(header);
   return new Promise((resolve) => {
-    let headers = ["Fecha inicio", "Hora ingreso", "Tipo vehiculo", "Placa", "Puesto", "Fecha salida", "Hora salida"].map((el) => {
+    let headers = ["Fecha inicio", "Hora ingreso", "Tipo vehículo", "Placa", "Puesto", "Fecha salida", "Hora salida"].map((el) => {
       return { text: el, fontSize: 9, bold: true, alignment: "center" };
     });
     var dd = {
@@ -47,8 +47,8 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
         title: "Reportes IZZI-PARKING",
         author: "Cristian",
       },
-      // userPassword: "IZZIPARKING",
-      watermark: { text: "IZZI-PARKING", color: "gray", opacity: 0.2 },
+      userPassword: "IZZIPARKING",
+      watermark: { text: "IZZI PARKING", color: "gray", opacity: 0.2 },
       pageMargins: [20, 95, 20, 60],
       header: function (currentPage, pageCount) {
         return [
@@ -57,10 +57,10 @@ export default function ({ items, header, fecha_ini, fecha_fin }) {
             columns: [
               estructure_image(header.logo),
               {
-                alignment: "center",
+                alignment: "start",
                 stack: [
                   { text: header.name, bold: true, fontSize: 16 },
-                  { text: "REPORTES DE INGRESOS IZZIPARKING", bold: true, fontSize: 12 },
+                  { text: "REPORTES DE INGRESOS IZZI PARKING", bold: true, fontSize: 12 },
                   {
                     text: header.author + " " + header.document,
                     bold: true,

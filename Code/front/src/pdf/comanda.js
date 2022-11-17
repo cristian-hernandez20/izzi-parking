@@ -3,23 +3,6 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import moment from "moment";
 
-let structureImage = (image) => {
-  let format = { width: "12%", margin: [-60, -30, 0, 2], alignment: "start" };
-  if (!image) format.stack = [{ text: "" }];
-  else {
-    format.fit = [100, 100];
-    format.image = image;
-  }
-
-  return { ...format };
-};
-let tableBody = (listado = []) => {
-  let items_pdf = [];
-
-  listado.forEach((item) => items_pdf.push(formatItem(item)));
-
-  return items_pdf;
-};
 export default function (items, logo) {
   return new Promise((resolve) => {
     var dd = {
@@ -31,19 +14,16 @@ export default function (items, logo) {
       info: {
         title: "Ticket",
         author: "eonia",
-        subject: "Informacion de parqueo",
+        subject: "Información de parqueo",
         keywords: "keywords for document",
       },
       pageMargins: [70, 80, 10, 10],
-      header: function (currentPage, pageCount, pageSize) {
-        var width_page = pageSize.width - 40;
-
+      header: function () {
         return {
           margin: [40, 30, 40, 0],
           stack: [
             {
               columns: [
-                // structureImage(logo),
                 {
                   margin: [50, 20, 0, 0],
                   stack: [{ text: "IZZI PARKING" }],
@@ -82,8 +62,7 @@ function llenarFormato(item) {
             body: [
               [
                 {
-                  // text: " NIT:900.190.679-9,REGIMEN COMUN, RES NO: 07000085880, FECHA22/11-2010,FACT IN1.35614-1000 HORARIO 24 HRS,  CLL 13 NO 1E-126 CAOBOS",
-                  text: `NIT:900.190.679-9,REGIMEN COMUN, RES NO: 07000085880, FECHA ${moment().format(
+                  text: `NIT:900.190.679-9 REGIMEN COMUN RES NO: 07000085880 FECHA ${moment().format(
                     "YYYY-MM-DD"
                   )},FACT IN1.35614-1000 HORARIO 24 HRS,  CLL 13 NO 1E-126 CAOBOS`,
                   alignment: "center",
@@ -118,7 +97,7 @@ function llenarFormato(item) {
                 { text: item.id_ticket.slice(0, 10), border: [false, false, false, false] },
               ],
               [
-                { text: " Fecha de ingreso ", bold: true, border: [false, false, false, false] },
+                { text: " Fecha ingreso ", bold: true, border: [false, false, false, false] },
                 { text: item.date_init, border: [false, false, false, false] },
               ],
               [
@@ -126,7 +105,7 @@ function llenarFormato(item) {
                 { text: item.time_init, border: [false, false, false, false] },
               ],
               [
-                { text: " Fecha de salida ", bold: true, border: [false, false, false, false] },
+                { text: " Fecha salida ", bold: true, border: [false, false, false, false] },
                 { text: item.date_end, border: [false, false, false, false] },
               ],
               [
@@ -155,10 +134,6 @@ function llenarFormato(item) {
 
                 { text: item.type_vehicle, border: [false, false, false, false] },
               ],
-              // [
-              //   { text: " Marca:", bold: true, border: [false, false, false, false] },
-              //   { text: "YAMAHA ", border: [false, false, false, false] },
-              // ],
               [
                 { text: "Placa", bold: true, border: [false, false, false, false] },
                 { text: item.placa, border: [false, false, false, false] },
@@ -189,7 +164,7 @@ function llenarFormato(item) {
             body: [
               [
                 {
-                  text: " IZZI PARKING NO SE HACE RESPONSABLE POR DAÑOS, PERDIDAS O ROBOS QUE SE EFECTUEN DENTRO DEL ESTABLECIMIENTO CUANDO SE ESTE HACIENDO USO DE LA APLICACIÓN. ",
+                  text: "IZZI PARKING NO SE HACE RESPONSABLE POR DAÑOS, PERDIDAS O ROBOS QUE SE EFECTÚEN DENTRO DEL ESTABLECIMIENTO CUANDO SE ESTE HACIENDO USO DE LA APLICACIÓN. ",
                   alignment: "center",
                   bold: true,
                   border: [false, false, false, false],
@@ -205,7 +180,3 @@ function llenarFormato(item) {
     },
   ];
 }
-
-function cuadroCanvasLetter(condicion) {}
-
-function llenarDiagnosticos(col) {}

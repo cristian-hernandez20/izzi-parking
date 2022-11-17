@@ -155,7 +155,7 @@ export default {
         puesto: this.form.puesto.value,
       };
       const RES = await this._postEntry({ data_ });
-      console.log(RES)
+      console.log("res",RES)
       if (RES.S) {
         this.sendAlert(RES.S, RES.alert);
         this.$refs.form.reset();

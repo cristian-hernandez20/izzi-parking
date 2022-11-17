@@ -14,7 +14,7 @@ export default {
       state[data.list] = data.res;
     },
     pushVehicle(state, data) {
-      state[data.list].push(data.data_);
+      state[data.list].push(data.data);
     },
     popVehicle(state, data) {
       const indice = state[data.list].map((e) => e._id).indexOf(data._id);
@@ -30,10 +30,10 @@ export default {
     async _postVehicle({ commit }, { data_ }) {
       try {
         const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `/create&vehiculo`, data: data_ });
-        if (RES?.msg?.keyPattern?.placa) return { msg: "V-001", alert: "error" };
+        if (RES?.msg?.keyPattern?.type) return { msg: "V-001", alert: "error" };
         else if (RES?.msg) return { msg: "V-000", alert: "error" };
         else {
-          commit("pushVehicle", { list: "vehicle", data_ });
+          commit("pushVehicle", { list: "vehicle", data: RES.data });
           return RES;
         }
       } catch (error) {
@@ -44,7 +44,6 @@ export default {
     async _getVehicles({ commit }) {
       try {
         const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&vehiculos` });
-        console.log(RES);
         if (!RES.msg) {
           return commit("_setVehicleData", {
             list: "vehicle",

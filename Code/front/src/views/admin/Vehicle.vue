@@ -15,7 +15,7 @@
         <v-col cols="12" lg="12" sm="12" md="12">
           <v-text-field
             append-icon="mdi-text-search-variant"
-            label="Buscar vehiculo"
+            label="Buscar vehículo"
             class="elevation-6"
             v-model="search"
             maxlength="30"

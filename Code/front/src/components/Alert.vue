@@ -219,7 +219,7 @@ export default {
           this.body = `Ocurrió un problema, no se pudo registrar el vehículo`;
           break;
         case "V-001":
-          this.body = `El vehículo ya existe con esta placa`;
+          this.body = `Este tipo de vehículo ya existe`;
           break;
         case "V-002":
           this.body = `Vehículo agregado correctamente`;

@@ -11,11 +11,11 @@ export const getVehiculos = async (req: Request, res: Response) => {
 };
 export const createVehiculo = async (req: Request, res: Response) => {
   try {
-    new VehiculosModel(req.body).save((error) => {
+    new VehiculosModel(req.body).save((error, savedObj) => {
       if (error) {
         res.json({ msg: error });
       } else {
-        res.json({ S: "V-002", alert: "success" });
+        res.json({ S: "V-002", alert: "success", data: savedObj });
       }
     });
   } catch (error) {

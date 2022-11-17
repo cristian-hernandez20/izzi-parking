@@ -14,18 +14,20 @@ export default function Welcome() {
     <Container>
       <img src={Robot} alt="" />
       <h1>
-        Welcome, <span>{userName}!</span>
+      Bienvenido, <span>{userName}!</span>
       </h1>
-      <h3>Please select a chat to Start messaging.</h3>
+      <h3>Selecciona un asesor para iniciar un chat</h3>
     </Container>
   );
 }
 
 const Container = styled.div`
+  border-radius: 20px;
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: #0d1a64;
   flex-direction: column;
   img {
     height: 20rem;

@@ -102,7 +102,6 @@ export default {
       if (RES.S) {
         cleanForm_(this.form);
         this.sendAlert(RES.S, RES.alert);
-        this.$refs.form.reset();
       } else this.sendAlert(RES.msg, RES.alert);
     },
   },

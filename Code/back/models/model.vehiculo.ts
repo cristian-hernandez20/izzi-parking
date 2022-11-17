@@ -10,6 +10,7 @@ const VehiculosSchema = new Schema<Vehiculos>(
     type: {
       type: String,
       required: true,
+      unique: true,
     },
     fare: {
       type: String,

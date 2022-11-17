@@ -86,12 +86,17 @@
           </v-col>
         </v-row>
       </v-container>
+      <v-btn color="primary" fab dark fixed bottom right @click="chat.state = true">
+        <v-icon>mdi-face-agent</v-icon>
+      </v-btn>
+      <Chat :chat="chat" v-if="chat.state" />
     </v-img>
     <ALERT @cancelAlert="cancelAlert()" @confirm="confirm()" @exitEsc="cancel()" @cancel="cancel()" v-if="alert.state" :alert="alert"></ALERT>
   </v-card>
 </template>
 
 <script>
+import Chat from "../../components/help/Chat.vue";
 import { mapActions, mapGetters } from "vuex";
 import LottieAnimation from "lottie-web-vue";
 import { current_user } from "@/global";
@@ -100,10 +105,14 @@ import { Alert } from "@/mixins/alert";
 export default {
   components: {
     LottieAnimation,
+    Chat,
   },
   mixins: [Alert],
   data() {
     return {
+      chat: {
+        state: false,
+      },
       state_animation: true,
       object_records: {
         state: false,

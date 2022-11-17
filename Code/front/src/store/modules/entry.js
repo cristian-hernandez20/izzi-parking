@@ -23,9 +23,8 @@ export default {
     },
     editEntry(state, data) {
       const indice = state[data.list].map((e) => e._id).indexOf(data._id);
-      state[data.list][indice].color = data.data_.color;
-      state[data.list][indice].type = data.data_.type;
-      state[data.list][indice].placa = data.data_.placa;
+      state[data.list][indice].date_end = data.data_.date_end;
+      state[data.list][indice].time_end = data.data_.date_end;
     },
   },
   actions: {
@@ -73,11 +72,9 @@ export default {
           method: "PUT",
           data: data_,
         });
+
         if (RES.msg) return RES.msg;
-        else {
-          commit("editEntry", { list: "entry", data_, _id });
-          return RES;
-        }
+        else return RES;
       } catch (error) {
         console.error("_putEntry", error);
       }

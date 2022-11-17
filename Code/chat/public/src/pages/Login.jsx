@@ -66,25 +66,24 @@ export default function Login() {
       <FormContainer>
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
-            <img src={Logo} alt="logo" />
-            <h1>snappy</h1>
+            <h1>IZZI PARKING</h1>
           </div>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Usuario"
             name="username"
             onChange={(e) => handleChange(e)}
             min="3"
           />
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             name="password"
             onChange={(e) => handleChange(e)}
           />
-          <button type="submit">Log In</button>
+          <button type="submit">INICIA SESIÓN</button>
           <span>
-            Don't have an account ? <Link to="/register">Create One.</Link>
+          ¿No tienes una cuenta? <Link to="/register">CREAR CUENTA</Link>
           </span>
         </form>
       </FormContainer>
@@ -94,6 +93,7 @@ export default function Login() {
 }
 
 const FormContainer = styled.div`
+  font-family: 'Quicksand', sans-serif;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -101,7 +101,7 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background-color: #eceef9;
   .brand {
     display: flex;
     align-items: center;
@@ -111,7 +111,7 @@ const FormContainer = styled.div`
       height: 5rem;
     }
     h1 {
-      color: white;
+      color: #0d1a64;
       text-transform: uppercase;
     }
   }
@@ -120,16 +120,16 @@ const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    background-color: #00000076;
+    background-color: #ffffff;
     border-radius: 2rem;
     padding: 5rem;
   }
   input {
     background-color: transparent;
     padding: 1rem;
-    border: 0.1rem solid #4e0eff;
+    border: 0.1rem solid #0d1a64;
     border-radius: 0.4rem;
-    color: white;
+    color: #0d1a64;
     width: 100%;
     font-size: 1rem;
     &:focus {
@@ -138,7 +138,7 @@ const FormContainer = styled.div`
     }
   }
   button {
-    background-color: #4e0eff;
+    background-color: #0d1a64;
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -152,10 +152,10 @@ const FormContainer = styled.div`
     }
   }
   span {
-    color: white;
+    color: #0d1a64;
     text-transform: uppercase;
     a {
-      color: #4e0eff;
+      color: #0d1a64;
       text-decoration: none;
       font-weight: bold;
     }

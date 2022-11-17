@@ -103,7 +103,7 @@ export default {
           rules: [(v) => !!v || "Hora es requerida"],
         },
         date_end: {
-          value: moment().format("DD/MM/YYYY"),
+          value: "",
           id: "date_end",
           label: "Fecha salida",
           disabled: true,
@@ -111,7 +111,7 @@ export default {
           rules: [(v) => !!v || "Fecha es requerida"],
         },
         time_end: {
-          value: moment().format("LTS"),
+          value: "",
           id: "time_end",
           label: "Hora salida",
           disabled: true,
@@ -166,6 +166,8 @@ export default {
     await this._getVehicles();
     this.form.type_vehicle.items = this.getVehicle("vehicle");
     this.form.puesto.items = this.getZone("zone").filter((e) => ["0", "1"].includes(e.state));
+    this.form.date_end.value = moment().format("DD/MM/YYYY");
+    this.form.time_end.value = moment().format("LTS");
   },
   methods: {
     ...mapActions({
@@ -196,7 +198,6 @@ export default {
         this._id = RES._id;
       } else {
         cleanForm_(this.form);
-        this.$refs.form.resetValidation();
         this.sendAlert("E-005", "info");
       }
     },
@@ -220,6 +221,9 @@ export default {
       printComanda(data, image);
 
       this.deletAlert();
+      setTimeout(() => {
+        location.reload();
+      }, 100);
     },
     async editEntry() {
       const data_ = {

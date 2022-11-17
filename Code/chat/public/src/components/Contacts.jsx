@@ -22,8 +22,7 @@ export default function Contacts({ contacts, changeChat }) {
       {currentUserImage && currentUserImage && (
         <Container>
           <div className="brand">
-            <img src={Logo} alt="logo" />
-            <h3>snappy</h3>
+            <h3>IZZI PARKING</h3>
           </div>
           <div className="contacts">
             {contacts.map((contact, index) => {
@@ -68,8 +67,9 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
   overflow: hidden;
-  background-color: #080420;
+  background-color: #111E68;
   .brand {
+    padding-top: 1.5em;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -83,6 +83,8 @@ const Container = styled.div`
     }
   }
   .contacts {
+    
+    padding-top: 1.5em;
     display: flex;
     flex-direction: column;
     align-items: center;
