@@ -30,10 +30,10 @@ export default function Login() {
   const validateForm = () => {
     const { username, password } = values;
     if (username === "") {
-      toast.error("Email and Password is required.", toastOptions);
+      toast.error("Correo y contraseña requerido.", toastOptions);
       return false;
     } else if (password === "") {
-      toast.error("Email and Password is required.", toastOptions);
+      toast.error("Correo y contraseña requerido.", toastOptions);
       return false;
     }
     return true;
@@ -51,10 +51,7 @@ export default function Login() {
         toast.error(data.msg, toastOptions);
       }
       if (data.status === true) {
-        localStorage.setItem(
-          process.env.REACT_APP_LOCALHOST_KEY,
-          JSON.stringify(data.user)
-        );
+        localStorage.setItem(process.env.REACT_APP_LOCALHOST_KEY, JSON.stringify(data.user));
 
         navigate("/");
       }
@@ -68,22 +65,11 @@ export default function Login() {
           <div className="brand">
             <h1>IZZI PARKING</h1>
           </div>
-          <input
-            type="text"
-            placeholder="Usuario"
-            name="username"
-            onChange={(e) => handleChange(e)}
-            min="3"
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            name="password"
-            onChange={(e) => handleChange(e)}
-          />
+          <input type="text" placeholder="Usuario" name="username" onChange={(e) => handleChange(e)} min="3" />
+          <input type="password" placeholder="Contraseña" name="password" onChange={(e) => handleChange(e)} />
           <button type="submit">INICIA SESIÓN</button>
           <span>
-          ¿No tienes una cuenta? <Link to="/register">CREAR CUENTA</Link>
+            ¿No tienes una cuenta? <Link to="/register">CREAR CUENTA</Link>
           </span>
         </form>
       </FormContainer>
@@ -93,7 +79,7 @@ export default function Login() {
 }
 
 const FormContainer = styled.div`
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   height: 100vh;
   width: 100vw;
   display: flex;

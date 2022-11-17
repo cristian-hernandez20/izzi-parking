@@ -11,7 +11,7 @@
               <INPUT :field="form.name" />
             </v-col>
             <v-col cols="12" lg="3" sm="3" md="3" class="py-0">
-              <AUTOCOMPLETE :field="form.type" />
+              <INPUT :field="form.type" />
             </v-col>
             <v-col cols="12" lg="3" sm="3" md="3" class="py-0">
               <AUTOCOMPLETE :field="form.state" />
@@ -58,12 +58,9 @@ export default {
           id: "type",
           label: "Tipo",
           required: true,
-          item_value: "id",
+          item_value: "type",
+          item_text: "type",
           disabled: true,
-          items: [
-            { id: "0", text: "Moto" },
-            { id: "1", text: "Carro" },
-          ],
           rules: [(v) => !!v || "Dato obligatorio"],
         },
         state: {

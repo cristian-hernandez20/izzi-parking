@@ -36,25 +36,16 @@ export default function Register() {
   const handleValidation = () => {
     const { password, confirmPassword, username, email } = values;
     if (password !== confirmPassword) {
-      toast.error(
-        "Password and confirm password should be same.",
-        toastOptions
-      );
+      toast.error("Password and confirm password should be same.", toastOptions);
       return false;
     } else if (username.length < 3) {
-      toast.error(
-        "Username should be greater than 3 characters.",
-        toastOptions
-      );
+      toast.error("Usuario almenos de 3 caracteres.", toastOptions);
       return false;
-    } else if (password.length < 8) {
-      toast.error(
-        "Password should be equal or greater than 8 characters.",
-        toastOptions
-      );
+    } else if (password.length < 3) {
+      toast.error("Contraseña de 3 caracteres.", toastOptions);
       return false;
     } else if (email === "") {
-      toast.error("Email is required.", toastOptions);
+      toast.error("Correo es requerido.", toastOptions);
       return false;
     }
 
@@ -75,10 +66,7 @@ export default function Register() {
         toast.error(data.msg, toastOptions);
       }
       if (data.status === true) {
-        localStorage.setItem(
-          process.env.REACT_APP_LOCALHOST_KEY,
-          JSON.stringify(data.user)
-        );
+        localStorage.setItem(process.env.REACT_APP_LOCALHOST_KEY, JSON.stringify(data.user));
         navigate("/");
       }
     }
@@ -91,33 +79,13 @@ export default function Register() {
           <div className="brand">
             <h1>IZZI PARKING</h1>
           </div>
-          <input
-            type="text"
-            placeholder="Usuario"
-            name="username"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            name="password"
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            type="password"
-            placeholder="Confirmar contraseña"
-            name="confirmPassword"
-            onChange={(e) => handleChange(e)}
-          />
+          <input type="text" placeholder="Usuario" name="username" onChange={(e) => handleChange(e)} />
+          <input type="email" placeholder="Email" name="email" onChange={(e) => handleChange(e)} />
+          <input type="password" placeholder="Contraseña" name="password" onChange={(e) => handleChange(e)} />
+          <input type="password" placeholder="Confirmar contraseña" name="confirmPassword" onChange={(e) => handleChange(e)} />
           <button type="submit">Crear usuario</button>
           <span>
-          ¿Ya tienes una cuenta? <Link to="/login">Iniciar Sesión.</Link>
+            ¿Ya tienes una cuenta? <Link to="/login">Iniciar Sesión.</Link>
           </span>
         </form>
       </FormContainer>
@@ -127,71 +95,71 @@ export default function Register() {
 }
 
 const FormContainer = styled.div`
-font-family: 'Quicksand', sans-serif;
-height: 100vh;
-width: 100vw;
-display: flex;
-flex-direction: column;
-justify-content: center;
-gap: 1rem;
-align-items: center;
-background-color: #eceef9;
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  justify-content: center;
-  img {
-    height: 5rem;
-  }
-  h1 {
-    color: #0d1a64;
-    text-transform: uppercase;
-  }
-}
-
-form {
+  font-family: "Quicksand", sans-serif;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  background-color: #ffffff;
-  border-radius: 2rem;
-  padding: 5rem;
-}
-input {
-  background-color: transparent;
-  padding: 1rem;
-  border: 0.1rem solid #0d1a64;
-  border-radius: 0.4rem;
-  color: #0d1a64;
-  width: 100%;
-  font-size: 1rem;
-  &:focus {
-    border: 0.1rem solid #997af0;
-    outline: none;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  background-color: #eceef9;
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    img {
+      height: 5rem;
+    }
+    h1 {
+      color: #0d1a64;
+      text-transform: uppercase;
+    }
   }
-}
-button {
-  background-color: #0d1a64;
-  color: white;
-  padding: 1rem 2rem;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 0.4rem;
-  font-size: 1rem;
-  text-transform: uppercase;
-  &:hover {
-    background-color: #4e0eff;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: #ffffff;
+    border-radius: 2rem;
+    padding: 5rem;
   }
-}
-span {
-  color: #0d1a64;
-  text-transform: uppercase;
-  a {
+  input {
+    background-color: transparent;
+    padding: 1rem;
+    border: 0.1rem solid #0d1a64;
+    border-radius: 0.4rem;
     color: #0d1a64;
-    text-decoration: none;
-    font-weight: bold;
+    width: 100%;
+    font-size: 1rem;
+    &:focus {
+      border: 0.1rem solid #997af0;
+      outline: none;
+    }
   }
-}
+  button {
+    background-color: #0d1a64;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    &:hover {
+      background-color: #4e0eff;
+    }
+  }
+  span {
+    color: #0d1a64;
+    text-transform: uppercase;
+    a {
+      color: #0d1a64;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
 `;
