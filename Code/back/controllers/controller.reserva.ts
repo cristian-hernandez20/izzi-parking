@@ -9,6 +9,14 @@ export const getReservas = async (req: Request, res: Response) => {
     res.json({ msg: "reser-get" });
   }
 };
+export const getReservaId = async (req: Request, res: Response) => {
+  try {
+    const data = await ReservaModel.find({});
+    res.json(data);
+  } catch (error) {
+    res.json({ msg: "reser-get" });
+  }
+};
 export const createReserva = async (req: Request, res: Response) => {
   try {
     new ReservaModel(req.body).save((error) => {
