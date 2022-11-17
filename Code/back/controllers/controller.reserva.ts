@@ -11,7 +11,8 @@ export const getReservas = async (req: Request, res: Response) => {
 };
 export const getReservaId = async (req: Request, res: Response) => {
   try {
-    const data = await ReservaModel.find({});
+    const { id } = req.params;
+    const data = await ReservaModel.find({ id_client: id });
     res.json(data);
   } catch (error) {
     res.json({ msg: "reser-get" });

@@ -142,10 +142,10 @@ export default {
           name_user: `${current_user.name} ${current_user.last_name}`,
           type_vehicle: this.form.type_vehicle.value,
           placa: this.form.placa.value,
+          id_client: current_user._id,
         };
 
         const RES = await this._postReserve({ data_ });
-        console.log(RES);
 
         if (RES.S) {
           this.sendAlert(RES.S, RES.alert);

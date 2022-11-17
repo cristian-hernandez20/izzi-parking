@@ -4,6 +4,8 @@ import * as routes from "./routes";
 require("dotenv").config();
 
 const PORT = process.env.PORT || 9000;
+// const PORT_MONGO = process.env.MONGO_URL || "mongodb://localhost:27017/IZZI-PARKING";
+const PORT_MONGO = "mongodb://localhost:27017/IZZI-PARKING";
 const app = express();
 
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -31,12 +33,10 @@ app.use("/api", routes.Vehiculos);
 app.use("/api", routes.Entrys);
 
 //********Routes*******
-
 console.clear();
-
 //******Conection MONGODB****** */
 mongoose
-  .connect(`${process.env.MONGO_URL}`)
+  .connect(`${PORT_MONGO}`)
   .then(() => {
     console.log("Successful connection 🟢  :)");
   })

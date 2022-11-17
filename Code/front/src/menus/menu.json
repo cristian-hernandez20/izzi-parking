@@ -122,6 +122,14 @@
       }
     },
     {
+      "text": "Ver reservas",
+      "icon": "mdi-calendar-account",
+      "icon_color": "accent",
+      "to": {
+        "name": "reservas-usuario"
+      }
+    },
+    {
       "text": "Ayuda",
       "icon": "mdi-face-agent",
       "icon_color": "accent",

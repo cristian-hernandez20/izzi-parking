@@ -38,5 +38,21 @@ export default {
         console.error("_getReserves", error);
       }
     },
+    async _getReservesId({ commit }, { _id }) {
+      try {
+        console.log(_id, "Este es el ID");
+        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&reservas/${_id}` });
+        console.log(RES);
+
+        if (!RES.msg) {
+          return commit("setReserves", {
+            list: "reserve",
+            res: RES,
+          });
+        } else RES;
+      } catch (error) {
+        console.error("_getReserves", error);
+      }
+    },
   },
 };

@@ -10,6 +10,7 @@ interface Reserva {
   name_user: String;
   type_vehicle: String;
   placa: String;
+  id_client: String;
 }
 const ReservaSchema = new Schema<Reserva>(
   {
@@ -40,6 +41,11 @@ const ReservaSchema = new Schema<Reserva>(
     zone: {
       type: String,
       required: false,
+    },
+    id_client: {
+      type: mongoose.Types.ObjectId,
+      ref: "Users",
+      required: true,
     },
     state: {
       type: String,

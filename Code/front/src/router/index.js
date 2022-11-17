@@ -118,6 +118,15 @@ const routes = [
         },
       },
       {
+        path: "/reservas-usuario",
+        name: "reservas-usuario",
+        component: () => import("../views/user/CalendarReserve.vue"),
+        meta: {
+          requiresAuth: true,
+          title: `${TITLE} - Reservas`,
+        },
+      },
+      {
         path: "/availablepositions",
         name: "available-positions",
         component: () => import("../views/AvailablePositions.vue"),
