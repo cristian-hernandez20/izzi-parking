@@ -1,4 +1,4 @@
-import postData from "@/axios";
+import { postData, socket } from "@/axios";
 import { NEKOT } from "@/global";
 
 export default {
@@ -14,11 +14,9 @@ export default {
       state[data.list] = data.res;
     },
     pushZone(state, data) {
-      console.log(data);
       state[data.list].push(data.data);
     },
     editZone(state, data) {
-      console.log(data);
       const indice = state[data.list].map((e) => e._id).indexOf(data._id);
       state[data.list][indice].state = data.data_.state;
     },
@@ -26,7 +24,12 @@ export default {
   actions: {
     async _postZone({ commit }, { data }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `add&location`, data });
+        const RES = await postData({
+          header: { x_token: NEKOT },
+          method: "POST",
+          url: `add&location`,
+          data,
+        });
         if (RES?.msg?.keyPattern?.name) return { msg: "Z-001" };
         else if (RES?.msg) return { msg: "Z-000" };
         else {
@@ -50,8 +53,19 @@ export default {
       }
     },
     async _getZones({ commit }) {
+      socket.on("mensaje", (data) => {
+        commit("setZoneData_", {
+          list: "zone",
+          res: data,
+        });
+      });
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&locations` });
+        const RES = await postData({
+          header: { x_token: NEKOT },
+          method: "GET",
+          url: `get&locations`,
+          loader: false,
+        });
         if (!RES.msg) {
           return commit("setZoneData_", {
             list: "zone",
@@ -63,7 +77,6 @@ export default {
       }
     },
     async _putZone({ commit }, { _id, data_ }) {
-      console.log(_id, data_);
       try {
         const RES = await postData({
           url: `editar&location/${_id}`,
@@ -82,7 +95,11 @@ export default {
     },
     async deleteZone_({ commit }, { zone }) {
       try {
-        const RES = await postData({ url: `zone/${zone}`, header: { x_token: NEKOT }, method: "DELETE" });
+        const RES = await postData({
+          url: `zone/${zone}`,
+          header: { x_token: NEKOT },
+          method: "DELETE",
+        });
         return RES;
       } catch (error) {
         console.error("deleteZone_", error);

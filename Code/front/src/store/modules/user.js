@@ -1,4 +1,4 @@
-import postData from "@/axios";
+import { postData } from "@/axios";
 import { NEKOT } from "@/global";
 
 export default {
@@ -17,7 +17,12 @@ export default {
   actions: {
     async _postUser({ commit }, { data }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `/create&users`, data });
+        const RES = await postData({
+          header: { x_token: NEKOT },
+          method: "POST",
+          url: `/create&users`,
+          data,
+        });
         if (RES?.msg?.keyPattern?.document) return { msg: "doc_1", alert: "error" };
         else if (RES?.msg?.keyPattern?.email) return { msg: "email_1", alert: "error" };
         else return RES;
@@ -73,7 +78,11 @@ export default {
     },
     async _deleteUser({ commit }, { USER }) {
       try {
-        const RES = await postData({ url: `users/${USER}`, header: { x_token: NEKOT }, method: "DELETE" });
+        const RES = await postData({
+          url: `users/${USER}`,
+          header: { x_token: NEKOT },
+          method: "DELETE",
+        });
         return RES;
       } catch (error) {
         console.error("deleteUser_", error);

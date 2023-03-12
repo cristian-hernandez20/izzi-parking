@@ -1,4 +1,4 @@
-import postData from "@/axios";
+import { postData } from "@/axios";
 
 export default {
   namespaced: true,
@@ -13,7 +13,10 @@ export default {
       try {
         console.log(data_);
         const { email, password } = data_;
-        const RES = await postData({ url: `login?user=${email}&password=${password}`, method: "GET" });
+        const RES = await postData({
+          url: `login?user=${email}&password=${password}`,
+          method: "GET",
+        });
         if (!RES.msg) {
           const BASE64 = JSON.stringify(RES);
           sessionStorage.auth_code = btoa(BASE64);

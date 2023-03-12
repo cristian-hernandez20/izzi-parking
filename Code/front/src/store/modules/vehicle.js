@@ -1,4 +1,4 @@
-import postData from "@/axios";
+import { postData } from "@/axios";
 import { NEKOT } from "@/global";
 
 export default {
@@ -29,7 +29,12 @@ export default {
   actions: {
     async _postVehicle({ commit }, { data_ }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `/create&vehiculo`, data: data_ });
+        const RES = await postData({
+          header: { x_token: NEKOT },
+          method: "POST",
+          url: `/create&vehiculo`,
+          data: data_,
+        });
         if (RES?.msg?.keyPattern?.type) return { msg: "V-001", alert: "error" };
         else if (RES?.msg) return { msg: "V-000", alert: "error" };
         else {
@@ -43,7 +48,11 @@ export default {
 
     async _getVehicles({ commit }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&vehiculos` });
+        const RES = await postData({
+          header: { x_token: NEKOT },
+          method: "GET",
+          url: `get&vehiculos`,
+        });
         if (!RES.msg) {
           return commit("_setVehicleData", {
             list: "vehicle",
@@ -56,7 +65,11 @@ export default {
     },
     async _getVehicle({ commit }, { type }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&vehiculo/${type}` });
+        const RES = await postData({
+          header: { x_token: NEKOT },
+          method: "GET",
+          url: `get&vehiculo/${type}`,
+        });
         return RES;
       } catch (error) {
         console.error("_getVehicles", error);
@@ -81,7 +94,11 @@ export default {
     },
     async _deleteVehicle({ commit }, { _id }) {
       try {
-        const RES = await postData({ url: `delet&vehiculo/${_id}`, header: { x_token: NEKOT }, method: "DELETE" });
+        const RES = await postData({
+          url: `delet&vehiculo/${_id}`,
+          header: { x_token: NEKOT },
+          method: "DELETE",
+        });
         if (RES.msg) return RES.msg;
         else {
           commit("popVehicle", { list: "vehicle", _id });

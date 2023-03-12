@@ -50,7 +50,7 @@ export function formatMac_() {
   };
   let mask = IMask(element, maskOptions);
 }
-export const formatOp_ = (value) => {
+export const formatpO_ = (value) => {
   return parseFloat(value) || 0;
 };
 export function formatPhoneNumber_() {

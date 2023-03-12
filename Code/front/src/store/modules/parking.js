@@ -1,5 +1,5 @@
 import firebase from "../../api/journalApi";
-import postData from "@/axios";
+import { postData } from "@/axios";
 import { NEKOT } from "@/global";
 
 export default {
@@ -38,7 +38,12 @@ export default {
     },
     async _postLocation({ commit }, { DATA }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `record`, data: DATA });
+        const RES = await postData({
+          header: { x_token: NEKOT },
+          method: "POST",
+          url: `record`,
+          data: DATA,
+        });
         return RES;
       } catch (error) {
         console.error("_postLocation", error);
@@ -46,7 +51,11 @@ export default {
     },
     async getRecord_({ commit }, { record }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `record/${record}` });
+        const RES = await postData({
+          header: { x_token: NEKOT },
+          method: "GET",
+          url: `record/${record}`,
+        });
         return RES;
       } catch (error) {
         console.error("getRecord_", error);

@@ -1,4 +1,4 @@
-import postData from "@/axios";
+import { postData } from "@/axios";
 import { NEKOT } from "@/global";
 
 export default {
@@ -17,7 +17,12 @@ export default {
   actions: {
     async _postReserve({ commit }, { data_ }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "POST", url: `create&reserva`, data: data_ });
+        const RES = await postData({
+          header: { x_token: NEKOT },
+          method: "POST",
+          url: `create&reserva`,
+          data: data_,
+        });
         if (RES?.msg) return RES.msg;
         else return RES;
       } catch (error) {
@@ -26,7 +31,11 @@ export default {
     },
     async _getReserves({ commit }) {
       try {
-        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&reservas` });
+        const RES = await postData({
+          header: { x_token: NEKOT },
+          method: "GET",
+          url: `get&reservas`,
+        });
         console.log(RES);
         if (!RES.msg) {
           return commit("setReserves", {
@@ -41,7 +50,11 @@ export default {
     async _getReservesId({ commit }, { _id }) {
       try {
         console.log(_id, "Este es el ID");
-        const RES = await postData({ header: { x_token: NEKOT }, method: "GET", url: `get&reservas/${_id}` });
+        const RES = await postData({
+          header: { x_token: NEKOT },
+          method: "GET",
+          url: `get&reservas/${_id}`,
+        });
         console.log(RES);
 
         if (!RES.msg) {

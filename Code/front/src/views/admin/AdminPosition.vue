@@ -27,7 +27,15 @@
                   <AUTOCOMPLETE :field="form.type" />
                 </v-col>
                 <v-col cols="12" lg="3" sm="3" md="3" class="py-0">
-                  <v-btn elevation="0" color="primary" class="botone" dark @click="createZone()" large>Crear</v-btn>
+                  <v-btn
+                    elevation="0"
+                    color="primary"
+                    class="botone"
+                    dark
+                    @click="createZone()"
+                    large
+                    >Crear</v-btn
+                  >
                 </v-col>
               </v-row>
             </v-form>
@@ -40,19 +48,41 @@
             </v-card-text>
             <v-row justify="center" class="mx-1">
               <v-col cols="2" lg="2" sm="2" md="2">
-                <v-card class="ma-2 text-title" dark width="80" color="green" label text-color="white">
+                <v-card
+                  class="ma-2 text-title"
+                  dark
+                  width="80"
+                  color="green"
+                  label
+                  text-color="white"
+                >
                   <v-icon left> mdi-checkbox-multiple-marked-circle </v-icon>
                   Libre
                 </v-card>
               </v-col>
               <v-col cols="2" lg="2" sm="2" md="2">
-                <v-card class="ma-2 text-title" dark width="120" close color="red" label text-color="white">
+                <v-card
+                  class="ma-2 text-title"
+                  dark
+                  width="120"
+                  close
+                  color="red"
+                  label
+                  text-color="white"
+                >
                   <v-icon left> mdi-close-octagon </v-icon>
                   Ocupado
                 </v-card>
               </v-col>
               <v-col cols="2" lg="2" sm="2" md="2">
-                <v-card class="ma-2 text-title" dark width="130" color="orange" label text-color="white">
+                <v-card
+                  class="ma-2 text-title"
+                  dark
+                  width="130"
+                  color="orange"
+                  label
+                  text-color="white"
+                >
                   <v-icon left> mdi-gesture-spread </v-icon>
                   Reservado
                 </v-card>
@@ -63,7 +93,9 @@
         <v-row>
           <v-col cols="12" sm="12" v-for="(indice, i) in getVehicle('vehicle')" :key="i">
             <v-card elevation="24" color="primary" dark class="mx-auto ma-4" width="300">
-              <h3 class="white--text text-center text-md-h5 ma-1 text-caption zoomIt">{{ indice.type }}</h3>
+              <h3 class="white--text text-center text-md-h5 ma-1 text-caption zoomIt">
+                {{ indice.type }}
+              </h3>
             </v-card>
             <v-card elevation="24" class="mx-auto">
               <v-list flat transition="fab-transition">
@@ -72,7 +104,13 @@
                     <v-list rounded flat transition="scale-transition">
                       <v-list-item-group>
                         <v-row justify="space-around">
-                          <v-menu v-for="(item, i) in getZone('zone').filter((e) => e.type == indice.type)" :key="i" offset-y>
+                          <v-menu
+                            v-for="(item, i) in getZone('zone').filter(
+                              (e) => e.type == indice.type
+                            )"
+                            :key="i"
+                            offset-y
+                          >
                             <template v-slot:activator="{}">
                               <v-hover v-slot="{ hover }" open-delay="10">
                                 <v-card
@@ -87,12 +125,14 @@
                                 >
                                   <v-divider></v-divider>
                                   <v-btn
-                                    :color="item.state == 0 ? 'green' : item.state == 1 ? 'red' : 'orange'"
+                                    :color="
+                                      item.state == 0 ? 'green' : item.state == 1 ? 'red' : 'orange'
+                                    "
                                     class="mx-4 my-2 zoomIt"
                                     width="20"
                                     text
                                   >
-                                    <v-icon>mdi-atv </v-icon>
+                                    <v-icon>{{ selectIcon(item) }} </v-icon>
                                     <h4>-{{ item.name }}</h4>
                                   </v-btn>
                                 </v-card>
@@ -110,7 +150,13 @@
         </v-row>
       </v-row>
     </v-container>
-    <ALERT v-if="alert.state" :alert="alert" @exitEsc="cancel()" @cancel="cancel()" @confirm="confirm()"></ALERT>
+    <ALERT
+      v-if="alert.state"
+      :alert="alert"
+      @exitEsc="cancel()"
+      @cancel="cancel()"
+      @confirm="confirm()"
+    ></ALERT>
     <ZoneEdit v-if="zone.state_dialog" :zone="zone"></ZoneEdit>
   </v-app>
 </template>
@@ -176,7 +222,11 @@ export default {
   },
   mounted() {},
   computed: {
-    ...mapGetters({ _getStation: "parking/_getStation", getZone: "zone/getZone", getVehicle: "vehicle/getVehicle" }),
+    ...mapGetters({
+      _getStation: "parking/_getStation",
+      getZone: "zone/getZone",
+      getVehicle: "vehicle/getVehicle",
+    }),
   },
   watch: {},
   methods: {
@@ -187,6 +237,17 @@ export default {
       _getZones: "zone/_getZones",
       boton_: "zone/boton",
     }),
+    selectIcon(item) {
+      switch (true) {
+        case item.type == "MOTO":
+          return "mdi-atv";
+        case item.type == "CARRO":
+        case item.type == "AUTOMOVIL":
+          return "mdi-car-back";
+        default:
+          return "mdi-car-back";
+      }
+    },
 
     cancel() {
       this.deletAlert();
