@@ -4,8 +4,8 @@ import { getEntrys, getEntry, createEntry, editEntry, deleteEntry } from "../con
 
 export const RouteEntry = express.Router();
 
-RouteEntry.get("/get&entrys", JwtValidator_, getEntrys);
-RouteEntry.post("/create&entry", JwtValidator_, createEntry);
+RouteEntry.get("/get&entrys", getEntrys);
+RouteEntry.post("/create&entry", createEntry);
 RouteEntry.put("/edit&entry/:id", JwtValidator_, editEntry);
 RouteEntry.delete("/delet&entry/:id", JwtValidator_, deleteEntry);
 RouteEntry.get("/get&entry/:placa", JwtValidator_, getEntry);

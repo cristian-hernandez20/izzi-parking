@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { LocationModel } from "../models/model.location";
+import { io } from "../index";
 
 export const addLocation = async (req: Request, res: Response) => {
   try {
@@ -38,8 +39,21 @@ export const editarLocation = async (req: Request, res: Response) => {
     const { id } = req.params;
     const data = req.body;
     const edit = await LocationModel.updateOne({ _id: id }, data, { runValidators: true });
+
     if (edit) res.json({ S: "Z-042", alert: "success" });
     else res.json({ S: "Z-040", alert: "error" });
+  } catch (error) {
+    res.json(error);
+    console.error(error);
+  }
+};
+export const cambiarEstadoPuesto = async (req: Request, res: Response) => {
+  try {
+    const { name } = req.body;
+
+    await LocationModel.updateOne({ name }, req.body, { runValidators: true });
+    const datos = await LocationModel.find();
+    io.emit("mensaje", datos);
   } catch (error) {
     res.json(error);
     console.error(error);

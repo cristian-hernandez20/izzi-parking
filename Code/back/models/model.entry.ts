@@ -14,11 +14,9 @@ const EntrySchema = new Schema<Entry>(
   {
     date_init: {
       type: String,
-      required: true,
     },
     time_init: {
       type: String,
-      required: true,
     },
     date_end: {
       type: String,
@@ -32,13 +30,12 @@ const EntrySchema = new Schema<Entry>(
     },
     type_vehicle: {
       type: String,
-      required: true,
     },
     puesto: {
       type: String,
-      required: true,
     },
   },
   { versionKey: false }
 );
+
 export const EntryModel = model<Entry>("Entry", EntrySchema);
