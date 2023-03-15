@@ -26,7 +26,7 @@ const EntrySchema = new Schema<Entry>(
       type: String,
     },
     state: {
-      type: Number,
+      type: Number, 
     },
     placa: {
       type: String,
